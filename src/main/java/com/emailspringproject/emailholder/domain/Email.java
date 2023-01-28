@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -47,5 +48,20 @@ public class Email {
 
     public void setSites(Set<Site> sites) {
         this.sites = sites;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Email email = (Email) o;
+
+        return Objects.equals(id, email.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
