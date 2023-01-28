@@ -1,5 +1,5 @@
 package com.emailspringproject.emailholder.domain;
 
-public class Sites {
+public class Site {
 
 }
