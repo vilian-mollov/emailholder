@@ -13,16 +13,17 @@ public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private String address;
 
     @OneToMany
+    @JoinColumn(name = "email_id")
     private Set<Site> sites = new HashSet<>();
 
     public Email() {
     }
 
-    public Email(String name, Set<Site> sites) {
-        this.name = name;
+    public Email(String address, Set<Site> sites) {
+        this.address = address;
         this.sites = sites;
     }
 
@@ -34,12 +35,12 @@ public class Email {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAddress() {
+        return address;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Set<Site> getSites() {
@@ -69,7 +70,7 @@ public class Email {
     public String toString() {
         return "Email{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + address + '\'' +
                 ", sites=" + sites +
                 '}';
     }

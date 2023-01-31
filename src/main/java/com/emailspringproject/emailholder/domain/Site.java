@@ -1,9 +1,6 @@
 package com.emailspringproject.emailholder.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -12,15 +9,19 @@ public class Site {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-    String siteDomain;
+   private Long id;
+   private String siteDomain;
+   private String siteName;
+
+   @ManyToOne
+   private Email email;
 
     public Site() {
     }
 
-    public Site(Long id, String siteDomain) {
-        this.id = id;
+    public Site(String siteDomain, String siteName) {
         this.siteDomain = siteDomain;
+        this.siteName = siteName;
     }
 
     public Long getId() {
@@ -37,6 +38,22 @@ public class Site {
 
     public void setSiteDomain(String siteDomain) {
         this.siteDomain = siteDomain;
+    }
+
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
     }
 
     @Override
