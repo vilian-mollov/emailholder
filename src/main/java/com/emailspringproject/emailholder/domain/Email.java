@@ -1,11 +1,9 @@
 package com.emailspringproject.emailholder.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,7 +14,9 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private Set<Site> sites;
+
+    @OneToMany
+    private Set<Site> sites = new HashSet<>();
 
     public Email() {
     }
@@ -63,5 +63,14 @@ public class Email {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Email{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sites=" + sites +
+                '}';
     }
 }
