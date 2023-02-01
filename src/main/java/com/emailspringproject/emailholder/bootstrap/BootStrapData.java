@@ -8,7 +8,6 @@ import com.emailspringproject.emailholder.repositories.SiteRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
