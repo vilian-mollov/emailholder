@@ -9,12 +9,13 @@ public class Site {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-   private Long id;
-   private String siteDomain;
-   private String siteName;
+    private Long id;
 
-   @ManyToOne
-   private Email email;
+    private String siteDomain;
+    private String siteName;
+
+    @ManyToOne
+    private Email email;
 
     public Site() {
     }

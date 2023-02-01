@@ -13,6 +13,7 @@ public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String address;
 
     @OneToMany
@@ -21,10 +22,8 @@ public class Email {
 
     public Email() {
     }
-
-    public Email(String address, Set<Site> sites) {
+    public Email(String address) {
         this.address = address;
-        this.sites = sites;
     }
 
     public Long getId() {
