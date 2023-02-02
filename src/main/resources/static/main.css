@@ -12,7 +12,6 @@ body {
 
 header nav {
     background-color: darkgrey;
-    border-radius: 4px;
     height: 75px;
     text-align: center;
     position: relative;
@@ -55,8 +54,7 @@ div.grid__container {
     grid-template-columns: 100px auto 100px;
     grid-template-areas:
  "left main right"
- "left main right"
- "footer footer footer";
+ "left main right";
 }
 
 div.grid__container aside.left {
@@ -71,7 +69,34 @@ div.grid__container aside.right {
     grid-area: right;
 }
 
-div.grid__container footer {
-    grid-area: footer;
+/* Aside LEFT -------------------------- */
+div.grid__container aside.left ul {
+    list-style: none;
+    position: relative;
+    left: -20px;
+}
+
+/* Aside Right -------------------------- */
+div.grid__container aside.right {
+    position: relative;
+    right: 15px;
+}
+
+/* Main ---------------------------------- */
+
+div.grid__container main {
+    position: relative;
+    top: 50px;
+    left: calc(100% / 2 - 97px);
+}
+
+
+
+
+/* Footer --------------------------------- */
+
+footer {
+    position: absolute;
+    bottom: -10px;
 }
 
