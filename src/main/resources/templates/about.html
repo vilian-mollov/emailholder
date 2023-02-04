@@ -9,14 +9,14 @@
 
   <link th:href = "@{/css/reset.css}" rel="stylesheet" />
   <link th:href = "@{/css/initial.css}" rel="stylesheet" />
-  <link th:href = "@{/css/main.css}" rel="stylesheet" />
+  <link th:href = "@{/css/about.css}" rel="stylesheet" />
   <link th:href = "@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}" rel="stylesheet" />
 </head>
 
 <body>
   <header>
     <nav>
-      <img src="../static/images/LogoMakr-7dy6bO.png" alt="logo" />
+      <img th:src="@{/images/LogoMakr-7dy6bO.png}" alt="logo" />
 
       <ul>
         <li><a th:href="@{/index.html}">Home</a></li>
@@ -28,7 +28,7 @@
 
   <main>
     <div class="card author">
-      <img src="../static/images/author_large.jpg" alt="author" />
+      <img th:src="@{/images/author_large.jpg}" alt="author" />
       <div class="text__container">
         <h2>About the author</h2>
         <p>
