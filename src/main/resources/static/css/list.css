@@ -1,0 +1,13 @@
+main {
+    height: 86vh;
+}
+
+table {
+    border: 1px solid black;
+    
+}
+
+table th, td{
+    border: 1px solid black;
+    
+}
