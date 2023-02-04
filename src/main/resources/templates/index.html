@@ -1,51 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EmailHolderApp</title>
-    <link rel="stylesheet" href="../static/reset.css" />
-    <link rel="stylesheet" href="../static/main.css" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-    />
+
+<!-- ----------------------------------------------------------from thymeleaf site-->
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--from thymeleaf site ---------------------------------------------------------- -->
+
+    <link th:href = "@{/css/reset.css}" rel="stylesheet" />
+    <link th:href = "@{/css/initial.css}" rel="stylesheet" />
+    <link th:href = "@{/css/main.css}" rel="stylesheet" />
+    <link th:href = "@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}" rel="stylesheet" />
   </head>
   <body>
     <header>
       <nav>
-        <img src="../images/LogoMakr-7dy6bO.png" alt="logo" />
+        <img src="" th:src = "@{images/LogoMakr-7dy6bO.png}" alt="logo"/>
 
         <ul>
-          <li><a href="">Home</a></li>
-          <li><a href="">List</a></li>
-          <li><a href="">About</a></li>
+          <li><a th:href="@{/index.html}">Home</a></li>
+            <li><a th:href="@{/list.html}">List</a></li>
+            <li><a th:href="@{src/main/resources/templates/about.html}">About</a></li>
         </ul>
       </nav>
     </header>
 
-    <div class="grid__container">
+    
       <aside class="left">
-        <ul>
-          <li><a href="">Home</a></li>
-          <li><a href="">List</a></li>
-          <li><a href="">About</a></li>
+        <ul role="list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/list">List</a></li>
+          <li><a href="/about">About</a></li>
         </ul>
       </aside>
 
       <main>
-       <form action="">
-        <label for="">Email</label><br>
-        <input type="text"><br>
-        <label for="">Description</label><br>
-        <input type="text"><br>
-        <label for="">Password</label><br>
-        <input type="password"><br>
-        <label for="">Password</label><br>
-        <input type="password"><br>
-        <input type="submit" value="Submit">
-       </form>
+        <h1>Inserting Email</h1>
+        <p>Insert email and description here:</p>
+      <form>
+       <label for="email">Email</label><br>
+       <input type="text" id="email"><br>
+       <label for="description">Description</label><br>
+       <input type="text" id="description"><br>
+
+       <label for = "pass">Enter Password</label><br>
+       <input type="password" id="pass"><button><i class="far fa-eye"></i></button><br>
+
+       <label for="pass2">Confirm Password</label><br>
+       <input type="password" id="pass2"><button><i class="far fa-eye"></i></button><br>
+       <input type="submit" value="Submit">
+      </form>
 
       </main>
 
@@ -57,7 +65,7 @@
           facilis perspiciatis! Similique?
         </p>
       </aside>
-    </div>
+    
 
     <footer>
         <p>Email Holder &copy; All rights reserved</p>
