@@ -16,7 +16,7 @@ public class Email {
 
     private String address;
 
-    @OneToMany
+    @OneToMany //(cascade = CascadeType.ALL, mappedBy = "email")
     @JoinColumn(name = "email_id")
     private Set<Site> sites = new HashSet<>();
 
