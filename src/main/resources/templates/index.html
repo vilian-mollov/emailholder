@@ -1,75 +1,90 @@
 <!DOCTYPE HTML>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>EmailHolderApp</title>
 
-<!-- ----------------------------------------------------------from thymeleaf site-->
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!--from thymeleaf site ---------------------------------------------------------- -->
+    <!-- ----------------------------------------------------------from thymeleaf site-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!--from thymeleaf site ---------------------------------------------------------- -->
 
-    <link th:href = "@{/css/reset.css}" rel="stylesheet" />
-    <link th:href = "@{/css/initial.css}" rel="stylesheet" />
-    <link th:href = "@{/css/main.css}" rel="stylesheet" />
-    <link th:href = "@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}" rel="stylesheet" />
-  </head>
-  <body>
-    <header>
-      <nav>
-        <img src="" th:src = "@{images/LogoMakr-7dy6bO.png}" alt="logo"/>
+    <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+    <link th:href="@{/css/initial.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <nav>
+        <img src="" th:src="@{images/LogoMakr-7dy6bO.png}" alt="logo"/>
 
         <ul>
-          <li><a th:href="@{/index.html}">Home</a></li>
+            <li><a th:href="@{/index.html}">Home</a></li>
             <li><a th:href="@{/list.html}">List</a></li>
             <li><a th:href="@{/about.html}">About</a></li>
         </ul>
-      </nav>
-    </header>
+    </nav>
+</header>
 
-    
-      <aside class="left">
-        <ul role="list">
-          <li><a href="/">Home</a></li>
-          <li><a href="/list">List</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </aside>
 
-      <main>
-        <h1>Inserting Email</h1>
-        <p>Insert email and description here:</p>
-      <form>
-       <label for="email">Email</label><br>
-       <input type="text" id="email"><br>
-       <label for="description">Description</label><br>
-       <input type="text" id="description"><br>
+<aside class="left">
+    <ul role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/list">List</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+</aside>
 
-       <label for = "pass">Enter Password</label><br>
-       <input type="password" id="pass"><button><i class="far fa-eye"></i></button><br>
+<main>
 
-       <label for="pass2">Confirm Password</label><br>
-       <input type="password" id="pass2"><button><i class="far fa-eye"></i></button><br>
-       <input type="submit" value="Submit">
-      </form>
+    <h1>Inserting Email</h1>
+    <p>Insert email and description here:</p>
 
-      </main>
+    <form>
 
-      <aside class="right">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Exercitationem quis voluptate vel eligendi voluptas, sit expedita eum,
-          placeat esse dolore iusto dignissimos deserunt unde in minima. Error,
-          facilis perspiciatis! Similique?
-        </p>
-      </aside>
-    
+        <label for="email">Email</label><br>
+        <input type="text" id="email"><br>
+        <label for="description">Description</label><br>
+        <input type="text" id="description"><br>
 
-    <footer>
-        <p>Email Holder &copy; All rights reserved</p>
-      </footer>
+            <label for="pass">Enter Password</label><br>
+        <div>
+            <input type="password" id="pass">
+            <button id="btp_p1"><i class="far fa-eye"></i></button>
+            <br>
+        </div>
 
-  </body>
+            <label for="pass2">Confirm Password</label><br>
+        <div>
+            <input type="password" id="pass2">
+            <button id="btn_p2"><i class="far fa-eye"></i></button>
+            <br>
+        </div>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+</main>
+
+<aside class="right">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        Exercitationem quis voluptate vel eligendi voluptas, sit expedita eum,
+        placeat esse dolore iusto dignissimos deserunt unde in minima. Error,
+        facilis perspiciatis! Similique?
+    </p>
+</aside>
+
+
+<footer>
+    <p>Email Holder &copy; All rights reserved</p>
+</footer>
+
+<script th:src="@{/js/main.js}"></script>
+
+</body>
 </html>
