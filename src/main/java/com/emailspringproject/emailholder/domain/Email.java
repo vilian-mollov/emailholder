@@ -1,6 +1,7 @@
 package com.emailspringproject.emailholder.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -8,12 +9,13 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "emails")
 public class Email {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("address")
     private String address;
 
     @OneToMany //(cascade = CascadeType.ALL, mappedBy = "email")
