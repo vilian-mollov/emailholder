@@ -2,7 +2,9 @@ package com.emailspringproject.emailholder.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "site")
@@ -15,9 +17,8 @@ public class Site {
     private String siteDomain;
     private String siteName;
 
-    @ManyToOne
-    @JoinColumn(name = "email_id")
-    private Email email;
+    @ManyToMany(mappedBy = "sites")
+    private Set<Email> emails = new HashSet<>();
 
     public Site() {
     }
@@ -51,12 +52,12 @@ public class Site {
         this.siteName = siteName;
     }
 
-    public Email getEmail() {
-        return email;
+    public Set<Email> getEmails() {
+        return emails;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setEmails(Set<Email> emails) {
+        this.emails = emails;
     }
 
     @Override
