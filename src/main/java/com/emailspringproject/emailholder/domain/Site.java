@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "site")
 public class Site {
 
     @Id
@@ -15,6 +16,7 @@ public class Site {
     private String siteName;
 
     @ManyToOne
+    @JoinColumn(name = "email_id")
     private Email email;
 
     public Site() {
