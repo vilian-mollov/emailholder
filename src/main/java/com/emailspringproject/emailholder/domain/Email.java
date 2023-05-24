@@ -18,7 +18,12 @@ public class Email {
     @JsonProperty("address")
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "email") //    @JoinColumn(name = "email_id") // May use this annotation
+    @ManyToMany
+    @JoinTable(
+            name = "email_site",
+            joinColumns = @JoinColumn(name = "email_id"),
+            inverseJoinColumns = @JoinColumn(name = "site_id")
+    )
     private Set<Site> sites = new HashSet<>();
 
     public Email() {
