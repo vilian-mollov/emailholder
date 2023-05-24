@@ -18,8 +18,7 @@ public class Email {
     @JsonProperty("address")
     private String address;
 
-    @OneToMany //(cascade = CascadeType.ALL, mappedBy = "email")
-    @JoinColumn(name = "email_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "email") //    @JoinColumn(name = "email_id") // May use this annotation
     private Set<Site> sites = new HashSet<>();
 
     public Email() {
@@ -72,7 +71,6 @@ public class Email {
         return "Email{" +
                 "id=" + id +
                 ", name='" + address + '\'' +
-                ", sites=" + sites +
                 '}';
     }
 }
