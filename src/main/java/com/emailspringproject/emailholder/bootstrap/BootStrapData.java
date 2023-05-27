@@ -26,16 +26,20 @@ public class BootStrapData implements CommandLineRunner {
         Email email = new Email("vilian@gmail.com");
         emailRepository.save(email);
 
+        Email email2 = new Email("diablo@gmial.com");
+        emailRepository.save(email2);
+
+        Email email3 = new Email("alokard@abv.bg");
+        emailRepository.save(email3);
+
 
         Site facebook = new Site("https://www.facebook.com/", "Facebook");
         siteRepository.save(facebook);
-        email.getSites().add(facebook);
-//        facebook.setEmail(email);
+
 
         Site instagram = new Site("https://www.instagram.com/", "Instagram");
         siteRepository.save(instagram);
-        email.getSites().add(instagram);
-//        instagram.setEmail(email);
+
 
 
 
