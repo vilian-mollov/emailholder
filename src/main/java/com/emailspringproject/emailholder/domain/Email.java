@@ -15,7 +15,6 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("address")
     private String address;
 
     @ManyToMany
@@ -30,6 +29,16 @@ public class Email {
     }
     public Email(String address) {
         this.address = address;
+    }
+
+    public void addSite(Site site) {
+        sites.add(site);
+        site.getEmails().add(this);
+    }
+
+    public void removeSite(Site site) {
+        sites.remove(site);
+        site.getEmails().remove(this);
     }
 
     public Long getId() {
@@ -78,4 +87,5 @@ public class Email {
                 ", name='" + address + '\'' +
                 '}';
     }
+
 }
