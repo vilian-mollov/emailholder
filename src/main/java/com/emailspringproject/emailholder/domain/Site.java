@@ -1,5 +1,6 @@
 package com.emailspringproject.emailholder.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -17,6 +18,7 @@ public class Site {
     private String siteDomain;
     private String siteName;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "sites")
     private Set<Email> emails = new HashSet<>();
 
