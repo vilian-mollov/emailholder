@@ -30,12 +30,12 @@ public class BootStrapData implements CommandLineRunner {
         Site facebook = new Site("https://www.facebook.com/", "Facebook");
         siteRepository.save(facebook);
         email.getSites().add(facebook);
-        facebook.setEmail(email);
+//        facebook.setEmail(email);
 
         Site instagram = new Site("https://www.instagram.com/", "Instagram");
         siteRepository.save(instagram);
         email.getSites().add(instagram);
-        instagram.setEmail(email);
+//        instagram.setEmail(email);
 
 
 
