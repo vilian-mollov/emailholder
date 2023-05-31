@@ -15,46 +15,30 @@
         <img th:src="@{/images/LogoMakr-7dy6bO.png}" alt="logo" />
 
         <ul>
-          <li><a th:href="@{/index.html}">Home</a></li>
-          <li><a th:href="@{/list.html}">List</a></li>
-          <li><a th:href="@{/about.html}">About</a></li>
+          <li><a th:href="@{/index}">Home</a></li>
+          <li><a th:href="@{/list}">List</a></li>
+          <li><a th:href="@{/about}">About</a></li>
         </ul>
       </nav>
     </header>
 
     <main>
+
       <table>
         <thead>
-          <tr>
-            <th>Email</th>
-            <th>Description</th>
-            <th>Sites</th>
-          </tr>
+        <tr>
+          <th>id</th>
+          <th>Email Address</th>
+        </tr>
         </thead>
-
         <tbody>
-          <tr>
-            <td>Lorem, ipsum dolor.</td>
-            <td>Ratione, velit aliquid?</td>
-            <td>Architecto, ipsum dolorum!</td>
-          </tr>
-          <tr>
-            <td>Lorem, ipsum dolor.</td>
-            <td>Ratione, velit aliquid?</td>
-            <td>Architecto, ipsum dolorum!</td>
-          </tr>
-          <tr>
-            <td>Lorem, ipsum dolor.</td>
-            <td>Ratione, velit aliquid?</td>
-            <td>Architecto, ipsum dolorum!</td>
-          </tr>
-          <tr>
-            <td>Lorem, ipsum dolor.</td>
-            <td>Ratione, velit aliquid?</td>
-            <td>Architecto, ipsum dolorum!</td>
-          </tr>
+        <tr th:each="email : ${emails}">
+          <td th:text="${email.id}"></td>
+          <td th:text="${email.address}"></td>
+        </tr>
         </tbody>
       </table>
+
     </main>
 
     <footer>
