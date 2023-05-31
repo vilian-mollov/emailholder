@@ -7,6 +7,7 @@ import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +29,10 @@ public class EmailController {
     }
 
     @GetMapping
-    public List<Email> getAllEmails() {
-        return emailService.getAllEmails();
+    public String getAllEmails(Model model) {
+        List<Email> emails = emailService.getAllEmails();
+        model.addAttribute("emails", emails);
+        return "list";
     }
 
     @GetMapping("/{id}")
