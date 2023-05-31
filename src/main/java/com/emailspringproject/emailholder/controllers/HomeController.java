@@ -1,23 +1,38 @@
 package com.emailspringproject.emailholder.controllers;
 
+import com.emailspringproject.emailholder.domain.Email;
+import com.emailspringproject.emailholder.services.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class HomeController {
 
-    @RequestMapping({"", "/", "/index.html"})
+    private final EmailService emailService;
+
+    @Autowired
+    public HomeController(EmailService emailService){
+        this.emailService = emailService;
+    }
+
+    @GetMapping({"", "/", "/index"})
     public String getIndexPage(){
         return "index";
     }
 
-    @RequestMapping("/about.html")
+    @GetMapping("/about")
     public String getAboutPage(){
         return "about";
     }
 
-    @RequestMapping("/list.html")
-    public String getListPage(){
+    @GetMapping("/list")
+    public String getListPage(Model model) {
+        List<Email> emails = emailService.getAllEmails();
+        model.addAttribute("emails", emails);
         return "list";
     }
 
