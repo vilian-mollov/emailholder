@@ -1,6 +1,6 @@
 package com.emailspringproject.emailholder.controllers;
 
-import com.emailspringproject.emailholder.domain.Email;
+import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

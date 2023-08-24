@@ -1,6 +1,6 @@
 package com.emailspringproject.emailholder.controllers;
 
-import com.emailspringproject.emailholder.domain.Site;
+import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

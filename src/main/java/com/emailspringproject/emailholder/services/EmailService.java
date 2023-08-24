@@ -1,6 +1,6 @@
 package com.emailspringproject.emailholder.services;
 
-import com.emailspringproject.emailholder.domain.Email;
+import com.emailspringproject.emailholder.domain.entities.Email;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
