@@ -1,4 +1,4 @@
-package com.emailspringproject.emailholder.domain;
+package com.emailspringproject.emailholder.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

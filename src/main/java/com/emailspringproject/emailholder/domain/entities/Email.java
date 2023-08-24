@@ -1,4 +1,4 @@
-package com.emailspringproject.emailholder.domain;
+package com.emailspringproject.emailholder.domain.entities;
 
 import jakarta.persistence.*;
 

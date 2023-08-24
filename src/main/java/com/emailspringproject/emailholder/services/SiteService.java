@@ -1,6 +1,6 @@
 package com.emailspringproject.emailholder.services;
 
-import com.emailspringproject.emailholder.domain.Site;
+import com.emailspringproject.emailholder.domain.entities.Site;
 
 import java.util.List;
 

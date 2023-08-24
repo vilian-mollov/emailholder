@@ -1,8 +1,8 @@
 package com.emailspringproject.emailholder.bootstrap;
 
 
-import com.emailspringproject.emailholder.domain.Email;
-import com.emailspringproject.emailholder.domain.Site;
+import com.emailspringproject.emailholder.domain.entities.Email;
+import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import org.springframework.boot.CommandLineRunner;
