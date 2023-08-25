@@ -13,6 +13,7 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String address;
 
     @ManyToMany
@@ -21,12 +22,13 @@ public class Email {
             joinColumns = @JoinColumn(name = "email_id"),
             inverseJoinColumns = @JoinColumn(name = "site_id")
     )
-    private Set<Site> sites = new HashSet<>();
+    private Set<Site> sites;
 
     public Email() {
     }
     public Email(String address) {
         this.address = address;
+        this.sites = new HashSet<>();
     }
 
     public void addSite(Site site) {
