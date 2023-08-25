@@ -12,15 +12,15 @@ import java.util.Set;
 public class Site {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String siteDomain;
+
     private String siteName;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "sites")
-    private Set<Email> emails = new HashSet<>();
+    @ManyToMany(mappedBy = "sites", targetEntity = Email.class)
+    private Set<Email> emails;
 
     public Site() {
     }
@@ -28,6 +28,7 @@ public class Site {
     public Site(String siteDomain, String siteName) {
         this.siteDomain = siteDomain;
         this.siteName = siteName;
+        this.emails = new HashSet<>();
     }
 
     public Long getId() {
