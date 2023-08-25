@@ -15,8 +15,10 @@ public class Site {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "site_domain", nullable = false)
     private String siteDomain;
 
+    @Column(name = "site_name", nullable = false)
     private String siteName;
 
     @ManyToMany(mappedBy = "sites", targetEntity = Email.class)
