@@ -1,6 +1,5 @@
 package com.emailspringproject.emailholder.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -9,11 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "site")
-public class Site {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Site extends BaseEntity{
 
     @Column(name = "site_domain", nullable = false)
     private String siteDomain;
@@ -31,14 +26,6 @@ public class Site {
         this.siteDomain = siteDomain;
         this.siteName = siteName;
         this.emails = new HashSet<>();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSiteDomain() {
@@ -72,18 +59,18 @@ public class Site {
 
         Site site = (Site) o;
 
-        return Objects.equals(id, site.id);
+        return Objects.equals(this.getId(), site.getId());
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return this.getId() != null ? this.getId().hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "Site{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", siteDomain='" + siteDomain + '\'' +
                 '}';
     }
