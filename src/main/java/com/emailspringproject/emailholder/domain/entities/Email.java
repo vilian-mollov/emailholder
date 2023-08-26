@@ -8,10 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "emails")
-public class Email {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Email extends BaseEntity {
 
     @Column(nullable = false)
     private String address;
@@ -41,14 +38,6 @@ public class Email {
         site.getEmails().remove(this);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -72,18 +61,18 @@ public class Email {
 
         Email email = (Email) o;
 
-        return Objects.equals(id, email.id);
+        return Objects.equals(this.getId(), email.getId());
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return this.getId() != null ? this.getId().hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "Email{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", name='" + address + '\'' +
                 '}';
     }
