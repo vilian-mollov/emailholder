@@ -21,6 +21,10 @@ public class Email extends BaseEntity {
     )
     private Set<Site> sites;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Email() {
     }
     public Email(String address) {
