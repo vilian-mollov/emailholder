@@ -1,4 +1,4 @@
-package com.emailspringproject.emailholder.controllers;
+package com.emailspringproject.emailholder.web.controllers;
 
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.services.EmailService;
