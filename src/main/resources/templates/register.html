@@ -19,16 +19,13 @@
 <body>
 <header>
     <nav>
-        <img th:src="@{images/LogoMakr-7dy6bO.png}" alt="logo"/>
+        <img th:src="@{/images/LogoMakr-7dy6bO.png}" alt="logo"/>
 
         <ul>
             <li><a th:href="@{/index}">Home</a></li>
             <li><a th:href="@{/list}">List</a></li>
             <li><a th:href="@{/about}">About</a></li>
-            <li><a th:href="@{/user/login}">Login</a></li>
-            <li><a th:href="@{/user/register}">Register</a></li>
         </ul>
-
     </nav>
 </header>
 
@@ -43,31 +40,16 @@
 
 <main>
 
-    <h1>Inserting Email</h1>
-    <p>Insert email and description here:</p>
+    <h1>Register User</h1>
+    <p>register by just username here:</p>
 
-    <form>
+    <form th:action="@{/user/register}" th:method="post">
 
-        <label for="email">Email</label><br>
-        <input type="text" id="email"><br>
-        <label for="description">Description</label><br>
-        <input type="text" id="description"><br>
+        <label for="username">Username</label><br>
+        <input type="text" id="username" name="username"><br>
 
-            <label for="pass">Enter Password</label><br>
-        <div>
-            <input type="password" id="pass">
-            <button id="btp_p1"><i class="far fa-eye"></i></button>
-            <br>
-        </div>
-
-            <label for="pass2">Confirm Password</label><br>
-        <div>
-            <input type="password" id="pass2">
-            <button id="btn_p2"><i class="far fa-eye"></i></button>
-            <br>
-        </div>
-
-        <input type="submit" value="Submit">
+        <button type="submit">Submit</button>
+<!--        <button id="btn_sbm" type="button" value="Submit">Submitoo</button>-->
 
     </form>
 
@@ -87,7 +69,7 @@
     <p>Email Holder &copy; All rights reserved</p>
 </footer>
 
-<script th:src="@{/js/main.js}"></script>
+
 
 </body>
 </html>
