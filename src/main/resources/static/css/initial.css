@@ -1,45 +1,40 @@
 html {
     font-family: Arial, Helvetica, sans-serif;
-    /* padding: 15px; */
     }
     
     body {
         background-color: lightgray;
-        /* padding: 15px; */
     }
     
     /* NAVIGATION ------------------------------ */
     
     header nav {
         background-color: darkgrey;
-        height: 75px;
-        text-align: center;
+        height: 79px;
         position: relative;
     }
     
     header nav img {
-        padding-top: 7px;
+        padding-top: 5px;
         display: inline-block;
-        position: absolute;
-        top: 0px;
-        left: 9px;
-        width: 77px;
     }
     
     header nav ul {
         list-style: none;
         display: inline-block;
-        position: absolute;
-        top: 30%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    }
+
+    header nav {
+
+        display: flex;
+        justify-content: space-between;
+
     }
     
     header nav ul li {
         display: inline-block;
         font-size: 22px;
         padding-right: 40px;
-        /* padding-bottom: 20px; */
         text-align: center;
         line-height: 40px;
     }
