@@ -35,13 +35,9 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public ModelAndView registerUser2() {
-
+    public ModelAndView getRegister() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/register");
-
-        // TODO add userService.registerUser()
-
         return modelAndView;
     }
 
@@ -66,7 +62,15 @@ public class UserController {
             return errorView;
         }
 
-        userService.registerUser(userDto);
+        List<String> problems = userService.registerUser(userDto);
+
+        if (!problems.isEmpty()) {
+            ModelAndView errorView = new ModelAndView();
+            errorView.setViewName("error");
+            errorView.addObject("errors",problems);
+
+            return errorView;
+        }
 
         return modelAndView;
     }

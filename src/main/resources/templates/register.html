@@ -14,6 +14,7 @@
     <link th:href="@{/css/reset.css}" rel="stylesheet"/>
     <link th:href="@{/css/initial.css}" rel="stylesheet"/>
     <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/css/register.css}" rel="stylesheet"/>
     <link th:href="@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}" rel="stylesheet"/>
 </head>
 <body>
@@ -41,12 +42,15 @@
 <main>
 
     <h1>Register User</h1>
-    <p>register by just username here:</p>
+    <p>register by just username and email here:</p>
 
     <form th:action="@{/user/register}" th:method="post">
 
         <label for="username">Username</label><br>
-        <input type="text" id="username" name="username"><br>
+        <input type="text" id="username" name="username" placeholder="John" title="minimum 5 symbols"><br>
+
+        <label for="mainEmail">Email</label><br>
+        <input type="email" id="mainEmail" name="mainEmail" placeholder="john72@exmp.com"><br>
 
         <button type="submit">Submit</button>
 <!--        <button id="btn_sbm" type="button" value="Submit">Submitoo</button>-->

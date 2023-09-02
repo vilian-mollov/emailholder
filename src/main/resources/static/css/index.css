@@ -54,10 +54,17 @@ nav {
 }
 
 /* Menu ---------------------------------------------------------------------- */
+#home-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #menu {
     border: none;
     background-color: transparent;
-    font-size: 20px;
+    width: 34px;
+    margin-right: 5px;
 }
 
 #menu:hover {
@@ -117,8 +124,16 @@ nav {
     font-size: 20px;
 }
 
+#sign_in_btn {
+    margin-right: 5px;
+}
+
+#sign_up_btn {
+    margin-right: 2px;
+}
+
 #sign_in_btn,
-#sign_out_btn {
+#sign_up_btn {
     transition: 300ms ease-in-out;
     transition-delay: 50ms;
 }
@@ -130,7 +145,7 @@ nav {
     color: white;
 }
 
-#sign_out_btn:hover {
+#sign_up_btn:hover {
     background-color: #e2b04ae1;
     border-color: #e2b04ae1;
     cursor: pointer;
