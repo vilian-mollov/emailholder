@@ -19,7 +19,7 @@ public class HomeController {
         this.emailService = emailService;
     }
 
-    @GetMapping({"", "/", "/index"})
+    @GetMapping({"", "/", "/index", "/home"})
     public String getIndexPage(){
         return "index";
     }

@@ -1,93 +1,63 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>EmailHolderApp</title>
-
-    <!-- ----------------------------------------------------------from thymeleaf site-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!--from thymeleaf site ---------------------------------------------------------- -->
-
+    <title>EmailHolder</title>
     <link th:href="@{/css/reset.css}" rel="stylesheet"/>
-    <link th:href="@{/css/initial.css}" rel="stylesheet"/>
-    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
     <link th:href="@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}" rel="stylesheet"/>
 </head>
+
 <body>
+
 <header>
+<!--    <button id="theme_btn"><i class="fas fa-toggle-off" style="color: #000000;"></i></button>-->
+    <button id="theme_btn"><img th:src="@{images/toggle-off-solid.svg}" alt="button" /></button>
+
+    <ul id="menu_list" class="disappear" role="list">
+        <li><a th:href="@{/home}">Home</a></li>
+        <hr>
+        <li><a th:href="@{/list}">List</a></li>
+        <hr>
+        <li><a th:href="@{/about}">About</a></li>
+        <hr>
+    </ul>
+
     <nav>
-        <img th:src="@{images/LogoMakr-7dy6bO.png}" alt="logo"/>
-
-        <ul>
-            <li><a th:href="@{/index}">Home</a></li>
-            <li><a th:href="@{/list}">List</a></li>
-            <li><a th:href="@{/about}">About</a></li>
-            <li><a th:href="@{/user/login}">Login</a></li>
-            <li><a th:href="@{/user/register}">Register</a></li>
-        </ul>
-
+        <button id="menu"><i class="fas fa-bars" style="color:#000000;"></i></button>
+        <button class="sign_btns" id="sign_in_btn">Sign In</button>
+        <button class="sign_btns" id="sign_out_btn"><a th:href="@{/user/register}">Sign Up</a></button>
     </nav>
+
 </header>
 
 
-<aside class="left">
-    <ul role="list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/list">List</a></li>
-        <li><a href="/about">About</a></li>
-    </ul>
-</aside>
+<div class="content">
 
-<main>
+    <main>
+        <div id="main_div">
+            <h1>Collect all your emails in one place</h1>
 
-    <h1>Inserting Email</h1>
-    <p>Insert email and description here:</p>
-
-    <form>
-
-        <label for="email">Email</label><br>
-        <input type="text" id="email"><br>
-        <label for="description">Description</label><br>
-        <input type="text" id="description"><br>
-
-            <label for="pass">Enter Password</label><br>
-        <div>
-            <input type="password" id="pass">
-            <button id="btp_p1"><i class="far fa-eye"></i></button>
-            <br>
+            <button id="start_btn">Get Started</button>
         </div>
 
-            <label for="pass2">Confirm Password</label><br>
-        <div>
-            <input type="password" id="pass2">
-            <button id="btn_p2"><i class="far fa-eye"></i></button>
-            <br>
-        </div>
+    </main>
 
-        <input type="submit" value="Submit">
+</div>
 
-    </form>
-
-</main>
-
-<aside class="right">
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Exercitationem quis voluptate vel eligendi voluptas, sit expedita eum,
-        placeat esse dolore iusto dignissimos deserunt unde in minima. Error,
-        facilis perspiciatis! Similique?
-    </p>
-</aside>
-
+<img th:src="@{images/heroImg.jpg}" alt="hero image">
 
 <footer>
     <p>Email Holder &copy; All rights reserved</p>
 </footer>
 
-<script th:src="@{/js/main.js}"></script>
+<script th:src="@{js/index.js}"></script>
 
 </body>
+
 </html>
