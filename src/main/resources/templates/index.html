@@ -28,10 +28,10 @@
         <hr>
     </ul>
 
-    <nav>
-        <button id="menu"><i class="fas fa-bars" style="color:#000000;"></i></button>
+    <nav id="home-nav">
+        <button id="menu"><img th:src="@{images/bars-solid.svg}" alt="menu" /></button>
         <button class="sign_btns" id="sign_in_btn">Sign In</button>
-        <button class="sign_btns" id="sign_out_btn"><a th:href="@{/user/register}">Sign Up</a></button>
+        <button class="sign_btns" id="sign_up_btn"><a th:href="@{/user/register}">Sign Up</a></button>
     </nav>
 
 </header>

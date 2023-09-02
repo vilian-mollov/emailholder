@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -22,13 +23,13 @@ public class User extends BaseEntity{
     private Timestamp lastChangedAt;
 
     @OneToMany(mappedBy = "user",targetEntity = Email.class)
-    private HashSet<Email> emails;
+    private Set<Email> emails;
 
 
     public User() {
     }
 
-    public User(String username, String mainEmail, Timestamp createdAt, Timestamp lastChangedAt, HashSet<Email> emails) {
+    public User(String username, String mainEmail, Timestamp createdAt, Timestamp lastChangedAt, Set<Email> emails) {
         this.username = username;
         this.mainEmail = mainEmail;
         this.createdAt = createdAt;
@@ -68,11 +69,11 @@ public class User extends BaseEntity{
         this.lastChangedAt = lastChangedAt;
     }
 
-    public HashSet<Email> getEmails() {
+    public Set<Email> getEmails() {
         return emails;
     }
 
-    public void setEmails(HashSet<Email> emails) {
+    public void setEmails(Set<Email> emails) {
         this.emails = emails;
     }
 }
