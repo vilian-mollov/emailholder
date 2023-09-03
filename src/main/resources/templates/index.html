@@ -16,7 +16,7 @@
 <body>
 
 <header>
-<!--    <button id="theme_btn"><i class="fas fa-toggle-off" style="color: #000000;"></i></button>-->
+
     <button id="theme_btn"><img th:src="@{images/toggle-off-solid.svg}" alt="button" /></button>
 
     <ul id="menu_list" class="disappear" role="list">
@@ -37,7 +37,7 @@
 </header>
 
 
-<div class="content">
+<div id="hero-section">
 
     <main>
         <div id="main_div">
@@ -49,11 +49,43 @@
     </main>
 
 </div>
+<div id="content-section">
 
-<img th:src="@{images/heroImg.jpg}" alt="hero image">
+    <img th:src="@{images/heroImg.jpg}" alt="hero image">
 
-<footer>
-    <p>Email Holder &copy; All rights reserved</p>
+
+
+    <div id="left-side-con" class="disappear">
+        <h3>Lorem ipsum dolor</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex odit est recusandae,
+            dolorum provident quia esse nisi praesentium nihil repudiandae, quaerat earum
+            sint placeat enim, harum commodi ipsa autem ut?</p>
+
+    </div>
+
+    <div id="right-side-con" class="disappear">
+        <h3>Lorem ipsum dolor</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex odit est recusandae,
+            dolorum provident quia esse nisi praesentium nihil repudiandae, quaerat earum
+            sint placeat enim, harum commodi ipsa autem ut?</p>
+
+    </div>
+
+    <div id="left-side-con2" class="disappear">
+        <h3>Lorem ipsum dolor</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex odit est recusandae,
+            dolorum provident quia esse nisi praesentium nihil repudiandae, quaerat earum
+            sint placeat enim, harum commodi ipsa autem ut?</p>
+
+    </div>
+
+
+</div>
+
+<footer id="footer-content">
+    <div>
+        <p>Email Holder &copy; All rights reserved</p>
+    </div>
 </footer>
 
 <script th:src="@{js/index.js}"></script>
