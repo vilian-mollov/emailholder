@@ -6,10 +6,7 @@ html{
 }
 
 body {
-
     height: 100vh;
-
-
 }
 
 
@@ -17,15 +14,7 @@ body {
 
 header nav {
     display: inline;
-}
-
-/* ---------------------------------------------------- */
-
-.content {
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 0px;
+    padding-top: 7px;
 }
 
 /* Header ------------------------------------------------------------------------------ */
@@ -47,10 +36,6 @@ header {
 
 #theme_btn:hover {
     cursor: pointer;
-}
-
-nav {
-    padding-top: 7px;
 }
 
 /* Menu ---------------------------------------------------------------------- */
@@ -178,10 +163,7 @@ main {
     border-radius: 50px;
     text-align: center;
     background-color: transparent;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-right: 32px;
-    padding-left: 32px;
+    padding: 7px 32px;
 
     transition: 300ms ease-in-out;
     transition-delay: 70ms;
@@ -194,12 +176,97 @@ main {
     color: white;
 }
 
+#hero-section {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+}
+
+#content-section {
+    min-height: 513px;
+    min-width: 100%;
+    overflow: hidden;
+    background-repeat: no-repeat;
+}
+
+div #content-section img {
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 0;
+    object-fit: contain;
+    object-position: inherit;
+}
+
+#left-side-con {
+    position: absolute;
+    z-index: 1;
+    top: 870px;
+    left: 50px;
+    width: 500px;
+    height: 150px;
+    border-radius: 30px;
+    background-color: rgb(243 235 235 / 12%);
+
+    padding: 15px;
+
+    transition: 1500ms ease-in-out;
+    transition: opacity 1500ms ease-in-out, max-height 1500ms ease-in-out;
+}
+
+#right-side-con {
+    position: absolute;
+    top: 1100px;
+    left: 970px;
+    z-index: 1;
+    width: 500px;
+    height: 150px;
+    border-radius: 30px;
+    background-color: rgb(243 235 235 / 12%);
+
+    padding: 15px;
+
+    transition: 1500ms ease-in-out;
+    transition: opacity 1500ms ease-in-out, max-height 1500ms ease-in-out;
+}
+
+#left-side-con2 {
+    position: absolute;
+    top: 1390px;
+    right: 970px;
+    z-index: 1;
+    width: 500px;
+    height: 150px;
+    border-radius: 30px;
+    background-color: rgb(243 235 235 / 12%);
+
+    padding: 15px;
+
+    transition: 1500ms ease-in-out;
+    transition: opacity 1500ms ease-in-out, max-height 1500ms ease-in-out;
+}
+
+#left-side-con:hover {
+    background-color: rgb(243 235 235 / 98%);
+}
+
+#right-side-con:hover {
+    background-color: rgb(243 235 235 / 98%);
+}
+
+#left-side-con2:hover {
+    background-color: rgb(243 235 235 / 98%);
+}
+
+
 /* Footer -------------------------------------------------------------------------------------------- */
 
-footer {
+#footer-content {
     /* position: fixed; */
-    margin: 0px;
-    top: 0px;
+    z-index: 10;
+    padding: 5px;
+    top: 0;
     left: 0;
     bottom: 0;
     width: 100%;
