@@ -1,3 +1,20 @@
-#username {
+main {
+    height: 89vh;
+}
 
+#reg_h1 {
+    display: block;
+}
+
+#exp {
+    display: block;
+}
+
+.wrapper {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

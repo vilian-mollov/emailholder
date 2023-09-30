@@ -11,29 +11,7 @@
 </head>
 <body>
 
-
-<header>
-
-  <button id="theme_btn"><img th:src="@{images/toggle-off-solid.svg}" alt="button" /></button>
-
-  <ul id="menu_list" class="disappear" role="list">
-    <li><a th:href="@{/home}">Home</a></li>
-    <hr>
-    <li><a th:href="@{/emails}">Emails</a></li>
-    <hr>
-    <li><a th:href="@{/about}">About</a></li>
-    <hr>
-  </ul>
-
-  <nav id="home-nav">
-    <button id="menu"><img th:src="@{images/bars-solid.svg}" alt="menu" /></button>
-    <button class="sign_btns" id="sign_in_btn">Sign In</button>
-    <button class="sign_btns" id="sign_up_btn"><a th:href="@{/user/register}">Sign Up</a></button>
-  </nav>
-
-</header>
-
-
+<header th:replace="~{fragments/navigation}"></header>
 
 <main>
 
@@ -59,7 +37,7 @@
         <div class="sitesColumnWrapper">
           <button class="sitesDropBtn"><a th:href="@{/sites}">Dropdown</a></button>
           <div class="sitesDropList">
-            <a th:each="site : ${email.getSites()}" th:text="${site.getSiteName()}" th:href="@{/sites/${site.getId()}}"></a>
+            <a th:each="site : ${email.getSites()}" th:text="${site.getSiteDomain()}" th:href="@{/sites/${site.getId()}}"></a>
           </div>
         </div>
 

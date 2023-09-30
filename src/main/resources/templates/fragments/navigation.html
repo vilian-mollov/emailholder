@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header>
+
+    <button id="theme_btn"><img th:src="@{../images/toggle-off-solid.svg}" alt="button" /></button>
+
+    <ul id="menu_list" class="disappear" role="list">
+        <li><a th:href="@{/home}">Home</a></li>
+        <hr>
+        <li><a th:href="@{/emails}">Emails</a></li>
+        <hr>
+        <li><a th:href="@{/about}">About</a></li>
+        <hr>
+    </ul>
+
+    <nav id="home-nav">
+        <button id="menu"><img th:src="@{../images/bars-solid.svg}" alt="menu" /></button>
+        <button class="sign_btns" id="sign_in_btn">Sign In</button>
+        <button class="sign_btns" id="sign_up_btn"><a th:href="@{/users/register}">Sign Up</a></button>
+    </nav>
+
+</header>
+
+</body>
+</html>
