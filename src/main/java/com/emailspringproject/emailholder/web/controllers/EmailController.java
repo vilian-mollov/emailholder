@@ -2,29 +2,23 @@ package com.emailspringproject.emailholder.web.controllers;
 
 
 import com.emailspringproject.emailholder.domain.entities.Email;
-import com.emailspringproject.emailholder.repositories.EmailRepository;
-import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/emails")
 public class EmailController {
 
-
-    private final EmailRepository emailRepository;
-    private final SiteRepository siteRepository;
     private final EmailService emailService;
 
     @Autowired
-    public EmailController(EmailRepository emailRepository,SiteRepository siteRepository, EmailService emailService){
-        this.emailRepository = emailRepository;
-        this.siteRepository = siteRepository;
+    public EmailController(EmailService emailService){
         this.emailService = emailService;
     }
 
@@ -32,7 +26,7 @@ public class EmailController {
     public String getAllEmails(Model model) {
         List<Email> emails = emailService.getAllEmails();
         model.addAttribute("emails", emails);
-        return "list";
+        return "emails";
     }
 
     @GetMapping("/{id}")

@@ -13,6 +13,9 @@ public class Email extends BaseEntity {
     @Column(nullable = false)
     private String address;
 
+    @Column
+    private String description;
+
     @ManyToMany
     @JoinTable(
             name = "email_site",
@@ -27,8 +30,9 @@ public class Email extends BaseEntity {
 
     public Email() {
     }
-    public Email(String address) {
+    public Email(String address, String description) {
         this.address = address;
+        this.description = description;
         this.sites = new HashSet<>();
     }
 
@@ -56,6 +60,22 @@ public class Email extends BaseEntity {
 
     public void setSites(Set<Site> sites) {
         this.sites = sites;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
