@@ -1,33 +1,22 @@
 package com.emailspringproject.emailholder.web.controllers;
 
-import com.emailspringproject.emailholder.domain.entities.Email;
-import com.emailspringproject.emailholder.services.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
 
-    private final EmailService emailService;
-
-    @Autowired
-    public HomeController(EmailService emailService){
-        this.emailService = emailService;
-    }
-
     @GetMapping({"", "/", "/index", "/home"})
-    public String getIndexPage(){
-        return "index";
+    public ModelAndView getIndexPage(ModelAndView modelAndView){
+        modelAndView.setViewName("index");
+        return modelAndView;
     }
 
     @GetMapping("/about")
-    public String getAboutPage(){
-        return "about";
+    public ModelAndView getAboutPage(ModelAndView modelAndView){
+        modelAndView.setViewName("about");
+        return modelAndView;
     }
-
 
 }
