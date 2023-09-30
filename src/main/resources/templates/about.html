@@ -1,30 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About</title>
-
+  <title>Sites</title>
   <link th:href = "@{/css/reset.css}" rel="stylesheet" />
-  <link th:href = "@{/css/initial.css}" rel="stylesheet" />
+  <link th:href = "@{/css/common.css}" rel="stylesheet" />
   <link th:href = "@{/css/about.css}" rel="stylesheet" />
-  <link th:href = "@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}" rel="stylesheet" />
 </head>
 
 <body>
-  <header>
-    <nav>
-      <img th:src="@{/images/LogoMakr-7dy6bO.png}" alt="logo" />
 
-      <ul>
-        <li><a th:href="@{/home}">Home</a></li>
-        <li><a th:href="@{/emails}">Emails</a></li>
-        <li><a th:href="@{/about}">About</a></li>
-      </ul>
-    </nav>
-  </header>
+<header th:replace="~{fragments/navigation}"></header>
 
   <main>
     <div class="card author">
@@ -51,8 +39,8 @@
         <p>
           Email holder app is all about storing and managing personal emails.
           You can save email addresses. You can add definition/description for
-          every single email that has been saved. Also you can add your
-          passwords and list of sites.
+          every single email that has been saved. You can add your list of sites
+          registered by particular email.
         </p>
       </section>
       <section>
@@ -64,32 +52,22 @@
         </p>
       </section>
       <section>
-        <h3>Passwords</h3>
-        <p>
-          You can add password for every email.
-          Don't misspell the password, because 
-          the app won't know if that is the right one.
-          To ensuring precision you have to add the password two times.
-          Try not copy and paste but type it manualy.
-          This way the you have lower chance to make mistake.
-        </p>
-      </section>
-      <section>
         <h3>Description</h3>
         <p>
           You have the opportunity to insert description 
           for every email that you have saved.
-          This is additional information about the email that you can stor and access any time.
+          This is additional information about the email that you can store and access any time.
         </p>
       </section>
     </article>
   </main>
 
-  <aside></aside>
 
   <footer>
     <p>Email Holder &copy; All rights reserved</p>
   </footer>
+
+  <script th:src="@{../js/common.js}"></script>
 </body>
 
 </html>
