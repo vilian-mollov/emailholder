@@ -23,22 +23,28 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Email email = new Email("vilian@gmail.com");
-        emailRepository.save(email);
-
-        Email email2 = new Email("diablo@gmial.com");
-        emailRepository.save(email2);
-
-        Email email3 = new Email("alokard@abv.bg");
-        emailRepository.save(email3);
-
-
         Site facebook = new Site("https://www.facebook.com/", "Facebook");
         siteRepository.save(facebook);
 
-
         Site instagram = new Site("https://www.instagram.com/", "Instagram");
         siteRepository.save(instagram);
+
+        Email email = new Email("vilian@gmail.com", "email description .....................");
+        email.addSite(facebook);
+        email.addSite(instagram);
+        emailRepository.save(email);
+
+        Email email2 = new Email("diablo@gmial.com", "email description .....................");
+        email2.addSite(facebook);
+        emailRepository.save(email2);
+
+        Email email3 = new Email("alokard@abv.bg", "email description .....................");
+        email3.addSite(facebook);
+        emailRepository.save(email3);
+
+
+
+
 
 
 

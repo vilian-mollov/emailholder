@@ -1,0 +1,94 @@
+main {
+    height: 89vh;
+}
+
+#main_emails_div {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#table_border {
+    border: 1px solid black;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+#emails_collection {
+    border-collapse: collapse;
+}
+
+#emails_collection th,tr,td {
+    /*border: 1px solid black;*/
+    padding: 15px;
+    text-align: center;
+}
+
+#emails_collection th {
+    background-color: #eae9e9;
+    min-width: 200px;
+    border-bottom: 1px solid black;
+}
+
+#emails_collection tbody {
+background-color: white;
+}
+
+
+/*Sites Dropdown List -----------------------------------------------------------------------------------------------*/
+
+/* Style the dropdown button */
+.sitesDropBtn {
+    background-color: transparent;
+    border: 1px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    border-radius: 40px;
+    font-size: 20px;
+}
+.sitesDropBtn a {
+    color: black;
+    text-decoration: none;
+}
+
+.sitesDropBtn:hover {
+    background-color: #68e468;
+    border-color: #68e468;
+    cursor: pointer;
+    color: white;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.sitesColumnWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown content (hidden by default) */
+.sitesDropList {
+    display: none;
+    position: absolute;
+    background-color: rgba(243, 235, 235);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.sitesDropList a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.sitesDropList a:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.sitesColumnWrapper:hover .sitesDropList {
+    display: block;
+}
