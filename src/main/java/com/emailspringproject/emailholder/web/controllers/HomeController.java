@@ -29,11 +29,5 @@ public class HomeController {
         return "about";
     }
 
-    @GetMapping("/list")
-    public String getListPage(Model model) {
-        List<Email> emails = emailService.getAllEmails();
-        model.addAttribute("emails", emails);
-        return "list";
-    }
 
 }
