@@ -1,12 +1,12 @@
 package com.emailspringproject.emailholder.bootstrap;
 
 
-import com.emailspringproject.emailholder.domain.entities.Email;
-import com.emailspringproject.emailholder.domain.entities.Site;
-import com.emailspringproject.emailholder.repositories.EmailRepository;
-import com.emailspringproject.emailholder.repositories.SiteRepository;
+import com.emailspringproject.emailholder.domain.entities.*;
+import com.emailspringproject.emailholder.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.*;
 
 
 @Component
@@ -15,9 +15,12 @@ public class BootStrapData implements CommandLineRunner {
     private final EmailRepository emailRepository;
     private  final SiteRepository siteRepository;
 
-    public BootStrapData(EmailRepository emailRepository, SiteRepository siteRepository) {
+    private final UserRepository userRepository;
+
+    public BootStrapData(EmailRepository emailRepository, SiteRepository siteRepository, UserRepository userRepository) {
         this.emailRepository = emailRepository;
         this.siteRepository = siteRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -43,11 +46,25 @@ public class BootStrapData implements CommandLineRunner {
         emailRepository.save(email3);
 
 
+        User user = new User();
+        user.setUsername("alocard");
+        userRepository.save(user);
 
+        Optional<User> firstByUsername = userRepository.findFirstByUsername(user.getUsername());
 
+        User user1 = firstByUsername.get();
+        user1.addEmail(email);
+        userRepository.save(user1);
 
+        Optional<Email> e = emailRepository.findById(email.getId());
+        Email email1 = e.get();
+        email1.setUser(user1);
+        emailRepository.save(email1);
 
-
+        Optional<Email> e2 = emailRepository.findById(email2.getId());
+        Email email4 = e2.get();
+        email4.setUser(user1);
+        emailRepository.save(email4);
 
         System.out.println("From BootStrap:");
         System.out.println("Number of emails: " + emailRepository.count());

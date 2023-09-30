@@ -3,7 +3,6 @@ package com.emailspringproject.emailholder.domain.entities;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,14 +21,14 @@ public class User extends BaseEntity{
     @Column(name = "last_changed_at")
     private Timestamp lastChangedAt;
 
-    @OneToMany(mappedBy = "user",targetEntity = Email.class)
+    @OneToMany(mappedBy = "user",targetEntity = Email.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Email> emails;
 
 
     public User() {
     }
 
-    public User(String username, String mainEmail, Timestamp createdAt, Timestamp lastChangedAt, Set<Email> emails) {
+    public User(String username, String mainEmail, Timestamp createdAt, Timestamp lastChangedAt,Set<Email> emails) {
         this.username = username;
         this.mainEmail = mainEmail;
         this.createdAt = createdAt;
@@ -75,5 +74,9 @@ public class User extends BaseEntity{
 
     public void setEmails(Set<Email> emails) {
         this.emails = emails;
+    }
+
+    public void addEmail(Email email) {
+        this.emails.add(email);
     }
 }

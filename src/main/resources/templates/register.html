@@ -1,79 +1,50 @@
-<!DOCTYPE HTML>
-
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>EmailHolderApp</title>
-
-    <!-- ----------------------------------------------------------from thymeleaf site-->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!--from thymeleaf site ---------------------------------------------------------- -->
-
+    <title>Register</title>
     <link th:href="@{/css/reset.css}" rel="stylesheet"/>
-    <link th:href="@{/css/initial.css}" rel="stylesheet"/>
-    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/register.css}" rel="stylesheet"/>
-    <link th:href="@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}" rel="stylesheet"/>
 </head>
 <body>
-<header>
-    <nav>
-        <img th:src="@{/images/LogoMakr-7dy6bO.png}" alt="logo"/>
 
-        <ul>
-            <li><a th:href="@{/index}">Home</a></li>
-            <li><a th:href="@{/emails}">Emails</a></li>
-            <li><a th:href="@{/about}">About</a></li>
-        </ul>
-    </nav>
-</header>
-
-
-<aside class="left">
-    <ul role="list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/list">List</a></li>
-        <li><a href="/about">About</a></li>
-    </ul>
-</aside>
+<header th:replace="~{fragments/navigation}"></header>
 
 <main>
 
-    <h1>Register User</h1>
-    <p>register by just username and email here:</p>
+    <div class="wrapper">
 
-    <form th:action="@{/user/register}" th:method="post">
+        <div class="header_reg">
+            <h1 id="reg_h1">Register User</h1>
+            <p id="exp">register by just username and email here:</p>
+        </div>
 
-        <label for="username">Username</label><br>
-        <input type="text" id="username" name="username" placeholder="John" title="minimum 5 symbols"><br>
+        <div>
+            <form th:action="@{/users/register}" th:method="post">
 
-        <label for="mainEmail">Email</label><br>
-        <input type="email" id="mainEmail" name="mainEmail" placeholder="john72@exmp.com"><br>
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username" placeholder="John" title="minimum 5 symbols"><br>
 
-        <button type="submit">Submit</button>
-<!--        <button id="btn_sbm" type="button" value="Submit">Submitoo</button>-->
+                <label for="mainEmail">Email</label><br>
+                <input type="email" id="mainEmail" name="mainEmail" placeholder="john72@exmp.com"><br>
 
-    </form>
+                <button type="submit">Submit</button>
+                <!--        <button id="btn_sbm" type="button" value="Submit">Submitoo</button>-->
+
+            </form>
+        </div>
+    </div>
+
 
 </main>
 
-<aside class="right">
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Exercitationem quis voluptate vel eligendi voluptas, sit expedita eum,
-        placeat esse dolore iusto dignissimos deserunt unde in minima. Error,
-        facilis perspiciatis! Similique?
-    </p>
-</aside>
-
-
-<footer>
+<footer id="footer-content">
     <p>Email Holder &copy; All rights reserved</p>
 </footer>
 
-
-
+<script th:src="@{../js/common.js}"></script>
 </body>
 </html>

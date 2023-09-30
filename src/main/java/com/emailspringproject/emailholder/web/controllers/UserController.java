@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private UserService userService;
@@ -35,16 +35,14 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public ModelAndView getRegister() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/register");
+    public ModelAndView getRegister(ModelAndView modelAndView) {
+        modelAndView.setViewName("register");
         return modelAndView;
     }
 
     @PostMapping("/register")
-    public ModelAndView registerUser(@Valid UserRegisterDTO userDto, BindingResult bindingResult ) {
+    public ModelAndView registerUser(ModelAndView modelAndView, @Valid UserRegisterDTO userDto, BindingResult bindingResult ) {
 
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/index");
 
         List<String> errors = bindingResult
@@ -75,11 +73,15 @@ public class UserController {
         return modelAndView;
     }
 
+    @PutMapping("/add/email")
+    public ModelAndView addEmailToUser(ModelAndView modelAndView) {
+        return modelAndView;
+    }
+
 
     @PostMapping("/update")
-    public ModelAndView updateUser() {
+    public ModelAndView updateUser(ModelAndView modelAndView) {
 
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/index");
 
         // TODO add userService.updateUser()
@@ -88,9 +90,8 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ModelAndView deleteUser() {
+    public ModelAndView deleteUser(ModelAndView modelAndView) {
 
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/index");
 
         // TODO add userService.deleteUser()

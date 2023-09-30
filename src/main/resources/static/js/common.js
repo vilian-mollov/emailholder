@@ -15,13 +15,13 @@ function changeTheme() {
     let icon = document.createElement('img');
 
     if (buttonIsOn) {
-        icon.src = "images/toggle-off-solid.svg";
+        icon.src = "../images/toggle-off-solid.svg";
         icon.alt = "toggle off";
 
         buttonIsOn = false;
 
     } else {
-        icon.src = "images/toggle-on-solid.svg";
+        icon.src = "../images/toggle-on-solid.svg";
         icon.alt = "toggle on";
 
         buttonIsOn = true;
