@@ -7,6 +7,7 @@
   <title>List of emails</title>
   <link th:href = "@{/css/reset.css}" rel="stylesheet" />
   <link th:href = "@{/css/common.css}" rel="stylesheet" />
+  <link th:href = "@{/css/tables.css}" rel="stylesheet" />
   <link th:href = "@{/css/emails.css}" rel="stylesheet" />
 </head>
 <body>
@@ -15,9 +16,9 @@
 
 <main>
 
-<div id="main_emails_div">
+<div id="main_div">
 <div id="table_border">
-  <table id="emails_collection">
+  <table id="collection">
     <thead>
     <tr>
       <th>id</th>
@@ -34,12 +35,7 @@
       <td th:text="${email.getDescription()}"></td>
       <td>
 
-        <div class="sitesColumnWrapper">
-          <button class="sitesDropBtn"><a th:href="@{/sites}">Dropdown</a></button>
-          <div class="sitesDropList">
-            <a th:each="site : ${email.getSites()}" th:text="${site.getSiteDomain()}" th:href="@{/sites/${site.getId()}}"></a>
-          </div>
-        </div>
+        <a th:href="@{/sites}"><button class="goToSites"><img id="arrow" th:src="@{../images/arrow.png}" alt="arrow" /></button></a>
 
       </td>
 
