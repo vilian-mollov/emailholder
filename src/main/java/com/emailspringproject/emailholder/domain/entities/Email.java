@@ -25,7 +25,7 @@ public class Email extends BaseEntity {
     private Set<Site> sites;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",insertable = false, updatable = false)
     private User user;
 
     public Email() {

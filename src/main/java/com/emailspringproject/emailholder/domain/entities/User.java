@@ -21,7 +21,9 @@ public class User extends BaseEntity{
     @Column(name = "last_changed_at")
     private Timestamp lastChangedAt;
 
-    @OneToMany(mappedBy = "user",targetEntity = Email.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "user",targetEntity = Email.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private Set<Email> emails;
 
 

@@ -11,10 +11,13 @@ import java.util.Set;
 public class Site extends BaseEntity{
 
     @Column(name = "site_domain", nullable = false)
-    private String siteDomain;
+    private String domainName;
 
-    @Column(name = "site_name", nullable = false)
-    private String siteName;
+    @Column
+    private String address;
+
+    @Column
+    private Boolean safety;
 
     @ManyToMany(mappedBy = "sites", targetEntity = Email.class)
     private Set<Email> emails;
@@ -22,26 +25,34 @@ public class Site extends BaseEntity{
     public Site() {
     }
 
-    public Site(String siteDomain, String siteName) {
-        this.siteDomain = siteDomain;
-        this.siteName = siteName;
+    public Site(String address, String domainName) {
+        this.domainName = domainName;
+        this.address = address;
         this.emails = new HashSet<>();
     }
 
-    public String getSiteDomain() {
-        return siteDomain;
+    public String getDomainName() {
+        return domainName;
     }
 
-    public void setSiteDomain(String siteDomain) {
-        this.siteDomain = siteDomain;
+    public void setDomainName(String domainName) {
+        this.domainName = domainName;
     }
 
-    public String getSiteName() {
-        return siteName;
+    public String getAddress() {
+        return address;
     }
 
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Boolean getSafety() {
+        return safety;
+    }
+
+    public void setSafety(Boolean safety) {
+        this.safety = safety;
     }
 
     public Set<Email> getEmails() {
@@ -70,8 +81,8 @@ public class Site extends BaseEntity{
     @Override
     public String toString() {
         return "Site{" +
-                "id=" + this.getId() +
-                ", siteDomain='" + siteDomain + '\'' +
+                "siteDomain='" + domainName + '\'' +
+                ", siteAddress='" + address + '\'' +
                 '}';
     }
 }
