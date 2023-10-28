@@ -24,7 +24,7 @@ public class EmailController {
 
     @GetMapping
     public String getAllEmails(Model model) {
-        List<Email> emails = emailService.getAllEmails();
+        List<Email> emails = emailService.getAllEmails(); //TODO replace with DTO and return only emails of the current user (cookie)
         model.addAttribute("emails", emails);
         return "emails";
     }

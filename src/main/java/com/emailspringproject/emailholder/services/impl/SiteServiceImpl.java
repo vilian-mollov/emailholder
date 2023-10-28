@@ -1,53 +1,127 @@
 package com.emailspringproject.emailholder.services.impl;
 
-import com.emailspringproject.emailholder.domain.entities.Site;
-import com.emailspringproject.emailholder.repositories.EmailRepository;
-import com.emailspringproject.emailholder.repositories.SiteRepository;
+import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
+import com.emailspringproject.emailholder.domain.dtos.SiteImportDTO;
+import com.emailspringproject.emailholder.domain.entities.*;
+import com.emailspringproject.emailholder.repositories.*;
 import com.emailspringproject.emailholder.services.SiteService;
+import com.emailspringproject.emailholder.utilities.CurrentUser;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SiteServiceImpl implements SiteService {
     private final SiteRepository siteRepository;
     private final EmailRepository emailRepository;
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
-    // Constructor injection
-    public SiteServiceImpl(SiteRepository siteRepository, EmailRepository emailRepository) {
+    private final CurrentUser currentUser;
+
+    @Autowired
+    public SiteServiceImpl(SiteRepository siteRepository,
+                           EmailRepository emailRepository,
+                           UserRepository userRepository,
+                           ModelMapper modelMapper,
+                           CurrentUser currentUser) {
         this.siteRepository = siteRepository;
         this.emailRepository = emailRepository;
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
+    }
+
+
+    @Override
+    public List<SiteExportDTO> getAllSitesForUser(String username) {
+
+        Optional<User> user = userRepository.findFirstByUsername(username);
+
+        List<SiteExportDTO> sitesDTOs = new ArrayList<>();
+
+        for (Email email : user.get().getEmails()) {
+            for (Site site : email.getSites()) {
+                SiteExportDTO siteDTO = modelMapper.map(site, SiteExportDTO.class);
+                boolean isPresent = false;
+                for (SiteExportDTO dto : sitesDTOs) {
+                    if (dto.getDomainName().equals(siteDTO.getDomainName())) {
+                        isPresent = true;
+                    }
+                }
+
+                if(isPresent) {
+                    continue;
+                }
+                sitesDTOs.add(siteDTO);
+            }
+        }
+
+        return sitesDTOs;
     }
 
     @Override
-    public List<Site> getAllSites() {
-        return siteRepository.findAll();
+    public List<SiteExportDTO> getSitesByEmail(Long email_id) {
+
+        Email email = emailRepository.findFirstById(email_id);
+
+        List<SiteExportDTO> sites = new ArrayList<>();
+
+        for (Site site : email.getSites()) {
+            sites.add(modelMapper.map(site,SiteExportDTO.class));
+        }
+
+        return sites;
     }
 
     @Override
-    public Site getSiteById(Long id) {
+    public List<String> createSite(SiteImportDTO siteDTO) {
+
+        List<String> problems = new ArrayList<>();
+
+        if(!siteDTO.getAddress().startsWith("http")){
+            problems.add("Wrong link, sites should start with http or https");
+        }
+
+        //starts with http
+        //ends in top level domain they are to many com/edu ?
+
+        if(problems.isEmpty()) {
+            Site site = modelMapper.map(siteDTO, Site.class);
+            siteRepository.save(site);
+        }
+
+        return problems;
+    }
+
+    @Override
+    public Boolean updateSite(Long id, SiteImportDTO updatedSite) {
         return null;
     }
 
     @Override
-    public Site createSite(Site site) {
-        return null;
+    public SiteExportDTO deleteSiteFromAllEmailsOfUser(Long id) {
+
+        Optional<Site> optSite = siteRepository.findById(id);
+
+        if (optSite.isEmpty()) {
+            return null;
+        }
+
+        Site site = optSite.get();
+        SiteExportDTO expSiteDTO = modelMapper.map(site, SiteExportDTO.class);
+
+
+        Optional<User> optUser = userRepository.findFirstByUsername(currentUser.getUsername());
+
+        User user = optUser.get();
+        for (Email email : user.getEmails()) {
+            email.removeSite(site);
+        }
+
+        return expSiteDTO;
     }
-
-    @Override
-    public Site updateSite(Long id, Site updatedSite) {
-        return null;
-    }
-
-    @Override
-    public void deleteSite(Long id) {
-
-    }
-
-    @Override
-    public void addEmailToSite(Long siteId, Long emailId) {
-
-    }
-
 
 }
