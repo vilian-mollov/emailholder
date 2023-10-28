@@ -1,7 +1,6 @@
 package com.emailspringproject.emailholder.web.controllers;
 
-import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
-import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
+import com.emailspringproject.emailholder.domain.dtos.*;
 import com.emailspringproject.emailholder.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class UserController {
     public ModelAndView loginUser(@ModelAttribute("userLoginDTO") @Valid UserLoginDTO userLoginDTO,
                                   BindingResult bindingResult, ModelAndView modelAndView) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
 
             modelAndView.setViewName("login");
             return modelAndView;
@@ -42,7 +41,7 @@ public class UserController {
 
         Boolean isLogged = userService.loginUser(userLoginDTO);
 
-        if(!isLogged){
+        if (!isLogged) {
             modelAndView.addObject("hasLoginError", true);
             modelAndView.setViewName("login");
             return modelAndView;
@@ -63,7 +62,7 @@ public class UserController {
     public ModelAndView registerUser(@ModelAttribute("userRegisterDTO") @Valid UserRegisterDTO userRegisterDTO, BindingResult bindingResult, ModelAndView modelAndView) {
 
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
 
             modelAndView.setViewName("register");
             return modelAndView;
@@ -71,8 +70,8 @@ public class UserController {
 
         List<String> errors = userService.registerUser(userRegisterDTO);
 
-        if(errors != null && !errors.isEmpty()) {
-            modelAndView.addObject("hasRegisterError",true);
+        if (errors != null && !errors.isEmpty()) {
+            modelAndView.addObject("hasRegisterError", true);
             modelAndView.addObject("errors", errors);
             modelAndView.setViewName("register");
             return modelAndView;
@@ -88,18 +87,30 @@ public class UserController {
     }
 
     @GetMapping("/update")
-    public ModelAndView getUpdateUser(ModelAndView modelAndView){
-        modelAndView.setViewName("profile");
+    public ModelAndView getUpdateUser(@ModelAttribute("userUpdateDTO") UserUpdateDTO userUpdateDTO, ModelAndView modelAndView) {
+        modelAndView.setViewName("update-profile");
         return modelAndView;
     }
 
     @PostMapping("/update")
-    public ModelAndView updateUser(ModelAndView modelAndView) {
+    public ModelAndView updateUser(@ModelAttribute("userUpdateDTO") @Valid UserUpdateDTO userUpdateDTO, BindingResult bindingResult, ModelAndView modelAndView) {
 
-        modelAndView.setViewName("redirect:/index");
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("update-profile");
+            return modelAndView;
+        }
 
-        // TODO add userService.updateUser()
+        List<String> errors = userService.updateUser(userUpdateDTO);
 
+        if (errors != null && !errors.isEmpty()) {
+            modelAndView.addObject("hasUpdateError", true);
+            modelAndView.addObject("errors", errors);
+            modelAndView.setViewName("update-profile");
+            return modelAndView;
+        }
+
+
+        modelAndView.setViewName("redirect:/home");
         return modelAndView;
     }
 
@@ -122,5 +133,5 @@ public class UserController {
         return modelAndView;
     }
 
-    
+
 }
