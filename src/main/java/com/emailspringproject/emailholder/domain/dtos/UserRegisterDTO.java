@@ -17,6 +17,8 @@ public class UserRegisterDTO {
     @Email
     private String mainEmail;
 
+    private String password;
+
     private Timestamp createdAt;
 
     private Timestamp lastChangedAt;
@@ -35,6 +37,14 @@ public class UserRegisterDTO {
 
     public void setMainEmail(String mainEmail) {
         this.mainEmail = mainEmail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Timestamp getCreatedAt() {

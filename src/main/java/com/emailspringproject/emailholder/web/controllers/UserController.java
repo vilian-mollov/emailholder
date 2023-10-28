@@ -1,5 +1,6 @@
 package com.emailspringproject.emailholder.web.controllers;
 
+import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
 import com.emailspringproject.emailholder.services.UserService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/users")
@@ -23,13 +25,41 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ModelAndView loginUser() {
+    public ModelAndView getLoginPage(ModelAndView modelAndView) {
 
-        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+
+        return modelAndView;
+    }
+
+    @PostMapping("/login")
+    public ModelAndView loginUser(@Valid UserLoginDTO userLoginDTO,
+                                  BindingResult bindingResult,
+                                  ModelAndView modelAndView) {
+
+        List<String> errors = bindingResult
+                                .getAllErrors()
+                                .stream()
+                                .toList()
+                                .stream()
+                                .map((e) -> e.getDefaultMessage())
+                                .collect(Collectors.toList());
+
+        if(bindingResult.hasErrors()){
+            modelAndView.addObject("errors",errors);
+            modelAndView.setViewName("redirect:/users/login");
+            return modelAndView;
+        }
+
+
+        Boolean isLogged = userService.loginUser(userLoginDTO);
+
+        if(!isLogged){
+            modelAndView.setViewName("login");
+            return modelAndView;
+        }
+
         modelAndView.setViewName("redirect:/index");
-
-        // TODO add userService.loginUser()
-
         return modelAndView;
     }
 

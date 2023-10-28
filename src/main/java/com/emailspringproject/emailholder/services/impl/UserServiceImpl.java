@@ -1,12 +1,15 @@
 package com.emailspringproject.emailholder.services.impl;
 
+import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
 import com.emailspringproject.emailholder.domain.entities.User;
 import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.UserService;
+import com.emailspringproject.emailholder.utilities.CurrentUser;
 import com.emailspringproject.emailholder.utilities.ValidationUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -19,19 +22,44 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private ModelMapper modelMapper;
     private ValidationUtils validationUtils;
+    private PasswordEncoder encoder;
+    private CurrentUser currentUser;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            ModelMapper modelMapper,
-                           ValidationUtils validationUtils) {
+                           ValidationUtils validationUtils,
+                           PasswordEncoder encoder,
+                           CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.validationUtils = validationUtils;
+        this.encoder = encoder;
+        this.currentUser = currentUser;
     }
 
     @Override
-    public void loginUser() {
+    public Boolean loginUser(UserLoginDTO userLoginDTO) {
 
+        User persistedUser = userRepository.findFirstByUsername(userLoginDTO.getUsername()).orElse(null);
+
+        boolean isCorrect = false;
+
+        if(persistedUser != null) {
+            String encodedPassword = persistedUser.getPassword();
+            String rawPassword = userLoginDTO.getPassword();
+
+            isCorrect = encodedPassword != null && encoder.matches(rawPassword, encodedPassword);
+
+            if(isCorrect) {
+                currentUser.setLogged(true);
+                currentUser.setUsername(userLoginDTO.getUsername());
+            }else {
+                currentUser.logout();
+            }
+        }
+
+        return isCorrect;
     }
 
     @Override
@@ -62,7 +90,7 @@ public class UserServiceImpl implements UserService {
             return problems;
         }
 
-
+        userDTO.setPassword(encoder.encode(userDTO.getPassword()));
         User user = modelMapper.map(userDTO, User.class);
 
         userRepository.save(user);
