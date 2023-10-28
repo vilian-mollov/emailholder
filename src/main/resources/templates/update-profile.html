@@ -8,6 +8,7 @@
     <link th:href="@{/css/reset.css}" rel="stylesheet"/>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/update.css}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -18,16 +19,19 @@
     <div class="wrapper">
 
         <div class="header_log">
-            <h1 id="log_h1">Login User</h1>
+            <h1 id="log_h1">Update User</h1>
         </div>
 
         <div id="update-form-div">
-            <form id="login-form" th:action="@{/users/update}" th:method="POST" th:object="${userUpdateDTO}">
+            <form id="update-form" th:action="@{/users/update}" th:method="POST" th:object="${userUpdateDTO}">
 
                 <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
 
-                <div th:if="${hasUpdateError}"
-                     th:text="'Incorrect username or password!'" class="text-danger"></div>
+                <div th:if="${hasUpdateError}">
+                    <div th:each="error : ${errors}" th:text="${error.toString()}" class="text-danger">
+
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="label-holder text-white d-flex justify-content-center">
@@ -35,6 +39,15 @@
                     </div>
                     <input type="text" class="form-control" id="username"
                            th:field="*{username}"
+                           th:errorclass="bg-danger"/>
+                </div>
+
+                <div class="form-group">
+                    <div class="label-holder text-white d-flex justify-content-center">
+                        <label for="mainEmail" class="h3 mb-2">Email</label>
+                    </div>
+                    <input type="email" class="form-control" id="mainEmail"
+                           th:field="*{mainEmail}"
                            th:errorclass="bg-danger"/>
                 </div>
 
@@ -48,7 +61,7 @@
                 </div>
 
                 <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3 sign_btns log_in_btn">Login</button>
+                    <button type="submit" class="btn btn-warning  mb-3 sign_btns update_btn">Update</button>
                 </div>
 
             </form>

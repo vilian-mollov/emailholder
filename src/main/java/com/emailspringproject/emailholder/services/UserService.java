@@ -1,7 +1,6 @@
 package com.emailspringproject.emailholder.services;
 
-import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
-import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
+import com.emailspringproject.emailholder.domain.dtos.*;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ public interface UserService {
 
     List<String> registerUser(UserRegisterDTO userDTO);
 
-    void updateUser();
+    List<String> updateUser(UserUpdateDTO userUpdateDTO);
 
     void logoutUser();
 
