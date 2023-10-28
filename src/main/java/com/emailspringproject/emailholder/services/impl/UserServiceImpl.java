@@ -16,6 +16,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static com.emailspringproject.emailholder.constants.Errors.USER_REGISTER_ERR;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -65,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> registerUser(UserRegisterDTO userDTO) {
 
-        List<String> problems = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
         userDTO.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         userDTO.setLastChangedAt(Timestamp.valueOf(LocalDateTime.now()));
 
@@ -73,28 +75,27 @@ public class UserServiceImpl implements UserService {
         Optional<User> foundUserByUsername = userRepository.findFirstByUsername(userDTO.getUsername());
         Optional<User> foundUserByMainEmail = userRepository.findFirstByMainEmail(userDTO.getMainEmail());
 
-        if (!validDTO || foundUserByUsername.isPresent() || foundUserByMainEmail.isPresent()) {
+        if (!validDTO ) {
+            errors.add(USER_REGISTER_ERR.toString());
+        }
 
-            if (!validDTO) {
-                problems.add("Not valid properties!");
-            }
+        if(foundUserByUsername.isPresent()){
+            errors.add(String.format("%s already exist",userDTO.getUsername()));
+        }
 
-            if (foundUserByUsername.isPresent()) {
-                problems.add("User with username " + userDTO.getUsername() + " already exists!");
-            }
+        if(foundUserByMainEmail.isPresent()) {
+            errors.add(String.format("%s already exist",userDTO.getMainEmail()));
+        }
 
-            if (foundUserByMainEmail.isPresent()) {
-                problems.add("User with email " + userDTO.getMainEmail() + " already exists!");
-            }
-
-            return problems;
+        if(!errors.isEmpty()) {
+            return errors;
         }
 
         userDTO.setPassword(encoder.encode(userDTO.getPassword()));
         User user = modelMapper.map(userDTO, User.class);
 
         userRepository.save(user);
-        return problems;
+        return errors;
     }
 
     @Override

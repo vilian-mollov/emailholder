@@ -10,13 +10,18 @@ import java.sql.Timestamp;
 
 public class UserRegisterDTO {
 
-    @NotBlank
+    @NotNull
+    @NotBlank(message = "Username is empty")
+    @Size(min = 3, message = "Username must be at least 3 symbols")
     private String username;
 
     @NotNull
     @Email
     private String mainEmail;
 
+    @NotNull
+    @NotBlank(message = "Password is empty")
+    @Size(min = 3, message = "Password must be at least 3 symbols")
     private String password;
 
     private Timestamp createdAt;

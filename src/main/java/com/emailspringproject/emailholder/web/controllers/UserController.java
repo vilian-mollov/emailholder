@@ -54,41 +54,31 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public ModelAndView getRegister(ModelAndView modelAndView) {
+    public ModelAndView getRegister(@ModelAttribute("userRegisterDTO") UserRegisterDTO userRegisterDTO, ModelAndView modelAndView) {
         modelAndView.setViewName("register");
         return modelAndView;
     }
 
     @PostMapping("/register")
-    public ModelAndView registerUser(ModelAndView modelAndView, @Valid UserRegisterDTO userDto, BindingResult bindingResult ) {
+    public ModelAndView registerUser(@ModelAttribute("userRegisterDTO") @Valid UserRegisterDTO userRegisterDTO, BindingResult bindingResult, ModelAndView modelAndView) {
 
-        modelAndView.setViewName("redirect:/index");
 
-        List<String> errors = bindingResult
-                .getAllErrors()
-                .stream()
-                .map(e -> e.getObjectName() + " " + e.getDefaultMessage())
-                .toList();
+        if(bindingResult.hasErrors()){
 
-        // Go to error page
-        if (!errors.isEmpty()) {
-            ModelAndView errorView = new ModelAndView();
-            errorView.setViewName("error");
-            errorView.addObject("errors",errors);
-
-            return errorView;
+            modelAndView.setViewName("register");
+            return modelAndView;
         }
 
-        List<String> problems = userService.registerUser(userDto);
+        List<String> errors = userService.registerUser(userRegisterDTO);
 
-        if (!problems.isEmpty()) {
-            ModelAndView errorView = new ModelAndView();
-            errorView.setViewName("error");
-            errorView.addObject("errors",problems);
-
-            return errorView;
+        if(errors != null && !errors.isEmpty()) {
+            modelAndView.addObject("hasRegisterError",true);
+            modelAndView.addObject("errors", errors);
+            modelAndView.setViewName("register");
+            return modelAndView;
         }
 
+        modelAndView.setViewName("redirect:/home");
         return modelAndView;
     }
 

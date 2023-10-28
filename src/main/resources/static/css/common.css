@@ -151,7 +151,6 @@ header {
 #footer-content {
     /* position: fixed; */
     z-index: 10;
-    padding: 5px;
     top: 0;
     left: 0;
     bottom: 0;

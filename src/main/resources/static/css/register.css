@@ -1,3 +1,17 @@
+html {
+    background-color: rgba(243, 235, 235, 0.495);
+/*    todo fix colors */
+}
+
+body {
+    background-color: rgba(243, 235, 235, 0.495);
+    /*    todo fix colors */
+}
+
+.h3 {
+    color: black;
+}
+
 main {
     height: 89vh;
 }
@@ -17,4 +31,25 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.register-form {
+
+}
+
+.register_btn {
+    padding-left: 34px;
+    padding-right: 34px;
+}
+
+.register_btn {
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+}
+
+.register_btn:hover {
+    background-color: #e2b04ae1;
+    border-color: #e2b04ae1;
+    cursor: pointer;
+    color: white;
 }
