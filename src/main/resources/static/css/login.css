@@ -1,0 +1,33 @@
+html {
+    background-color: rgba(243, 235, 235, 0.495);
+}
+
+body {
+    background-color: rgba(243, 235, 235, 0.495);
+}
+
+.wrapper {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header_log {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+#login-form-div {
+    width: 100vw;
+    height: 500px;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+#login-form {
+    width: 500px;
+    height: 700px;
+}

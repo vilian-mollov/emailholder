@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/users")
@@ -25,29 +24,18 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ModelAndView getLoginPage(ModelAndView modelAndView) {
+    public ModelAndView getLoginPage(@ModelAttribute("userLoginDTO") UserLoginDTO userLoginDTO) {
 
-        modelAndView.setViewName("login");
-
-        return modelAndView;
+        return new ModelAndView("login");
     }
 
     @PostMapping("/login")
-    public ModelAndView loginUser(@Valid UserLoginDTO userLoginDTO,
-                                  BindingResult bindingResult,
-                                  ModelAndView modelAndView) {
-
-        List<String> errors = bindingResult
-                                .getAllErrors()
-                                .stream()
-                                .toList()
-                                .stream()
-                                .map((e) -> e.getDefaultMessage())
-                                .collect(Collectors.toList());
+    public ModelAndView loginUser(@ModelAttribute("userLoginDTO") @Valid UserLoginDTO userLoginDTO,
+                                  BindingResult bindingResult, ModelAndView modelAndView) {
 
         if(bindingResult.hasErrors()){
-            modelAndView.addObject("errors",errors);
-            modelAndView.setViewName("redirect:/users/login");
+
+            modelAndView.setViewName("login");
             return modelAndView;
         }
 
@@ -55,6 +43,7 @@ public class UserController {
         Boolean isLogged = userService.loginUser(userLoginDTO);
 
         if(!isLogged){
+            modelAndView.addObject("hasLoginError", true);
             modelAndView.setViewName("login");
             return modelAndView;
         }
