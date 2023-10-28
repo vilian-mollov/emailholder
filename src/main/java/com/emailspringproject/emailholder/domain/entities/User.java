@@ -15,6 +15,9 @@ public class User extends BaseEntity{
     @Column(name = "main_email",unique = true)
     private String mainEmail;
 
+    @Column
+    private String password;
+
     @Column(name = "created_at")
     private Timestamp createdAt;
 
@@ -30,9 +33,10 @@ public class User extends BaseEntity{
     public User() {
     }
 
-    public User(String username, String mainEmail, Timestamp createdAt, Timestamp lastChangedAt,Set<Email> emails) {
+    public User(String username, String mainEmail, String password, Timestamp createdAt, Timestamp lastChangedAt,Set<Email> emails) {
         this.username = username;
         this.mainEmail = mainEmail;
+        this.password = password;
         this.createdAt = createdAt;
         this.lastChangedAt = lastChangedAt;
         this.emails = emails;
@@ -52,6 +56,14 @@ public class User extends BaseEntity{
 
     public void setMainEmail(String mainEmail) {
         this.mainEmail = mainEmail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Timestamp getCreatedAt() {
