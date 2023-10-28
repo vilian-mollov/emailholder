@@ -21,7 +21,7 @@ body {
 
 #login-form-div {
     width: 100vw;
-    height: 500px;
+    height: 571px;
     display: flex;
     justify-items: center;
     justify-content: center;
@@ -29,5 +29,28 @@ body {
 
 #login-form {
     width: 500px;
-    height: 700px;
+    height: 500px;
+}
+
+
+.h3 {
+    color: black;
+}
+
+
+.log_in_btn {
+    padding-left: 34px;
+    padding-right: 34px;
+}
+
+.log_in_btn {
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+}
+
+.log_in_btn:hover {
+    background-color: #68e468;
+    border-color: #68e468;
+    cursor: pointer;
+    color: white;
 }
