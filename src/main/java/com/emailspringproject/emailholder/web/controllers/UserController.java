@@ -87,6 +87,11 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping("/update")
+    public ModelAndView getUpdateUser(ModelAndView modelAndView){
+        modelAndView.setViewName("profile");
+        return modelAndView;
+    }
 
     @PostMapping("/update")
     public ModelAndView updateUser(ModelAndView modelAndView) {
@@ -95,6 +100,15 @@ public class UserController {
 
         // TODO add userService.updateUser()
 
+        return modelAndView;
+    }
+
+    @GetMapping("/logout")
+    public ModelAndView logout(ModelAndView modelAndView) {
+
+        userService.logoutUser();
+
+        modelAndView.setViewName("redirect:/home");
         return modelAndView;
     }
 

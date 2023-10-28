@@ -10,30 +10,42 @@
 
 <header>
 
-    <button id="theme_btn"><img th:src="@{../images/toggle-off-solid.png}" alt="button" /></button>
-
+    <button id="theme_btn"><img th:src="@{../images/toggle-off-solid.png}" alt="button"/></button>
 
 
     <nav id="home-nav">
         <div>
-        <button id="menu"><img th:src="@{../images/bars-solid.png}" alt="menu" /></button>
+            <button id="menu"><img th:src="@{../images/bars-solid.png}" alt="menu"/></button>
             <ul id="menu_list" class="disappear" role="list">
                 <li><a th:href="@{/home}">Home</a></li>
-                <hr th:if="${@currentUser.isLogged()}">
-                <li th:if="${@currentUser.isLogged()}">
-                    <a th:href="@{/emails}">Emails</a>
-                </li>
-                <hr th:if="${@currentUser.isLogged()}">
-                <li th:if="${@currentUser.isLogged()}">
-                    <a th:href="@{/sites(username=${@currentUser.getUsername()})}">Sites</a>
-                </li>
+                <div th:if="${@currentUser.isLogged()}">
+                    <hr>
+                    <li>
+                        <a th:href="@{/emails}">Emails</a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a th:href="@{/sites(username=${@currentUser.getUsername()})}">Sites</a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a th:href="@{/users/update}">Profile</a>
+                    </li>
+                </div>
                 <hr>
                 <li><a th:href="@{/about}">About</a></li>
                 <hr>
             </ul>
         </div>
-        <a th:href="@{/users/login}"><button class="sign_btns" id="sign_in_btn" th:unless="${@currentUser.isLogged()}">Sign In</button></a>
-        <a th:href="@{/users/register}"><button class="sign_btns" id="sign_up_btn" th:unless="${@currentUser.isLogged()}">Sign Up</button></a>
+        <a th:href="@{/users/login}" th:unless="${@currentUser.isLogged()}">
+            <button class="sign_btns" id="sign_in_btn">Sign In</button>
+        </a>
+        <a th:href="@{/users/register}" th:unless="${@currentUser.isLogged()}">
+            <button class="sign_btns" id="sign_up_btn">Sign Up</button>
+        </a>
+        <a th:href="@{/users/logout}" th:if="${@currentUser.isLogged()}">
+            <button class="sign_btns" id="sign_out_btn">Sign Out</button>
+        </a>
     </nav>
 
 </header>

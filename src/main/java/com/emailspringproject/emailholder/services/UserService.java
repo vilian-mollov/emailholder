@@ -13,5 +13,7 @@ public interface UserService {
 
     void updateUser();
 
+    void logoutUser();
+
     void deleteUser();
 }

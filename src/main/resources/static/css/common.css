@@ -118,7 +118,8 @@ header {
 }
 
 #sign_in_btn,
-#sign_up_btn {
+#sign_up_btn,
+#sign_out_btn{
     transition: 300ms ease-in-out;
     transition-delay: 50ms;
 }
@@ -133,6 +134,15 @@ header {
 #sign_up_btn:hover {
     background-color: #e2b04ae1;
     border-color: #e2b04ae1;
+    cursor: pointer;
+    color: white;
+
+    transition: 300ms;
+}
+
+#sign_out_btn:hover {
+    background-color: rgb(232 53 53);
+    border-color: rgb(232 53 53);
     cursor: pointer;
     color: white;
 

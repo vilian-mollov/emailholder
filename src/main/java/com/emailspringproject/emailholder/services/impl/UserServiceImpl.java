@@ -104,6 +104,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void logoutUser() {
+        currentUser.logout();
+    }
+
+    @Override
     public void deleteUser() {
 
     }
