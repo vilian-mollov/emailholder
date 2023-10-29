@@ -36,21 +36,20 @@ function changeTheme() {
 function toggleMenu() {
 
     let state;
+    let newState;
 
     if (menu_list.classList.contains('show')) {
 
-        state = 'disappear';
-        console.log(state);
+        state = 'show';
+        newState = 'disappear';
 
     } else {
 
-        state = 'show';
-        console.log(state);
-
+        state = 'disappear';
+        newState = 'show';
     }
 
-    menu_list.className = '';
-    menu_list.classList.add(state);
+    menu_list.classList.replace(state,newState);
 
 }
 
