@@ -67,9 +67,6 @@ header {
     padding-left: 15px;
     padding-right: 40px;
 
-    top: 16px;
-    right: 205px;
-
     background-color: rgb(58, 58, 58);
     color: #fff;
 
@@ -97,6 +94,16 @@ header {
 #menu_list a:hover {
     color: #68e468;
     cursor: pointer;
+}
+
+.menu_list_logout {
+    top: 16px;
+    right: 205px;
+}
+
+.menu_list_logged {
+    top: 16px;
+    right: 135px;
 }
 
 /* Sing buttons ------------------------------------------------------------------------  */
