@@ -82,7 +82,7 @@ public class SiteServiceImpl implements SiteService {
         List<String> problems = new ArrayList<>();
 
         if(!siteDTO.getAddress().startsWith("http")){
-            problems.add("Wrong link, sites should start with http or https");
+            problems.add("Incomplete link, sites should start with http or https");
         }
 
         //starts with http
