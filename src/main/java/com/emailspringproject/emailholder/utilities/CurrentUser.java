@@ -10,6 +10,8 @@ public class CurrentUser {
     private String username;
     private boolean isLogged;
 
+    private boolean darkTheme;
+
     public String getUsername() {
         return username;
     }
@@ -17,6 +19,14 @@ public class CurrentUser {
     public CurrentUser setUsername(String username) {
         this.username = username;
         return this;
+    }
+
+    public boolean isDarkTheme() {
+        return darkTheme;
+    }
+
+    public void setDarkTheme(boolean darkTheme) {
+        this.darkTheme = darkTheme;
     }
 
     public boolean isLogged() {
