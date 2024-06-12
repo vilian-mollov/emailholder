@@ -46,8 +46,25 @@ public class EmailServiceImplTest {
 
         Email actualEmail = emailService.getEmailById(expectedId);
 
-        Assertions.assertEquals(expectedEmail.getAddress(), actualEmail.getAddress(),"Get Email by id doesnt return the right email.");
+        Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId(),"Get Email by id doesnt return the right email.");
     }
 
+
+    @Test
+    void testGetEmailByIdNull(){
+        Email actualEmail = emailService.getEmailById(0L);
+
+        Assertions.assertEquals(null, actualEmail);
+    }
+
+    @Test
+    void testCreateEmail(){
+
+        when(mockEmailRepository.save(expectedEmail)).thenReturn(expectedEmail);
+
+        Email actualEmail = emailService.createEmail(expectedEmail);
+
+        Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
+    }
 
 }
