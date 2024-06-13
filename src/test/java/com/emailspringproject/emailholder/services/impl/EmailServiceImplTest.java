@@ -1,6 +1,7 @@
 package com.emailspringproject.emailholder.services.impl;
 
 import com.emailspringproject.emailholder.domain.entities.Email;
+import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import org.junit.jupiter.api.Assertions;
@@ -27,6 +28,7 @@ public class EmailServiceImplTest {
     private SiteRepository mockSiteRepository;
 
     private static Email expectedEmail;
+    private static Site expectedSite;
 
     private static final Long expectedId = 12L;
     private static final String expectedAddress = "Mock Street 21";
@@ -37,6 +39,8 @@ public class EmailServiceImplTest {
         expectedEmail = new Email();
         expectedEmail.setId(expectedId);
         expectedEmail.setAddress(expectedAddress);
+
+        expectedSite = new Site();
     }
 
 
@@ -63,6 +67,17 @@ public class EmailServiceImplTest {
         when(mockEmailRepository.save(expectedEmail)).thenReturn(expectedEmail);
 
         Email actualEmail = emailService.createEmail(expectedEmail);
+
+        Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
+    }
+
+    @Test
+    void testCreateEmailWithSiteId(){
+
+        when(mockEmailRepository.save(expectedEmail)).thenReturn(expectedEmail);
+        when(mockSiteRepository.findById(expectedId)).thenReturn(Optional.of(expectedSite));
+
+        Email actualEmail = emailService.createEmail(12L, expectedEmail);
 
         Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
     }
