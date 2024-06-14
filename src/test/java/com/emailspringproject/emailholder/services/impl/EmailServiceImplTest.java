@@ -82,4 +82,10 @@ public class EmailServiceImplTest {
         Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
     }
 
+
+    @Test
+    void testAddSiteToEmail(){
+
+    }
+
 }
