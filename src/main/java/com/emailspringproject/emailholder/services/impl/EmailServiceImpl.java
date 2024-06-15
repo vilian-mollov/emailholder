@@ -1,5 +1,6 @@
 package com.emailspringproject.emailholder.services.impl;
 
+import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.domain.entities.User;
@@ -7,6 +8,8 @@ import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.services.EmailService;
 import com.emailspringproject.emailholder.services.UserService;
+import com.emailspringproject.emailholder.utilities.ValidationUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +20,23 @@ import java.util.Optional;
 public class EmailServiceImpl implements EmailService {
     private final EmailRepository emailRepository;
     private final SiteRepository siteRepository;
-
     private final UserService userService;
+    private ValidationUtils validationUtils;
+    private ModelMapper modelMapper;
 
 
-    public EmailServiceImpl(EmailRepository emailRepository, SiteRepository siteRepository, UserService userService) {
+    public EmailServiceImpl(EmailRepository emailRepository,
+                            SiteRepository siteRepository,
+                            UserService userService,
+                            ValidationUtils validationUtils,
+                            ModelMapper modelMapper) {
         this.emailRepository = emailRepository;
         this.siteRepository = siteRepository;
         this.userService = userService;
+        this.validationUtils = validationUtils;
+        this.modelMapper = modelMapper;
     }
+
     //TODO make validations
     @Override
     public List<Email> getAllEmailsByUser() {
@@ -39,8 +50,15 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public Email createEmail(Email email) {
-        return emailRepository.save(email);
+    public Email createEmail(EmailImportDTO emailDTO) {
+        if (this.validationUtils.isValid(emailDTO)) {
+            User user = userService.getCurrentUser();
+            Email email = this.modelMapper.map(emailDTO, Email.class);
+            user.addEmail(email);
+            Email savedEmail = emailRepository.save(email);
+            return savedEmail;
+        }
+        return null;
     }
 
     @Override
@@ -53,6 +71,7 @@ public class EmailServiceImpl implements EmailService {
         }
         return null;
     }
+
     //TODO implement the updateEmail method
     @Override
     public Email updateEmail(Long id, Email updatedEmail) {

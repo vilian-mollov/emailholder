@@ -1,13 +1,17 @@
 package com.emailspringproject.emailholder.web.controllers;
 
 
+import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.services.EmailService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -39,9 +43,20 @@ public class EmailController {
         return emailService.createEmail(siteId,email);
     }
 
+    @GetMapping("/create")
+    public ModelAndView getCreateEmail(@ModelAttribute("emailDTO") EmailImportDTO emailDTO, ModelAndView modelAndView){
+        modelAndView.setViewName("createEmail");
+        return modelAndView;
+    }
+
     @PostMapping("/create")
-    public Email createEmail(@RequestBody Email email) {
-            return emailService.createEmail(email);
+    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailImportDTO emailDTO, //@RequestBody EmailImportDTO emailDTO,
+                             BindingResult bindingResult, ModelAndView modelAndView){
+
+        Email email = emailService.createEmail(emailDTO);
+
+        modelAndView.setViewName("createEmail");
+        return modelAndView;
     }
 
     @PutMapping("/{emailId}/sites/{siteId}")

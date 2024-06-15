@@ -1,0 +1,55 @@
+html {
+    background-color: rgba(243, 235, 235, 0.495);
+}
+
+body {
+    background-color: rgba(243, 235, 235, 0.495);
+}
+
+.wrapper {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header_fpage {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+#fpage-form-div {
+    width: 100vw;
+    height: 571px;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+#fpage-form {
+    width: 500px;
+    height: 500px;
+}
+
+.h3 {
+    color: black;
+}
+
+
+.form_submit_btn {
+    padding-left: 34px;
+    padding-right: 34px;
+}
+
+.form_submit_btn {
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+}
+
+/*.form_submit_btn:hover {*/
+/*    background-color: #e2b04ae1;*/
+/*    border-color: #e2b04ae1;*/
+/*    cursor: pointer;*/
+/*    color: white;*/
+/*}*/

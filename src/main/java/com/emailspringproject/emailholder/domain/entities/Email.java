@@ -11,7 +11,7 @@ import java.util.Set;
 public class Email extends BaseEntity {
 
     @Column(nullable = false)
-    private String address;
+    private String emailAddress;
 
     @Column
     private String description;
@@ -30,8 +30,8 @@ public class Email extends BaseEntity {
 
     public Email() {
     }
-    public Email(String address, String description) {
-        this.address = address;
+    public Email(String emailAddress, String description) {
+        this.emailAddress = emailAddress;
         this.description = description;
         this.sites = new HashSet<>();
     }
@@ -46,12 +46,12 @@ public class Email extends BaseEntity {
         site.getEmails().remove(this);
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public Set<Site> getSites() {
@@ -97,7 +97,7 @@ public class Email extends BaseEntity {
     public String toString() {
         return "Email{" +
                 "id=" + this.getId() +
-                ", name='" + address + '\'' +
+                ", name='" + emailAddress + '\'' +
                 '}';
     }
 
