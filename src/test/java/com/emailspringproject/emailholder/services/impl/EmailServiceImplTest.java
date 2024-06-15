@@ -14,11 +14,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.mockito.Mockito.when;
 
@@ -103,6 +100,15 @@ public class EmailServiceImplTest {
         Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
     }
 
+    @Test
+    void testCreateEmailWithSiteIdNull() {
+        when(mockSiteRepository.findById(expectedId)).thenReturn(Optional.empty());
+
+        Email actualEmail = emailService.createEmail(12L, expectedEmail);
+
+        Assertions.assertNull(actualEmail);
+    }
+
 
     @Test
     void testAddSiteToEmail() {
@@ -169,6 +175,18 @@ public class EmailServiceImplTest {
         List<Email> expectedEmailsOfUser = List.of(expectedEmail);
 
         Assertions.assertEquals(expectedEmailsOfUser.get(0),actualEmailsOfUser.get(0));
+    }
+
+
+    @Test
+    void testDeleteEmail() {
+        emailService.deleteEmail(expectedId);
+    }
+
+
+    @Test
+    void testUpdateEmail() {
+        emailService.updateEmail(expectedId, expectedEmail);
     }
 
 
