@@ -22,7 +22,7 @@ public class Email extends BaseEntity {
             joinColumns = @JoinColumn(name = "email_id"),
             inverseJoinColumns = @JoinColumn(name = "site_id")
     )
-    private Set<Site> sites;
+    private Set<Site> sites = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id",insertable = false, updatable = false)

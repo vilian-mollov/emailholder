@@ -74,9 +74,9 @@ public class EmailServiceImpl implements EmailService {
             Site site = optionalSite.get();
 
             email.addSite(site);
-            emailRepository.save(email);
+            Email savedEmail = emailRepository.save(email);
 
-            return ResponseEntity.ok(email);
+            return ResponseEntity.ok(savedEmail);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -93,9 +93,9 @@ public class EmailServiceImpl implements EmailService {
             Site site = optionalSite.get();
 
             email.removeSite(site);
-            emailRepository.save(email);
+            Email savedEmail = emailRepository.save(email);
 
-            return ResponseEntity.ok(email);
+            return ResponseEntity.ok(savedEmail);
         } else {
             return ResponseEntity.notFound().build();
         }

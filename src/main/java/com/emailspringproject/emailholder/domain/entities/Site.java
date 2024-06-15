@@ -20,7 +20,7 @@ public class Site extends BaseEntity{
     private Boolean safety;
 
     @ManyToMany(mappedBy = "sites", targetEntity = Email.class)
-    private Set<Email> emails;
+    private Set<Email> emails = new HashSet<>();
 
     public Site() {
     }

@@ -3,6 +3,7 @@ package com.emailspringproject.emailholder.domain.entities;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,7 +28,7 @@ public class User extends BaseEntity{
 //    @OneToMany(mappedBy = "user",targetEntity = Email.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private Set<Email> emails;
+    private Set<Email> emails = new HashSet<>();
 
 
     public User() {
