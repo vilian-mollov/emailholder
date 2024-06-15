@@ -4,6 +4,7 @@ import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
+import com.emailspringproject.emailholder.services.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashSet;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -28,6 +28,9 @@ public class EmailServiceImplTest {
     @Mock
     private SiteRepository mockSiteRepository;
 
+    @Mock
+    private UserService mockUserService;
+
     private static Email expectedEmail;
     private static Site expectedSite;
 
@@ -37,7 +40,7 @@ public class EmailServiceImplTest {
 
     @BeforeEach
     void setUp(){
-        emailService = new EmailServiceImpl(mockEmailRepository, mockSiteRepository);
+        emailService = new EmailServiceImpl(mockEmailRepository, mockSiteRepository, mockUserService);
         expectedEmail = new Email(expectedAddress, "Test Email Expected");
         expectedEmail.setId(expectedId);
 

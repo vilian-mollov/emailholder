@@ -153,6 +153,13 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public User getCurrentUser(){
+        Optional<User> optUser = userRepository.findFirstByUsername(currentUser.getUsername());
+        User user = optUser.get();
+        return user;
+    }
+
 //    private <E> List<String> validateUserInput(Class<E> entity) {
 //
 //        List<String> errors = new ArrayList<>();

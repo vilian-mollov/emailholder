@@ -2,9 +2,11 @@ package com.emailspringproject.emailholder.services.impl;
 
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
+import com.emailspringproject.emailholder.domain.entities.User;
 import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.services.EmailService;
+import com.emailspringproject.emailholder.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +18,19 @@ public class EmailServiceImpl implements EmailService {
     private final EmailRepository emailRepository;
     private final SiteRepository siteRepository;
 
-    // Constructor injection
-    public EmailServiceImpl(EmailRepository emailRepository, SiteRepository siteRepository) {
+    private final UserService userService;
+
+
+    public EmailServiceImpl(EmailRepository emailRepository, SiteRepository siteRepository, UserService userService) {
         this.emailRepository = emailRepository;
         this.siteRepository = siteRepository;
+        this.userService = userService;
     }
     //TODO make validations
     @Override
-    public List<Email> getAllEmails() {
-        return emailRepository.findAll();
+    public List<Email> getAllEmailsByUser() {
+        User user = userService.getCurrentUser();
+        return emailRepository.findAllByUser(user);
     }
 
     @Override

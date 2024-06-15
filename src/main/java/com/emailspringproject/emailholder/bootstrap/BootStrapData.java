@@ -35,7 +35,7 @@ public class BootStrapData implements CommandLineRunner {
         Site linkedIn = new Site("https://www.linkedin.com/", "LinkedIn");
         siteRepository.save(linkedIn);
 
-        Email email = new Email("vilian@gmail.com", "email description .....................");
+        Email email = new Email("immortals@gmail.com", "email description .....................");
         email.addSite(facebook);
         email.addSite(instagram);
         email.addSite(linkedIn);

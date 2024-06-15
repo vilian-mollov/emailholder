@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface EmailService {
-    List<Email> getAllEmails();
+    List<Email> getAllEmailsByUser();
     Email getEmailById(Long id);
     Email createEmail(Email email);
     Email createEmail(Long id, Email email);
