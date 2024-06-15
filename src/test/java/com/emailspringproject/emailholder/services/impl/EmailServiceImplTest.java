@@ -45,14 +45,15 @@ public class EmailServiceImplTest {
 
     @BeforeEach
     void setUp() {
+//      Site
+        expectedSite = new Site(expectedAddress, expectedDomainName);
+        expectedSite.setId(expectedId);
+
 //      Email
         emailService = new EmailServiceImpl(mockEmailRepository, mockSiteRepository, mockUserService);
         expectedEmail = new Email(expectedAddress, "Test Email Expected");
         expectedEmail.setId(expectedId);
-
-//      Site
-        expectedSite = new Site(expectedAddress, expectedDomainName);
-        expectedSite.setId(expectedId);
+        expectedEmail.addSite(expectedSite);
 
 //      User
         expectedUser = new User();
@@ -136,10 +137,6 @@ public class EmailServiceImplTest {
 
     @Test
     void testRemoveSiteFromEmail() {
-        Site site = new Site("https//:test", "test");
-        site.setId(14L);
-        expectedEmail.addSite(expectedSite);
-        expectedEmail.addSite(site);
         when(mockEmailRepository.findById(expectedId)).thenReturn(Optional.of(expectedEmail));
         when(mockSiteRepository.findById(expectedId)).thenReturn(Optional.of(expectedSite));
         when(mockEmailRepository.save(expectedEmail)).thenReturn(expectedEmail);
