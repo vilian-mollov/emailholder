@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -31,16 +32,16 @@ public class EmailServiceImplTest {
     private static Site expectedSite;
 
     private static final Long expectedId = 12L;
-    private static final String expectedAddress = "Mock Street 21";
+    private static final String expectedAddress = "https:mock.site21";
+    private static final String expectedDomainName = "mock";
 
     @BeforeEach
     void setUp(){
         emailService = new EmailServiceImpl(mockEmailRepository, mockSiteRepository);
-        expectedEmail = new Email();
+        expectedEmail = new Email(expectedAddress, "Test Email Expected");
         expectedEmail.setId(expectedId);
-        expectedEmail.setAddress(expectedAddress);
 
-        expectedSite = new Site();
+        expectedSite = new Site(expectedAddress, expectedDomainName);
     }
 
 
