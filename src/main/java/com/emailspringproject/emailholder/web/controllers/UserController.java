@@ -97,7 +97,7 @@ public class UserController {
             return modelAndView;
         }
 
-        modelAndView.setViewName("update-profile");
+        modelAndView.setViewName("update_profile");
         return modelAndView;
     }
 
@@ -105,7 +105,7 @@ public class UserController {
     public ModelAndView updateUser(@ModelAttribute("userUpdateDTO") @Valid UserUpdateDTO userUpdateDTO, BindingResult bindingResult, ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("update-profile");
+            modelAndView.setViewName("update_profile");
             return modelAndView;
         }
 
@@ -114,7 +114,7 @@ public class UserController {
         if (errors != null && !errors.isEmpty()) {
             modelAndView.addObject("hasUpdateError", true);
             modelAndView.addObject("errors", errors);
-            modelAndView.setViewName("update-profile");
+            modelAndView.setViewName("update_profile");
             return modelAndView;
         }
 
