@@ -51,14 +51,14 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public Email createEmail(EmailImportDTO emailDTO) {
-        if (this.validationUtils.isValid(emailDTO)) {
-            User user = userService.getCurrentUser();
-            Email email = this.modelMapper.map(emailDTO, Email.class);
-            user.addEmail(email);
-            Email savedEmail = emailRepository.save(email);
-            return savedEmail;
+        if (!this.validationUtils.isValid(emailDTO)) {
+            return null;
         }
-        return null;
+        User user = userService.getCurrentUser();
+        Email email = modelMapper.map(emailDTO, Email.class);
+        user.addEmail(email);
+        Email savedEmail = emailRepository.save(email);
+        return savedEmail;
     }
 
     @Override

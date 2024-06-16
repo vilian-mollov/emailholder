@@ -3,7 +3,9 @@ package com.emailspringproject.emailholder.bootstrap;
 
 import com.emailspringproject.emailholder.domain.entities.*;
 import com.emailspringproject.emailholder.repositories.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -16,11 +18,16 @@ public class BootStrapData implements CommandLineRunner {
     private  final SiteRepository siteRepository;
 
     private final UserRepository userRepository;
+    private PasswordEncoder encoder;
 
-    public BootStrapData(EmailRepository emailRepository, SiteRepository siteRepository, UserRepository userRepository) {
+    @Value("${PASSWORD}")
+    private String pass;
+
+    public BootStrapData(EmailRepository emailRepository, SiteRepository siteRepository, UserRepository userRepository, PasswordEncoder encoder) {
         this.emailRepository = emailRepository;
         this.siteRepository = siteRepository;
         this.userRepository = userRepository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -56,7 +63,8 @@ public class BootStrapData implements CommandLineRunner {
 
 
         User user = new User();
-        user.setUsername("alocard");
+        user.setUsername("test");
+        user.setPassword(encoder.encode(pass));
         userRepository.save(user);
 
         Optional<User> firstByUsername = userRepository.findFirstByUsername(user.getUsername());

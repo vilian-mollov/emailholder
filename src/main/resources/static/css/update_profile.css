@@ -1,0 +1,6 @@
+.update_btn:hover {
+    background-color: #51f2ac;
+    border-color: #51f2ac;
+    cursor: pointer;
+    color: white;
+}

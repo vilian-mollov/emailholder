@@ -1,5 +1,6 @@
 package com.emailspringproject.emailholder.services.impl;
 
+import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.domain.entities.User;
@@ -43,14 +44,22 @@ public class EmailServiceImplTest {
     private static Email expectedEmail;
     private static Site expectedSite;
     private static User expectedUser;
+    private static EmailImportDTO emailImportDTO;
 
     private static final Long expectedId = 12L;
     private static final String expectedAddress = "https:mock.site21";
+    private static final String expectedEmailAddress = "mock@mocking.com";
     private static final String expectedDomainName = "mock";
     private static final String expectedUserName = "Tester";
+    private static final String expectedDescription = "Using this mock";
 
     @BeforeEach
     void setUp() {
+//      EmailDTO
+        emailImportDTO = new EmailImportDTO();
+        emailImportDTO.setEmailAddress(expectedEmailAddress);
+        emailImportDTO.setDescription(expectedDescription);
+
 //      Site
         expectedSite = new Site(expectedAddress, expectedDomainName);
         expectedSite.setId(expectedId);
@@ -87,13 +96,24 @@ public class EmailServiceImplTest {
     }
 
     @Test
-    void testCreateEmail() {
+    void testCreateEmailInvalidDTO() {
+        when(mockValidationUtils.isValid(emailImportDTO)).thenReturn(false);
 
-//        when(mockEmailRepository.save(expectedEmail)).thenReturn(expectedEmail);
-//
-//        Email actualEmail = emailService.createEmail(expectedEmail);
-//
-//        Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
+        Email actualEmail = emailService.createEmail(emailImportDTO);
+
+        Assertions.assertNull(actualEmail);
+    }
+
+    @Test
+    void testCreateEmail() {
+        when(mockValidationUtils.isValid(emailImportDTO)).thenReturn(true);
+        when(mockEmailRepository.save(expectedEmail)).thenReturn(expectedEmail);
+        when(mockUserService.getCurrentUser()).thenReturn(expectedUser);
+        when(mockModelMapper.map(emailImportDTO, Email.class)).thenReturn(expectedEmail);
+
+        Email actualEmail = emailService.createEmail(emailImportDTO);
+
+        Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
     }
 
     @Test
@@ -177,7 +197,7 @@ public class EmailServiceImplTest {
         List<Email> actualEmailsOfUser = emailService.getAllEmailsByUser();
         List<Email> expectedEmailsOfUser = List.of(expectedEmail);
 
-        Assertions.assertEquals(expectedEmailsOfUser.get(0),actualEmailsOfUser.get(0));
+        Assertions.assertEquals(expectedEmailsOfUser.get(0), actualEmailsOfUser.get(0));
     }
 
 

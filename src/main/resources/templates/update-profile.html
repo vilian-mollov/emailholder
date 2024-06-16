@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login</title>
-    <link th:href="@{/css/reset.css}" rel="stylesheet"/>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/css/common.css}" rel="stylesheet"/>
-    <link th:href="@{/css/update.css}" rel="stylesheet"/>
+    <link th:href = "@{/css/reset.css}"         rel="stylesheet"/>
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href = "@{/css/common.css}"        rel="stylesheet"/>
+    <link th:href = "@{/css/forms_commons.css}" rel="stylesheet" />
+    <link th:href = "@{/css/update_profile.css}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -18,12 +19,12 @@
 <main>
     <div class="wrapper">
 
-        <div class="header_log">
-            <h1 id="log_h1">Update User</h1>
+        <div class="header_fpage">
+            <h1 id="fpage_h1">Update User</h1>
         </div>
 
-        <div id="update-form-div">
-            <form id="update-form" th:action="@{/users/update}" th:method="POST" th:object="${userUpdateDTO}">
+        <div id="fpage-form-div">
+            <form id="fpage-form" th:action="@{/users/update}" th:method="POST" th:object="${userUpdateDTO}">
 
                 <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
 
@@ -61,7 +62,7 @@
                 </div>
 
                 <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3 sign_btns update_btn">Update</button>
+                    <button type="submit" class="btn btn-warning  mb-3 sign_btns form_submit_btn update_btn">Update</button>
                 </div>
 
             </form>

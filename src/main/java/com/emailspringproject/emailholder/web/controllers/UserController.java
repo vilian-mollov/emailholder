@@ -2,6 +2,7 @@ package com.emailspringproject.emailholder.web.controllers;
 
 import com.emailspringproject.emailholder.domain.dtos.*;
 import com.emailspringproject.emailholder.services.UserService;
+import com.emailspringproject.emailholder.utilities.CurrentUser;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,12 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
+    private CurrentUser currentUser;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CurrentUser currentUser) {
         this.userService = userService;
+        this.currentUser = currentUser;
     }
 
     @GetMapping("/login")
@@ -88,6 +91,12 @@ public class UserController {
 
     @GetMapping("/update")
     public ModelAndView getUpdateUser(@ModelAttribute("userUpdateDTO") UserUpdateDTO userUpdateDTO, ModelAndView modelAndView) {
+
+        if (!currentUser.isLogged()) {
+            modelAndView.setViewName("redirect:/home");
+            return modelAndView;
+        }
+
         modelAndView.setViewName("update-profile");
         return modelAndView;
     }
