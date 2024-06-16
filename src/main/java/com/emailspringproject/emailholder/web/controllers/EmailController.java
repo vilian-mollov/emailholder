@@ -22,7 +22,7 @@ public class EmailController {
     private final EmailService emailService;
 
     @Autowired
-    public EmailController(EmailService emailService){
+    public EmailController(EmailService emailService) {
         this.emailService = emailService;
     }
 
@@ -40,18 +40,18 @@ public class EmailController {
 
     @PostMapping("/{siteId}")
     public Email createEmail(@PathVariable Long siteId, @RequestBody Email email) {
-        return emailService.createEmail(siteId,email);
+        return emailService.createEmail(siteId, email);
     }
 
     @GetMapping("/create")
-    public ModelAndView getCreateEmail(@ModelAttribute("emailDTO") EmailImportDTO emailDTO, ModelAndView modelAndView){
+    public ModelAndView getCreateEmail(@ModelAttribute("emailDTO") EmailImportDTO emailDTO, ModelAndView modelAndView) {
         modelAndView.setViewName("createEmail");
         return modelAndView;
     }
 
     @PostMapping("/create")
     public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailImportDTO emailDTO, //@RequestBody EmailImportDTO emailDTO,
-                             BindingResult bindingResult, ModelAndView modelAndView){
+                                    BindingResult bindingResult, ModelAndView modelAndView) {
 
         Email email = emailService.createEmail(emailDTO);
 
@@ -61,12 +61,12 @@ public class EmailController {
 
     @PutMapping("/{emailId}/sites/{siteId}")
     public ResponseEntity<Email> addSiteToEmail(@PathVariable Long emailId, @PathVariable Long siteId) {
-        return emailService.addSiteToEmail(emailId,siteId);
+        return emailService.addSiteToEmail(emailId, siteId);
     }
 
     @DeleteMapping("/{emailId}/sites/{siteId}")
     public ResponseEntity<Email> removeSiteFromEmail(@PathVariable Long emailId, @PathVariable Long siteId) {
-        return emailService.removeSiteFromEmail(emailId,siteId);
+        return emailService.removeSiteFromEmail(emailId, siteId);
     }
 
     @DeleteMapping("/{id}")

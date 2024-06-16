@@ -1,11 +1,13 @@
 package com.emailspringproject.emailholder.domain.dtos;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class EmailImportDTO {
 
     @NotNull
+    @NotBlank
     @Email
     private String emailAddress;
 
