@@ -3,6 +3,7 @@ package com.emailspringproject.emailholder.web.controllers;
 
 import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
+import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.services.EmailService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,13 @@ public class EmailController {
 
         modelAndView.setViewName("createEmail");
         return modelAndView;
+    }
+
+    @GetMapping("/sites/{emailId}")
+    public String updateSitesToEmailPage(@PathVariable Long emailId, Model model) {
+        List<Site> sites = emailService.getAllSitesForEmail();
+        model.addAttribute("sites", sites);
+        return "emails";
     }
 
     @PutMapping("/{emailId}/sites/{siteId}")

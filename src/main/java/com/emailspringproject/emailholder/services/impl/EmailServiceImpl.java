@@ -45,6 +45,11 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    public List<Site> getAllSitesForEmail() {
+        return null;
+    }
+
+    @Override
     public Email getEmailById(Long id) {
         return emailRepository.findById(id).orElse(null);
     }
