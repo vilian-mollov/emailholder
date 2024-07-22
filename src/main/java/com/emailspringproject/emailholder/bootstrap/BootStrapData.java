@@ -51,7 +51,7 @@ public class BootStrapData implements CommandLineRunner {
         email.addSite(facebook);
         email.addSite(instagram);
         email.addSite(linkedIn);
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 3; i++) {
             Site test100 = new Site("https://www.test"+i+".com/", "test" + i, user);
             siteRepository.save(test100);
             email.addSite(test100);

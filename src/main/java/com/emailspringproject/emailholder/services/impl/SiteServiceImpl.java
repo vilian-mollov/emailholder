@@ -82,6 +82,11 @@ public class SiteServiceImpl implements SiteService {
         if(problems.isEmpty()) {
             Site site = modelMapper.map(siteDTO, Site.class);
             site.setUser(userRepository.findFirstByUsername(currentUser.getUsername()).get());
+
+            if(site.getAddress().startsWith("https")){
+                site.setSafety(true);
+            }
+
             siteRepository.save(site);
         }
 
