@@ -1,10 +1,13 @@
 package com.emailspringproject.emailholder.web.controllers;
 
+import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteImportDTO;
 import com.emailspringproject.emailholder.services.SiteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,8 +36,21 @@ public class SiteController {
 
 
     @GetMapping("/create")
-    public ModelAndView getCreateSitePage(ModelAndView modelAndView) {
+    public ModelAndView getCreateSitePage(@ModelAttribute("siteDTO") SiteImportDTO siteDTO, ModelAndView modelAndView) {
         modelAndView.setViewName("createSite");
+        return modelAndView;
+    }
+
+    @PostMapping("create")
+    public ModelAndView createSite(@ModelAttribute("siteDTO") @Valid SiteImportDTO siteDTO, BindingResult bindingResult, ModelAndView modelAndView) {
+        modelAndView.setViewName("redirect:/sites/create");
+
+        List<String> problems = siteService.createSite(siteDTO);
+
+        if(!problems.isEmpty()){
+            modelAndView.addObject("problems", problems);
+        }
+
         return modelAndView;
     }
 
@@ -43,19 +59,6 @@ public class SiteController {
         modelAndView.setViewName("sites");
         List<SiteExportDTO> sites = siteService.getSitesByEmail(email_id);
         modelAndView.addObject("sites", sites);
-        return modelAndView;
-    }
-
-    @PostMapping
-    public ModelAndView createSite(ModelAndView modelAndView, SiteImportDTO siteImportDTO) {
-        modelAndView.setViewName("sites");
-
-        List<String> problems = siteService.createSite(siteImportDTO);
-
-        if(!problems.isEmpty()){
-            modelAndView.addObject("problems", problems);
-        }
-
         return modelAndView;
     }
 

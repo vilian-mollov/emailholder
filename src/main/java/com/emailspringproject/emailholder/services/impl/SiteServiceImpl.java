@@ -38,25 +38,16 @@ public class SiteServiceImpl implements SiteService {
     @Override
     public List<SiteExportDTO> getAllSitesForUser(String username) {
 
-        Optional<User> user = userRepository.findFirstByUsername(username);
+        Optional<User> optUser = userRepository.findFirstByUsername(username);
+        User user = optUser.get();
+
+        List<Site> sites = siteRepository.findAllByUser(user);
 
         List<SiteExportDTO> sitesDTOs = new ArrayList<>();
 
-        for (Email email : user.get().getEmails()) {
-            for (Site site : email.getSites()) {
-                SiteExportDTO siteDTO = modelMapper.map(site, SiteExportDTO.class);
-                boolean isPresent = false;
-                for (SiteExportDTO dto : sitesDTOs) {
-                    if (dto.getDomainName().equals(siteDTO.getDomainName())) {
-                        isPresent = true;
-                    }
-                }
-
-                if(isPresent) {
-                    continue;
-                }
-                sitesDTOs.add(siteDTO);
-            }
+        for (Site site : sites) {
+            SiteExportDTO siteDTO = modelMapper.map(site, SiteExportDTO.class);
+            sitesDTOs.add(siteDTO);
         }
 
         return sitesDTOs;
@@ -90,6 +81,7 @@ public class SiteServiceImpl implements SiteService {
 
         if(problems.isEmpty()) {
             Site site = modelMapper.map(siteDTO, Site.class);
+            site.setUser(userRepository.findFirstByUsername(currentUser.getUsername()).get());
             siteRepository.save(site);
         }
 

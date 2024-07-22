@@ -33,13 +33,18 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Site facebook = new Site("https://www.facebook.com/", "Facebook");
+        User user = new User();
+        user.setUsername("test");
+        user.setPassword(encoder.encode(pass));
+        userRepository.save(user);
+
+        Site facebook = new Site("https://www.facebook.com/", "Facebook", user);
         siteRepository.save(facebook);
 
-        Site instagram = new Site("https://www.instagram.com/", "Instagram");
+        Site instagram = new Site("https://www.instagram.com/", "Instagram", user);
         siteRepository.save(instagram);
 
-        Site linkedIn = new Site("https://www.linkedin.com/", "LinkedIn");
+        Site linkedIn = new Site("https://www.linkedin.com/", "LinkedIn", user);
         siteRepository.save(linkedIn);
 
         Email email = new Email("immortals@gmail.com", "email description .....................");
@@ -47,7 +52,7 @@ public class BootStrapData implements CommandLineRunner {
         email.addSite(instagram);
         email.addSite(linkedIn);
         for (int i = 1; i <= 100; i++) {
-            Site test100 = new Site("https://www.test"+i+".com/", "test" + i);
+            Site test100 = new Site("https://www.test"+i+".com/", "test" + i, user);
             siteRepository.save(test100);
             email.addSite(test100);
         }
@@ -62,10 +67,7 @@ public class BootStrapData implements CommandLineRunner {
         emailRepository.save(email3);
 
 
-        User user = new User();
-        user.setUsername("test");
-        user.setPassword(encoder.encode(pass));
-        userRepository.save(user);
+
 
         Optional<User> firstByUsername = userRepository.findFirstByUsername(user.getUsername());
 
