@@ -31,6 +31,13 @@ public class SiteController {
         return modelAndView;
     }
 
+
+    @GetMapping("/create")
+    public ModelAndView getCreateSitePage(ModelAndView modelAndView) {
+        modelAndView.setViewName("createSite");
+        return modelAndView;
+    }
+
     @GetMapping("/email")
     public ModelAndView getSiteByEmail(ModelAndView modelAndView, @RequestParam Long email_id) {
         modelAndView.setViewName("sites");
