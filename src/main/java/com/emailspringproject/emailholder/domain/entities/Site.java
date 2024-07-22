@@ -22,13 +22,17 @@ public class Site extends BaseEntity{
     @ManyToMany(mappedBy = "sites", targetEntity = Email.class)
     private Set<Email> emails = new HashSet<>();
 
+    @ManyToOne
+    private User user;
+
     public Site() {
     }
 
-    public Site(String address, String domainName) {
+    public Site(String address, String domainName, User user) {
         this.domainName = domainName;
         this.address = address;
         this.emails = new HashSet<>();
+        this.user = user;
     }
 
     public String getDomainName() {
@@ -61,6 +65,14 @@ public class Site extends BaseEntity{
 
     public void setEmails(Set<Email> emails) {
         this.emails = emails;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

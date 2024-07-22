@@ -55,13 +55,19 @@ public class EmailServiceImplTest {
 
     @BeforeEach
     void setUp() {
+//      User
+        expectedUser = new User();
+        expectedUser.setUsername(expectedUserName);
+        expectedUser.setId(expectedId);
+        expectedUser.addEmail(expectedEmail);
+
 //      EmailDTO
         emailImportDTO = new EmailImportDTO();
         emailImportDTO.setEmailAddress(expectedEmailAddress);
         emailImportDTO.setDescription(expectedDescription);
 
 //      Site
-        expectedSite = new Site(expectedAddress, expectedDomainName);
+        expectedSite = new Site(expectedAddress, expectedDomainName, expectedUser);
         expectedSite.setId(expectedId);
 
 //      Email
@@ -69,12 +75,6 @@ public class EmailServiceImplTest {
         expectedEmail = new Email(expectedAddress, "Test Email Expected");
         expectedEmail.setId(expectedId);
         expectedEmail.addSite(expectedSite);
-
-//      User
-        expectedUser = new User();
-        expectedUser.setUsername(expectedUserName);
-        expectedUser.setId(expectedId);
-        expectedUser.addEmail(expectedEmail);
     }
 
 
