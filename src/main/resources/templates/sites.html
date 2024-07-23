@@ -42,7 +42,10 @@
                     <td th:text="${site.getAddress()}"></td>
                     <td>
                         <div th:if="${site.getSafety()}" th:class="checkMarkDiv">
-                            <img th:src="@{../images/circle-check-solid.svg}" alt="svg img" th:class="checkMark">
+                            <img th:src="@{../images/circle-check-solid.svg}" alt="check mark svg" th:class="safetyMark">
+                        </div>
+                        <div th:unless="${site.getSafety()}" th:class="checkMarkDiv">
+                            <img th:src="@{../images/triangle-exclamation-solid.svg}" alt="exclamation mark svg" th:class="safetyMark">
                         </div>
                     </td>
                 </tr>

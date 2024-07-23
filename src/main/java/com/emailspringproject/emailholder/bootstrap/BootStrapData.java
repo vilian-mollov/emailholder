@@ -42,6 +42,10 @@ public class BootStrapData implements CommandLineRunner {
         facebook.setSafety(true);
         siteRepository.save(facebook);
 
+        Site notSafetySite = new Site("http://www.strangethings.com/", "StrangeThings", user);
+        notSafetySite.setSafety(false);
+        siteRepository.save(notSafetySite);
+
         Site instagram = new Site("https://www.instagram.com/", "Instagram", user);
         instagram.setSafety(true);
         siteRepository.save(instagram);
