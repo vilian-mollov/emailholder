@@ -39,12 +39,15 @@ public class BootStrapData implements CommandLineRunner {
         userRepository.save(user);
 
         Site facebook = new Site("https://www.facebook.com/", "Facebook", user);
+        facebook.setSafety(true);
         siteRepository.save(facebook);
 
         Site instagram = new Site("https://www.instagram.com/", "Instagram", user);
+        instagram.setSafety(true);
         siteRepository.save(instagram);
 
         Site linkedIn = new Site("https://www.linkedin.com/", "LinkedIn", user);
+        linkedIn.setSafety(true);
         siteRepository.save(linkedIn);
 
         Email email = new Email("immortals@gmail.com", "email description .....................");
@@ -52,9 +55,10 @@ public class BootStrapData implements CommandLineRunner {
         email.addSite(instagram);
         email.addSite(linkedIn);
         for (int i = 1; i <= 3; i++) {
-            Site test100 = new Site("https://www.test"+i+".com/", "test" + i, user);
-            siteRepository.save(test100);
-            email.addSite(test100);
+            Site testSite = new Site("https://www.test"+i+".com/", "test" + i, user);
+            testSite.setSafety(true);
+            siteRepository.save(testSite);
+            email.addSite(testSite);
         }
         emailRepository.save(email);
 

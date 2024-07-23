@@ -26,7 +26,7 @@ main {
 #collection th,tr,td {
 
     padding: 15px;
-    text-align: center;
+    text-align: center!important;
 }
 
 #collection th {
@@ -37,4 +37,14 @@ main {
 
 #collection tbody {
     background-color: white;
+}
+.checkMarkDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkMark {
+    width: 42px;
+    text-align: center;
 }
