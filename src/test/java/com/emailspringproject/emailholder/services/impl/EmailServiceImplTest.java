@@ -68,7 +68,7 @@ public class EmailServiceImplTest {
         emailImportDTO.setDescription(expectedDescription);
 
 //      Site
-        expectedSite = new Site(expectedAddress, expectedDomainName, expectedUser, new ArrayList<>());
+        expectedSite = new Site(expectedAddress, expectedDomainName, expectedUser, new ArrayList<>(), new ArrayList<>());
         expectedSite.setId(expectedId);
 
 //      Email

@@ -31,15 +31,20 @@ public class Site extends BaseEntity{
     @JoinTable(name = "sites_commets")
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "sites_rates")
+    private List<Rate> rates = new ArrayList<>();
+
     public Site() {
     }
 
-    public Site(String address, String domainName, User user, List<Comment> comments) {
+    public Site(String address, String domainName, User user, List<Comment> comments, List<Rate> rates) {
         this.domainName = domainName;
         this.address = address;
         this.emails = new HashSet<>();
         this.user = user;
         this.comments = comments;
+        this.rates = rates;
     }
 
     public String getDomainName() {
