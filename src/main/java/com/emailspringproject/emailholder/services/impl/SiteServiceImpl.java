@@ -36,6 +36,20 @@ public class SiteServiceImpl implements SiteService {
 
 
     @Override
+    public List<SiteExportDTO> getAllSites() {
+        List<Site> sites = siteRepository.findAll();
+
+        List<SiteExportDTO> sitesDTOs = new ArrayList<>();
+
+        for (Site site : sites) {
+            SiteExportDTO siteDTO = modelMapper.map(site, SiteExportDTO.class);
+            sitesDTOs.add(siteDTO);
+        }
+
+        return sitesDTOs;
+    }
+
+    @Override
     public List<SiteExportDTO> getAllSitesForUser(String username) {
 
         Optional<User> optUser = userRepository.findFirstByUsername(username);

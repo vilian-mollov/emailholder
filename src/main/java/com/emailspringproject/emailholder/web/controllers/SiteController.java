@@ -27,7 +27,14 @@ public class SiteController {
         this.siteService = siteService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
+    public ModelAndView getAllSites(ModelAndView modelAndView) {
+        modelAndView.setViewName("sitesAll");
+        modelAndView.addObject("sites", siteService.getAllSites());
+        return modelAndView;
+    }
+
+    @GetMapping("/user")
     public ModelAndView getAllSitesForUser(ModelAndView modelAndView, @RequestParam String username) {
         modelAndView.setViewName("sites");
         modelAndView.addObject("sites", siteService.getAllSitesForUser(username));

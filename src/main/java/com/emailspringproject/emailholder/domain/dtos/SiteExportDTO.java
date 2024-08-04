@@ -8,6 +8,8 @@ public class SiteExportDTO {
 
     private Boolean safety;
 
+    private Integer rate;
+
 
     public String getDomainName() {
         return domainName;
@@ -32,5 +34,14 @@ public class SiteExportDTO {
     public void setSafety(Boolean safety) {
         this.safety = safety;
     }
+
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
+
 
 }

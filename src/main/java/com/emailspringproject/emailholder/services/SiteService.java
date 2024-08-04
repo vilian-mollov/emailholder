@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface SiteService {
 
+    List<SiteExportDTO> getAllSites();
     List<SiteExportDTO> getAllSitesForUser(String user);
     List<SiteExportDTO> getSitesByEmail(Long email_id);
     List<String> createSite(SiteImportDTO site);

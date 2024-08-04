@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "site")
-public class Site extends BaseEntity{
+public class Site extends BaseEntity {
 
     @Column(name = "site_domain", nullable = false)
     private String domainName;
@@ -35,6 +35,8 @@ public class Site extends BaseEntity{
     @JoinTable(name = "sites_rates")
     private List<Rate> rates = new ArrayList<>();
 
+    private Integer rate = 0;
+
     public Site() {
     }
 
@@ -45,6 +47,7 @@ public class Site extends BaseEntity{
         this.user = user;
         this.comments = comments;
         this.rates = rates;
+        this.rate = getSiteRate();
     }
 
     public String getDomainName() {
@@ -95,6 +98,44 @@ public class Site extends BaseEntity{
         Site site = (Site) o;
 
         return Objects.equals(this.getId(), site.getId());
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Rate> getRates() {
+        return rates;
+    }
+
+    public void setRates(List<Rate> rates) {
+        this.rates = rates;
+    }
+
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
+
+    public Integer getSiteRate() {
+
+        Integer averageRate = 0;
+
+        for (Rate rate : this.rates) {
+            averageRate += rate.getRate();
+        }
+
+        if (this.rates.size() > 0) {
+            averageRate = averageRate / this.rates.size();
+        }
+        return averageRate;
     }
 
     @Override
