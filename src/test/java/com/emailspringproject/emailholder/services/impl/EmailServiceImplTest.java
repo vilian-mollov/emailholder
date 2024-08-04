@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +68,7 @@ public class EmailServiceImplTest {
         emailImportDTO.setDescription(expectedDescription);
 
 //      Site
-        expectedSite = new Site(expectedAddress, expectedDomainName, expectedUser);
+        expectedSite = new Site(expectedAddress, expectedDomainName, expectedUser, new ArrayList<>());
         expectedSite.setId(expectedId);
 
 //      Email

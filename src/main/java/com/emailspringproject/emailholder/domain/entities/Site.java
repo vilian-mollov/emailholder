@@ -2,7 +2,9 @@ package com.emailspringproject.emailholder.domain.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,14 +27,19 @@ public class Site extends BaseEntity{
     @ManyToOne
     private User user;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "sites_commets")
+    private List<Comment> comments = new ArrayList<>();
+
     public Site() {
     }
 
-    public Site(String address, String domainName, User user) {
+    public Site(String address, String domainName, User user, List<Comment> comments) {
         this.domainName = domainName;
         this.address = address;
         this.emails = new HashSet<>();
         this.user = user;
+        this.comments = comments;
     }
 
     public String getDomainName() {

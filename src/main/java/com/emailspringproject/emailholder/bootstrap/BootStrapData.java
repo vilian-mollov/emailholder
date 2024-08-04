@@ -38,19 +38,19 @@ public class BootStrapData implements CommandLineRunner {
         user.setPassword(encoder.encode(pass));
         userRepository.save(user);
 
-        Site facebook = new Site("https://www.facebook.com/", "Facebook", user);
+        Site facebook = new Site("https://www.facebook.com/", "Facebook", user, new ArrayList<>());
         facebook.setSafety(true);
         siteRepository.save(facebook);
 
-        Site notSafetySite = new Site("http://www.strangethings.com/", "StrangeThings", user);
+        Site notSafetySite = new Site("http://www.strangethings.com/", "StrangeThings", user, new ArrayList<>());
         notSafetySite.setSafety(false);
         siteRepository.save(notSafetySite);
 
-        Site instagram = new Site("https://www.instagram.com/", "Instagram", user);
+        Site instagram = new Site("https://www.instagram.com/", "Instagram", user, new ArrayList<>());
         instagram.setSafety(true);
         siteRepository.save(instagram);
 
-        Site linkedIn = new Site("https://www.linkedin.com/", "LinkedIn", user);
+        Site linkedIn = new Site("https://www.linkedin.com/", "LinkedIn", user, new ArrayList<>());
         linkedIn.setSafety(true);
         siteRepository.save(linkedIn);
 
@@ -59,7 +59,7 @@ public class BootStrapData implements CommandLineRunner {
         email.addSite(instagram);
         email.addSite(linkedIn);
         for (int i = 1; i <= 3; i++) {
-            Site testSite = new Site("https://www.test"+i+".com/", "test" + i, user);
+            Site testSite = new Site("https://www.test"+i+".com/", "test" + i, user, new ArrayList<>());
             testSite.setSafety(true);
             siteRepository.save(testSite);
             email.addSite(testSite);
