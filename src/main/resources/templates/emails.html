@@ -46,7 +46,7 @@
       <td th:text="${email.getDescription()}"></td>
       <td>
 
-        <a th:href="@{/sites}"><button class="goToSites"><img id="arrow" th:src="@{../images/arrow.png}" alt="arrow" /></button></a>
+        <a th:href="@{/sites/email/{email_id}(email_id=*{email.getId()})}"><button class="goToSites"><img id="arrow" th:src="@{../images/arrow.png}" alt="arrow" /></button></a>
 
       </td>
 

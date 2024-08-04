@@ -54,8 +54,8 @@ public class SiteController {
         return modelAndView;
     }
 
-    @GetMapping("/email")
-    public ModelAndView getSiteByEmail(ModelAndView modelAndView, @RequestParam Long email_id) {
+    @GetMapping("/email/{email_id}")
+    public ModelAndView getSiteByEmail(ModelAndView modelAndView, @PathVariable Long email_id) {
         modelAndView.setViewName("sites");
         List<SiteExportDTO> sites = siteService.getSitesByEmail(email_id);
         modelAndView.addObject("sites", sites);
