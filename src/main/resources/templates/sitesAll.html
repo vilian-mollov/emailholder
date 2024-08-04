@@ -32,6 +32,7 @@
           <th>Site Domain</th>
           <th>Address</th>
           <th>Rate</th>
+          <th>Comments</th>
           <th>Safety</th>
         </tr>
         </thead>
@@ -41,11 +42,16 @@
           <td th:text="${site.getAddress()}"></td>
           <td th:text="${site.getRate()}"></td>
           <td>
-            <div th:if="${site.getSafety()}" th:class="checkMarkDiv">
-              <img th:src="@{../images/circle-check-solid.svg}" alt="check mark svg" th:class="safetyMark">
+            <div th:class="iconsDiv">
+             <a th:href=""><button th:class="comment-button"><img th:src="@{../images/comment.svg}" alt="comment svg" th:class="iconTable"></button></a>
             </div>
-            <div th:unless="${site.getSafety()}" th:class="checkMarkDiv">
-              <img th:src="@{../images/triangle-exclamation-solid.svg}" alt="exclamation mark svg" th:class="safetyMark">
+          </td>
+          <td>
+            <div th:if="${site.getSafety()}" th:class="iconsDiv">
+              <img th:src="@{../images/circle-check-solid.svg}" alt="check mark svg" th:class="iconTable">
+            </div>
+            <div th:unless="${site.getSafety()}" th:class="iconsDiv">
+              <img th:src="@{../images/triangle-exclamation-solid.svg}" alt="exclamation mark svg" th:class="iconTable">
             </div>
           </td>
         </tr>

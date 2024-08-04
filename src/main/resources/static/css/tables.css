@@ -38,13 +38,23 @@ main {
 #collection tbody {
     background-color: white;
 }
-.checkMarkDiv {
+
+.iconsDiv {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.safetyMark {
+.iconTable {
     width: 42px;
     text-align: center;
+}
+
+.comment-button {
+    border: none;
+    background-color: transparent;
+}
+
+.comment-button:hover {
+    cursor: pointer;
 }
