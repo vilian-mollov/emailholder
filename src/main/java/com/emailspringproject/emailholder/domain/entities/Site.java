@@ -114,6 +114,7 @@ public class Site extends BaseEntity {
 
     public void setRates(List<Rate> rates) {
         this.rates = rates;
+        this.rate = getSiteRate();
     }
 
     public Integer getRate() {
