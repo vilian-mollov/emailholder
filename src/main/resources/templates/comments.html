@@ -7,7 +7,7 @@
   <title>Sites</title>
   <link th:href="@{/css/reset.css}" rel="stylesheet"/>
   <link th:href="@{/css/common.css}" rel="stylesheet"/>
-<!--  <link th:href="@{/css/tables.css}" rel="stylesheet"/>-->
+  <link th:href="@{/css/tables.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -15,7 +15,22 @@
 
 <main>
 
-
+  <div id="main_div">
+    <div id="table_border">
+      <table id="collection">
+        <thead>
+        <tr>
+          <th>Comments</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment : ${comments}">
+          <td th:text="${comment.getComment()}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 </main>
 

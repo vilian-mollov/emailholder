@@ -27,7 +27,7 @@ public class Site extends BaseEntity {
     @ManyToOne
     private User user;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "sites_commets")
     private List<Comment> comments = new ArrayList<>();
 

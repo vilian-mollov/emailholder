@@ -43,7 +43,7 @@
           <td th:text="${site.getRate()}"></td>
           <td>
             <div th:class="iconsDiv">
-             <a th:href=""><button th:class="comment-button"><img th:src="@{../images/comment.svg}" alt="comment svg" th:class="iconTable"></button></a>
+             <a th:href="@{/comments/site/{site_id}(site_id=*{site.getId()})}"><button th:class="comment-button"><img th:src="@{../images/comment.svg}" alt="comment svg" th:class="iconTable"></button></a>
             </div>
           </td>
           <td>
