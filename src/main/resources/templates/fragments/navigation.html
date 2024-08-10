@@ -10,12 +10,12 @@
 
 <header>
 
-    <button id="theme_btn"><img th:src="@{../images/toggle-off-solid.png}" alt="button"/></button>
+    <button id="theme_btn"><img th:src="@{/images/toggle-off-solid.png}" alt="button"/></button>
 
 
     <nav id="home-nav">
         <div>
-            <button id="menu"><img th:src="@{../images/bars-solid.png}" alt="menu"/></button>
+            <button id="menu"><img th:src="@{/images/bars-solid.png}" alt="menu"/></button>
             <ul id="menu_list" class="disappear" role="list"
                 th:classappend="${@currentUser.isLogged() ? 'menu_list_logged' : 'menu_list_logout'}">
                 <li><a th:href="@{/home}">Home</a></li>

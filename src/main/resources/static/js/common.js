@@ -7,6 +7,7 @@ let buttonIsOn = false;
 function addHandlers() {
     themeBtn.addEventListener("click", changeTheme);
     menu.addEventListener("click", toggleMenu);
+    menu.addEventListener("focusout", toggleMenu);
 }
 
 
@@ -15,13 +16,13 @@ function changeTheme() {
     let icon = document.createElement('img');
 
     if (buttonIsOn) {
-        icon.src = "../images/toggle-off-solid.png";
+        icon.src = "/images/toggle-off-solid.png";
         icon.alt = "toggle off";
 
         buttonIsOn = false;
 
     } else {
-        icon.src = "../images/toggle-on-solid.png";
+        icon.src = "/images/toggle-on-solid.png";
         icon.alt = "toggle on";
 
         buttonIsOn = true;
