@@ -8,3 +8,10 @@
 #fpage-form-div {
     height: 350px;
 }
+
+#add_button:disabled {
+    background-color: #eae9e9;
+    border-color: #000000;
+    color: #000000;
+    cursor: not-allowed;
+}

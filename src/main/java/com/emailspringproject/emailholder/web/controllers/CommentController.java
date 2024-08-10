@@ -34,8 +34,7 @@ public class CommentController {
 
 
     @PostMapping("/site/{site_id}")
-    public ModelAndView addCommentForSite(@ModelAttribute("commentDTO") @Valid CommentDTO commentDTO,
-                                          BindingResult bindingResult, ModelAndView modelAndView, @PathVariable Long site_id) {
+    public ModelAndView addCommentForSite(@ModelAttribute("commentDTO") @Valid CommentDTO commentDTO, ModelAndView modelAndView, @PathVariable Long site_id) {
         modelAndView.setViewName("redirect:/comments/site/" + site_id);
         commentsService.addCommentForSite(commentDTO, site_id);
 

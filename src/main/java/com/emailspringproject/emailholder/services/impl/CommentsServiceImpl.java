@@ -6,6 +6,7 @@ import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.repositories.CommentRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.services.CommentsService;
+import com.emailspringproject.emailholder.utilities.ValidationUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,14 @@ public class CommentsServiceImpl implements CommentsService {
     private final SiteRepository siteRepository;
     private final CommentRepository commentRepository;
     private final ModelMapper modelMapper;
+    private ValidationUtils validationUtils;
 
     @Autowired
-    public CommentsServiceImpl(SiteRepository siteRepository, CommentRepository commentRepository, ModelMapper modelMapper) {
+    public CommentsServiceImpl(SiteRepository siteRepository, CommentRepository commentRepository, ModelMapper modelMapper, ValidationUtils validationUtils) {
         this.siteRepository = siteRepository;
         this.commentRepository = commentRepository;
         this.modelMapper = modelMapper;
+        this.validationUtils = validationUtils;
     }
 
     @Override
@@ -45,6 +48,10 @@ public class CommentsServiceImpl implements CommentsService {
 
     @Override
     public CommentDTO addCommentForSite(CommentDTO commentDTO, Long siteId) {
+
+        if (!this.validationUtils.isValid(commentDTO)) {
+            return null;
+        }
 
         Optional<Site> siteOpt = siteRepository.findById(siteId);
         Site site = siteOpt.get();
