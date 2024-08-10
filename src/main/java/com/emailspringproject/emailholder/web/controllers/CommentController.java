@@ -34,11 +34,11 @@ public class CommentController {
     }
 
 
-    @PostMapping("/site")
+    @PostMapping("/site/{site_id}")
     public ModelAndView addCommentForSite(@ModelAttribute("commentDTO") @Valid CommentDTO commentDTO,
-                                              BindingResult bindingResult, ModelAndView modelAndView){
-        modelAndView.setViewName("comments");
-        commentsService.addCommentForSite(commentDTO); //todo nz dali da e dr void ili ddz
+                                              BindingResult bindingResult, ModelAndView modelAndView, @PathVariable Long site_id){
+        modelAndView.setViewName("redirect:/comments/site/" + site_id);
+        commentsService.addCommentForSite(commentDTO,site_id);
 
         return modelAndView;
     }

@@ -1,9 +1,9 @@
 package com.emailspringproject.emailholder.services.impl;
 
 import com.emailspringproject.emailholder.domain.dtos.CommentDTO;
-import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.entities.Comment;
 import com.emailspringproject.emailholder.domain.entities.Site;
+import com.emailspringproject.emailholder.repositories.CommentRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.services.CommentsService;
 import org.modelmapper.ModelMapper;
@@ -18,11 +18,13 @@ import java.util.Optional;
 public class CommentsServiceImpl implements CommentsService {
 
     private final SiteRepository siteRepository;
+    private final CommentRepository commentRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CommentsServiceImpl(SiteRepository siteRepository, ModelMapper modelMapper) {
+    public CommentsServiceImpl(SiteRepository siteRepository, CommentRepository commentRepository, ModelMapper modelMapper) {
         this.siteRepository = siteRepository;
+        this.commentRepository = commentRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -42,7 +44,18 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     @Override
-    public CommentDTO  addCommentForSite(CommentDTO commentDTO) {
+    public CommentDTO  addCommentForSite(CommentDTO commentDTO, Long siteId) {
+
+        Optional<Site> siteOpt = siteRepository.findById(siteId);
+        Site site = siteOpt.get();
+
+        Comment comment = modelMapper.map(commentDTO, Comment.class);
+
+        comment.setSite(site);
+        site.addComment(comment);
+
+        commentRepository.save(comment);
+        siteRepository.save(site);
         return null;
     }
 }

@@ -9,5 +9,5 @@ public interface CommentsService {
 
     List<CommentDTO> getAllCommentsForSite(Long siteId);
 
-    CommentDTO addCommentForSite(CommentDTO commentDTO);
+    CommentDTO addCommentForSite(CommentDTO commentDTO, Long siteId);
 }

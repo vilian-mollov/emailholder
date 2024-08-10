@@ -139,6 +139,10 @@ public class Site extends BaseEntity {
         return averageRate;
     }
 
+    public void addComment (Comment comment) {
+        this.comments.add(comment);
+    }
+
     @Override
     public int hashCode() {
         return this.getId() != null ? this.getId().hashCode() : 0;
