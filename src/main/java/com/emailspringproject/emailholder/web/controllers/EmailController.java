@@ -51,12 +51,11 @@ public class EmailController {
     }
 
     @PostMapping("/create")
-    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailImportDTO emailDTO, //@RequestBody EmailImportDTO emailDTO,
-                                    BindingResult bindingResult, ModelAndView modelAndView) {
+    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailImportDTO emailDTO, ModelAndView modelAndView) {
 
         Email email = emailService.createEmail(emailDTO);
 
-        modelAndView.setViewName("createEmail");
+        modelAndView.setViewName("redirect:/emails");
         return modelAndView;
     }
 

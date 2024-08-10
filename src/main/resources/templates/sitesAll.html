@@ -44,17 +44,17 @@
                     <td>
                         <div th:class="iconsDiv">
                             <a th:href="@{/comments/site/{site_id}(site_id=*{site.getId()})}">
-                                <button th:class="comment-button"><img th:src="@{../images/comment.svg}"
+                                <button th:class="comment-button"><img th:src="@{/images/comment.svg}"
                                                                        alt="comment svg" th:class="iconTable"></button>
                             </a>
                         </div>
                     </td>
                     <td>
                         <div th:if="${site.getSafety()}" th:class="iconsDiv">
-                            <img th:src="@{../images/circle-check-solid.svg}" alt="check mark svg" th:class="iconTable">
+                            <img th:src="@{/images/circle-check-solid.svg}" alt="check mark svg" th:class="iconTable">
                         </div>
                         <div th:unless="${site.getSafety()}" th:class="iconsDiv">
-                            <img th:src="@{../images/triangle-exclamation-solid.svg}" alt="exclamation mark svg"
+                            <img th:src="@{/images/triangle-exclamation-solid.svg}" alt="exclamation mark svg"
                                  th:class="iconTable">
                         </div>
                     </td>
@@ -70,7 +70,7 @@
     <p>Email Holder &copy; All rights reserved</p>
 </footer>
 
-<script th:src="@{../js/common.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 
 </body>
 </html>

@@ -43,10 +43,10 @@
                     <td th:text="${site.getAddress()}"></td>
                     <td>
                         <div th:if="${site.getSafety()}" th:class="iconsDiv">
-                            <img th:src="@{../images/circle-check-solid.svg}" alt="check mark svg" th:class="iconTable">
+                            <img th:src="@{/images/circle-check-solid.svg}" alt="check mark svg" th:class="iconTable">
                         </div>
                         <div th:unless="${site.getSafety()}" th:class="iconsDiv">
-                            <img th:src="@{../images/triangle-exclamation-solid.svg}" alt="exclamation mark svg"
+                            <img th:src="@{/images/triangle-exclamation-solid.svg}" alt="exclamation mark svg"
                                  th:class="iconTable">
                         </div>
                     </td>
@@ -62,7 +62,7 @@
     <p>Email Holder &copy; All rights reserved</p>
 </footer>
 
-<script th:src="@{../js/common.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 
 </body>
 </html>

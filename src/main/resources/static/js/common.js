@@ -7,7 +7,7 @@ let buttonIsOn = false;
 function addHandlers() {
     themeBtn.addEventListener("click", changeTheme);
     menu.addEventListener("click", toggleMenu);
-    menu.addEventListener("focusout", toggleMenu);
+    menu.addEventListener("focusout", toggleMenuOff);
 }
 
 
@@ -51,6 +51,15 @@ function toggleMenu() {
     }
 
     menu_list.classList.replace(state,newState);
+
+}
+
+function toggleMenuOff() {
+
+    let state = 'show';
+    let offState = 'disappear';
+
+    menu_list.classList.replace(state,offState);
 
 }
 

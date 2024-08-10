@@ -47,7 +47,7 @@
                     <td>
 
                         <a th:href="@{/sites/email/{email_id}(email_id=*{email.getId()})}">
-                            <button class="goToSites"><img id="arrow" th:src="@{../images/arrow.png}" alt="arrow"/>
+                            <button class="goToSites"><img id="arrow" th:src="@{/images/arrow.png}" alt="arrow"/>
                             </button>
                         </a>
 
@@ -66,7 +66,7 @@
     <p>Email Holder &copy; All rights reserved</p>
 </footer>
 
-<script th:src="@{js/common.js}"></script>
-<script th:src="@{js/emails.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/emails.js}"></script>
 </body>
 </html>
