@@ -40,4 +40,9 @@ public class CommentsServiceImpl implements CommentsService {
 
         return commentsDTO;
     }
+
+    @Override
+    public CommentDTO  addCommentForSite(CommentDTO commentDTO) {
+        return null;
+    }
 }

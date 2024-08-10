@@ -8,4 +8,6 @@ import java.util.List;
 public interface CommentsService {
 
     List<CommentDTO> getAllCommentsForSite(Long siteId);
+
+    CommentDTO addCommentForSite(CommentDTO commentDTO);
 }
