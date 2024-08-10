@@ -2,15 +2,21 @@ package com.emailspringproject.emailholder.services.impl;
 
 import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteImportDTO;
-import com.emailspringproject.emailholder.domain.entities.*;
-import com.emailspringproject.emailholder.repositories.*;
+import com.emailspringproject.emailholder.domain.entities.Email;
+import com.emailspringproject.emailholder.domain.entities.Site;
+import com.emailspringproject.emailholder.domain.entities.User;
+import com.emailspringproject.emailholder.repositories.EmailRepository;
+import com.emailspringproject.emailholder.repositories.SiteRepository;
+import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.SiteService;
 import com.emailspringproject.emailholder.utilities.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SiteServiceImpl implements SiteService {
@@ -75,7 +81,7 @@ public class SiteServiceImpl implements SiteService {
         List<SiteExportDTO> sites = new ArrayList<>();
 
         for (Site site : email.getSites()) {
-            sites.add(modelMapper.map(site,SiteExportDTO.class));
+            sites.add(modelMapper.map(site, SiteExportDTO.class));
         }
 
         return sites;
@@ -86,18 +92,18 @@ public class SiteServiceImpl implements SiteService {
 
         List<String> problems = new ArrayList<>();
 
-        if(!siteDTO.getAddress().startsWith("http")){
+        if (!siteDTO.getAddress().startsWith("http")) {
             problems.add("Incomplete link, sites should start with http or https");
         }
 
         //starts with http
         //ends in top level domain they are to many com/edu ?
 
-        if(problems.isEmpty()) {
+        if (problems.isEmpty()) {
             Site site = modelMapper.map(siteDTO, Site.class);
             site.setUser(userRepository.findFirstByUsername(currentUser.getUsername()).get());
 
-            if(site.getAddress().startsWith("https")){
+            if (site.getAddress().startsWith("https")) {
                 site.setSafety(true);
             }
 

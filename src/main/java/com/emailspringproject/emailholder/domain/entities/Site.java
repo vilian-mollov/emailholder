@@ -1,6 +1,14 @@
 package com.emailspringproject.emailholder.domain.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -139,7 +147,7 @@ public class Site extends BaseEntity {
         return averageRate;
     }
 
-    public void addComment (Comment comment) {
+    public void addComment(Comment comment) {
         this.comments.add(comment);
     }
 

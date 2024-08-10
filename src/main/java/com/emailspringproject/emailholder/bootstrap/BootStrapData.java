@@ -1,21 +1,30 @@
 package com.emailspringproject.emailholder.bootstrap;
 
 
-import com.emailspringproject.emailholder.domain.entities.*;
-import com.emailspringproject.emailholder.repositories.*;
+import com.emailspringproject.emailholder.domain.entities.Email;
+import com.emailspringproject.emailholder.domain.entities.Rate;
+import com.emailspringproject.emailholder.domain.entities.Site;
+import com.emailspringproject.emailholder.domain.entities.User;
+import com.emailspringproject.emailholder.repositories.EmailRepository;
+import com.emailspringproject.emailholder.repositories.RateRepository;
+import com.emailspringproject.emailholder.repositories.SiteRepository;
+import com.emailspringproject.emailholder.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 
 @Component
 public class BootStrapData implements CommandLineRunner {
 
     private final EmailRepository emailRepository;
-    private  final SiteRepository siteRepository;
+    private final SiteRepository siteRepository;
     private final UserRepository userRepository;
     private final RateRepository rateRepository;
     private PasswordEncoder encoder;
@@ -68,7 +77,7 @@ public class BootStrapData implements CommandLineRunner {
         email.addSite(instagram);
         email.addSite(linkedIn);
         for (int i = 1; i <= 3; i++) {
-            Site testSite = new Site("https://www.test"+i+".com/", "test" + i, user, new ArrayList<>(), new ArrayList<>());
+            Site testSite = new Site("https://www.test" + i + ".com/", "test" + i, user, new ArrayList<>(), new ArrayList<>());
             testSite.setSafety(true);
             siteRepository.save(testSite);
             rateSite(testSite);
@@ -85,8 +94,6 @@ public class BootStrapData implements CommandLineRunner {
         emailRepository.save(email3);
 
 
-
-
         Optional<User> firstByUsername = userRepository.findFirstByUsername(user.getUsername());
 
         User user1 = firstByUsername.get();
@@ -94,7 +101,6 @@ public class BootStrapData implements CommandLineRunner {
         user1.addEmail(email2);
         user1.addEmail(email3);
         userRepository.save(user1);
-
 
 
         System.out.println("From BootStrap:");
@@ -106,15 +112,15 @@ public class BootStrapData implements CommandLineRunner {
 
     private void rateSite(Site site) {
 
-        Random random =  new Random();
+        Random random = new Random();
 
-        Rate rate = new Rate(random.nextInt(1,6));
+        Rate rate = new Rate(random.nextInt(1, 6));
         rateRepository.save(rate);
 
-        Rate rate2 = new Rate(random.nextInt(1,6));
+        Rate rate2 = new Rate(random.nextInt(1, 6));
         rateRepository.save(rate2);
 
-        Rate rate3 = new Rate(random.nextInt(1,6));
+        Rate rate3 = new Rate(random.nextInt(1, 6));
         rateRepository.save(rate3);
 
         List<Rate> rates = new ArrayList<>(List.of(rate, rate2, rate3));

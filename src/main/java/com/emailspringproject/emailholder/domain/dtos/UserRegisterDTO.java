@@ -1,10 +1,9 @@
 package com.emailspringproject.emailholder.domain.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.CurrentTimestamp;
-import org.hibernate.tuple.GenerationTiming;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
 

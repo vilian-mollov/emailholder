@@ -1,6 +1,12 @@
 package com.emailspringproject.emailholder.domain.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -8,12 +14,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(name = "main_email",unique = true)
+    @Column(name = "main_email", unique = true)
     private String mainEmail;
 
     @Column
@@ -25,7 +31,7 @@ public class User extends BaseEntity{
     @Column(name = "last_changed_at")
     private Timestamp lastChangedAt;
 
-//    @OneToMany(mappedBy = "user",targetEntity = Email.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //    @OneToMany(mappedBy = "user",targetEntity = Email.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private Set<Email> emails = new HashSet<>();
@@ -33,10 +39,11 @@ public class User extends BaseEntity{
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private Set<Site> sites = new HashSet<>();
+
     public User() {
     }
 
-    public User(String username, String mainEmail, String password, Timestamp createdAt, Timestamp lastChangedAt,Set<Email> emails, Set<Site> sites) {
+    public User(String username, String mainEmail, String password, Timestamp createdAt, Timestamp lastChangedAt, Set<Email> emails, Set<Site> sites) {
         this.username = username;
         this.mainEmail = mainEmail;
         this.password = password;

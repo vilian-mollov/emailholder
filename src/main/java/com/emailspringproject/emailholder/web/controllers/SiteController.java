@@ -23,7 +23,7 @@ public class SiteController {
     private final SiteService siteService;
 
     @Autowired
-    public SiteController(SiteService siteService){
+    public SiteController(SiteService siteService) {
         this.siteService = siteService;
     }
 
@@ -54,7 +54,7 @@ public class SiteController {
 
         List<String> problems = siteService.createSite(siteDTO);
 
-        if(!problems.isEmpty()){
+        if (!problems.isEmpty()) {
             modelAndView.addObject("problems", problems);
         }
 
@@ -76,7 +76,7 @@ public class SiteController {
 
         if (expSiteDTO == null) {
             modelAndView.addObject("error", String.format(SITE_NOT_FOUND.toString()));
-        }else {
+        } else {
             modelAndView.addObject("message", String.format(SUC_DEL_SITE.toString(), expSiteDTO.getDomainName()));
         }
 

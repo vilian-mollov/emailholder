@@ -2,7 +2,6 @@ package com.emailspringproject.emailholder.web.controllers;
 
 
 import com.emailspringproject.emailholder.domain.dtos.CommentDTO;
-import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
 import com.emailspringproject.emailholder.services.CommentsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class CommentController {
     }
 
     @GetMapping("/site/{site_id}")
-    public ModelAndView getAllCommentsForSite(@ModelAttribute("commentDTO") CommentDTO commentDTO, ModelAndView modelAndView, @PathVariable Long site_id){
+    public ModelAndView getAllCommentsForSite(@ModelAttribute("commentDTO") CommentDTO commentDTO, ModelAndView modelAndView, @PathVariable Long site_id) {
         modelAndView.setViewName("comments");
         modelAndView.addObject("comments", commentsService.getAllCommentsForSite(site_id));
         return modelAndView;
@@ -36,9 +35,9 @@ public class CommentController {
 
     @PostMapping("/site/{site_id}")
     public ModelAndView addCommentForSite(@ModelAttribute("commentDTO") @Valid CommentDTO commentDTO,
-                                              BindingResult bindingResult, ModelAndView modelAndView, @PathVariable Long site_id){
+                                          BindingResult bindingResult, ModelAndView modelAndView, @PathVariable Long site_id) {
         modelAndView.setViewName("redirect:/comments/site/" + site_id);
-        commentsService.addCommentForSite(commentDTO,site_id);
+        commentsService.addCommentForSite(commentDTO, site_id);
 
         return modelAndView;
     }

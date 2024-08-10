@@ -1,73 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sites</title>
-  <link th:href = "@{/css/reset.css}" rel="stylesheet" />
-  <link th:href = "@{/css/common.css}" rel="stylesheet" />
-  <link th:href = "@{/css/about.css}" rel="stylesheet" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sites</title>
+    <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/about.css}" rel="stylesheet"/>
 </head>
 
 <body>
 
 <header th:replace="~{fragments/navigation}"></header>
 
-  <main>
+<main>
     <div class="card author">
-      <img th:src="@{/images/author_large.jpg}" alt="author" />
-      <div class="text__container">
-        <h2>About the author</h2>
-        <p>
-          This is Vilian Mollov, the author, designer, content maker and
-          engineer of the Email Holder application
-        </p>
-        <a target="_blank" href="https://www.linkedin.com/in/vilian-mollov-188450205/"><i class="fab fa-linkedin-in"></i>
-          LinkedIn</a><br />
-        <a target="_blank" href="https://github.com/vilian-mollov"><i class="fab fa-github"></i> Github</a>
-        <br />
-        <a target="_blank" href="https://github.com/vilian-mollov/emailholder"><i class="fab fa-github"></i> /opensource
-          project</a>
-      </div>
+        <img th:src="@{/images/author_large.jpg}" alt="author"/>
+        <div class="text__container">
+            <h2>About the author</h2>
+            <p>
+                This is Vilian Mollov, the author, designer, content maker and
+                engineer of the Email Holder application
+            </p>
+            <a target="_blank" href="https://www.linkedin.com/in/vilian-mollov-188450205/"><i
+                    class="fab fa-linkedin-in"></i>
+                LinkedIn</a><br/>
+            <a target="_blank" href="https://github.com/vilian-mollov"><i class="fab fa-github"></i> Github</a>
+            <br/>
+            <a target="_blank" href="https://github.com/vilian-mollov/emailholder"><i class="fab fa-github"></i>
+                /opensource
+                project</a>
+        </div>
     </div>
 
     <article class="content">
 
-      <section>
-        <h2>About Email Holder</h2>
-        <p>
-          Email holder app is all about storing and managing personal emails.
-          You can save email addresses. You can add definition/description for
-          every single email that has been saved. You can add your list of sites
-          registered by particular email.
-        </p>
-      </section>
-      <section>
-        <h3>List of sites</h3>
-        <p>
-          Every email has its own list.
-          The list represents the sites that the
-          current email is used for account or some sort of registration.
-        </p>
-      </section>
-      <section>
-        <h3>Description</h3>
-        <p>
-          You have the opportunity to insert description 
-          for every email that you have saved.
-          This is additional information about the email that you can store and access any time.
-        </p>
-      </section>
+        <section>
+            <h2>About Email Holder</h2>
+            <p>
+                Email holder app is all about storing and managing personal emails.
+                You can save email addresses. You can add definition/description for
+                every single email that has been saved. You can add your list of sites
+                registered by particular email.
+            </p>
+        </section>
+        <section>
+            <h3>List of sites</h3>
+            <p>
+                Every email has its own list.
+                The list represents the sites that the
+                current email is used for account or some sort of registration.
+            </p>
+        </section>
+        <section>
+            <h3>Description</h3>
+            <p>
+                You have the opportunity to insert description
+                for every email that you have saved.
+                This is additional information about the email that you can store and access any time.
+            </p>
+        </section>
     </article>
-  </main>
+</main>
 
 
-  <footer>
+<footer>
     <p>Email Holder &copy; All rights reserved</p>
-  </footer>
+</footer>
 
-  <script th:src="@{../js/common.js}"></script>
+<script th:src="@{../js/common.js}"></script>
 </body>
 
 </html>

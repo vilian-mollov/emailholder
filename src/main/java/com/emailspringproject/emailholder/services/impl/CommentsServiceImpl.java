@@ -44,7 +44,7 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     @Override
-    public CommentDTO  addCommentForSite(CommentDTO commentDTO, Long siteId) {
+    public CommentDTO addCommentForSite(CommentDTO commentDTO, Long siteId) {
 
         Optional<Site> siteOpt = siteRepository.findById(siteId);
         Site site = siteOpt.get();

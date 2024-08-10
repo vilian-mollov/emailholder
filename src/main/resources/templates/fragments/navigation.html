@@ -16,7 +16,8 @@
     <nav id="home-nav">
         <div>
             <button id="menu"><img th:src="@{../images/bars-solid.png}" alt="menu"/></button>
-            <ul id="menu_list" class="disappear" role="list" th:classappend="${@currentUser.isLogged() ? 'menu_list_logged' : 'menu_list_logout'}">
+            <ul id="menu_list" class="disappear" role="list"
+                th:classappend="${@currentUser.isLogged() ? 'menu_list_logged' : 'menu_list_logout'}">
                 <li><a th:href="@{/home}">Home</a></li>
                 <div th:if="${@currentUser.isLogged()}">
                     <hr>

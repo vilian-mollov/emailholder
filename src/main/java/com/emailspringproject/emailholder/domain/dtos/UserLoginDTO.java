@@ -4,10 +4,10 @@ import jakarta.validation.constraints.Size;
 
 public class UserLoginDTO {
 
-    @Size(min = 3,message = "Username must be at least 3 symbols")
+    @Size(min = 3, message = "Username must be at least 3 symbols")
     private String username;
 
-    @Size(min = 3,message = "Password must be at least 3 symbols")
+    @Size(min = 3, message = "Password must be at least 3 symbols")
     private String password;
 
     public String getUsername() {

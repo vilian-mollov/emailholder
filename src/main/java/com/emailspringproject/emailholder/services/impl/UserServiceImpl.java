@@ -1,6 +1,8 @@
 package com.emailspringproject.emailholder.services.impl;
 
-import com.emailspringproject.emailholder.domain.dtos.*;
+import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
+import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
+import com.emailspringproject.emailholder.domain.dtos.UserUpdateDTO;
 import com.emailspringproject.emailholder.domain.entities.User;
 import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.UserService;
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static com.emailspringproject.emailholder.constants.Errors.USER_ERR;
 
@@ -106,7 +110,7 @@ public class UserServiceImpl implements UserService {
         // todo validate if this is the user
         if (firstByUsername.isPresent()) {
             user = firstByUsername.get();
-        }else {
+        } else {
             return errors;
         }
 //todo try to refactor code
@@ -154,7 +158,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         Optional<User> optUser = userRepository.findFirstByUsername(currentUser.getUsername());
         User user = optUser.get();
         return user;

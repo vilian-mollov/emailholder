@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Register</title>
-    <link th:href = "@{/css/reset.css}"         rel="stylesheet"/>
-    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet" />
-    <link th:href = "@{/css/common.css}"        rel="stylesheet"/>
-    <link th:href = "@{/css/forms_commons.css}" rel="stylesheet" />
-    <link th:href = "@{/css/register.css}"      rel="stylesheet"/>
+    <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/forms_commons.css}" rel="stylesheet"/>
+    <link th:href="@{/css/register.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -47,7 +47,8 @@
                     <div class="label-holder text-white d-flex justify-content-center">
                         <label for="mainEmail" class="h3 mb-2">Email</label><br>
                     </div>
-                    <input type="email" class="form-control" id="mainEmail" name="mainEmail" placeholder="john72@exmp.com"
+                    <input type="email" class="form-control" id="mainEmail" name="mainEmail"
+                           placeholder="john72@exmp.com"
                            th:field="*{mainEmail}"
                            th:errorclass="bg-danger"/>
                 </div>
@@ -62,7 +63,9 @@
                 </div>
 
                 <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3 sign_btns form_submit_btn register_btn">Register</button>
+                    <button type="submit" class="btn btn-warning  mb-3 sign_btns form_submit_btn register_btn">
+                        Register
+                    </button>
                 </div>
 
             </form>

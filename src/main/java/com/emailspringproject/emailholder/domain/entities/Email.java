@@ -1,6 +1,12 @@
 package com.emailspringproject.emailholder.domain.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -25,11 +31,12 @@ public class Email extends BaseEntity {
     private Set<Site> sites = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "user_id",insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
     public Email() {
     }
+
     public Email(String emailAddress, String description) {
         this.emailAddress = emailAddress;
         this.description = description;
