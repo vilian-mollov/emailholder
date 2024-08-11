@@ -34,6 +34,7 @@ public class RateServiceImpl implements RateService {
         Site site = siteOpt.get();
 
         site.addRate(rate);
+
         siteRepository.save(site);
     }
 }

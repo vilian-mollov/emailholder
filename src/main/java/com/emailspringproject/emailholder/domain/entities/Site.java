@@ -135,6 +135,7 @@ public class Site extends BaseEntity {
 
     public void addRate(Rate rate) {
         this.rates.add(rate);
+        this.rate = getSiteRate();
     }
 
     public Integer getSiteRate() {
