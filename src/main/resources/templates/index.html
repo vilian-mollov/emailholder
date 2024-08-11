@@ -12,6 +12,7 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <link th:href="@{/css/media_home.css}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -35,31 +36,35 @@
 
     <img th:src="@{images/heroImg.jpg}" alt="hero image">
 
+    <a th:href="@{/users/register}" th:class="home_popups">
+        <div id="left-side-con" class="disappear">
+            <h3>Create your account now</h3>
+            <p>Create you account now for free and start storing you emails in one place! <br>
+                Start today by Sign Up button or press on the dialog here!</p>
 
-    <div id="left-side-con" class="disappear">
-        <h3>Lorem ipsum dolor</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex odit est recusandae,
-            dolorum provident quia esse nisi praesentium nihil repudiandae, quaerat earum
-            sint placeat enim, harum commodi ipsa autem ut?</p>
+        </div>
+    </a>
 
-    </div>
+    <a th:href="@{/users/login}" th:class="home_popups">
+        <div id="right-side-con" class="disappear">
+            <h3>Login to your account</h3>
+            <p>Login to your account and continue working!<br>
+                Enjoy our new features and ease your work.<br>
+                Press to log from here!</p>
+        </div>
+    </a>
 
-    <div id="right-side-con" class="disappear">
-        <h3>Lorem ipsum dolor</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex odit est recusandae,
-            dolorum provident quia esse nisi praesentium nihil repudiandae, quaerat earum
-            sint placeat enim, harum commodi ipsa autem ut?</p>
+    <a th:href="@{/about}" th:class="home_popups">
+        <div id="left-side-con2" class="disappear">
+            <h3>Learn more about us</h3>
+            <p>Learn more about the Email holder application and its capabilities!<br>
+               Learn about the development team and is author.<br>
+               Click here or navigate to the About in the navigation menu.
+            </p>
 
-    </div>
 
-    <div id="left-side-con2" class="disappear">
-        <h3>Lorem ipsum dolor</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex odit est recusandae,
-            dolorum provident quia esse nisi praesentium nihil repudiandae, quaerat earum
-            sint placeat enim, harum commodi ipsa autem ut?</p>
-
-    </div>
-
+        </div>
+    </a>
 
 </div>
 

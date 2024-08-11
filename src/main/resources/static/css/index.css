@@ -72,7 +72,7 @@ div #content-section img {
 #right-side-con {
     position: absolute;
     top: 1100px;
-    left: 970px;
+    right: 50px;
     z-index: 1;
     width: 500px;
     height: 150px;
@@ -88,7 +88,7 @@ div #content-section img {
 #left-side-con2 {
     position: absolute;
     top: 1390px;
-    right: 970px;
+    left: 50px;
     z-index: 1;
     width: 500px;
     height: 150px;
@@ -113,3 +113,11 @@ div #content-section img {
     background-color: rgb(243 235 235 / 98%);
 }
 
+.home_popups {
+    text-decoration: none;
+    color: black;
+}
+
+.home_popups div h3,p {
+    color: black;
+}
