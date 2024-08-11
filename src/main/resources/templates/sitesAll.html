@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sites</title>
     <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/tables.css}" rel="stylesheet"/>
+    <link th:href="@{/css/rates.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -18,12 +20,47 @@
     <aside>
         <div>
             <ul role="list">
-                <li>Search</li>
+                <li>
+                    <button id="open_popup">Open Popup</button>
+                </li>
                 <li><a th:href="@{/sites/create}">Create</a></li>
             </ul>
         </div>
     </aside>
+    <div id="rate_popup_block" style="display: none;">
+        <div id="rate_popup_wrapper">
+            <div id="form_box">
+                <div class="header_fpage">
+                    <h1 id="fpage_h1">Rate a Site</h1>
+                </div>
 
+                <div id="fpage-form-div">
+                    <form id="fpage-form" name="form_rate" th:action="@{/rates/site/{site_id}(site_id = ${site_id})}" th:method="POST"
+                          th:object="${rateDTO}">
+
+
+                        <div class="form-group">
+                            <div class="label-holder text-white d-flex justify-content-center">
+                                <label for="rate" class="h3 mb-2">Rate</label>
+                            </div>
+                            <input type="number" class="form-control" id="rate"
+                                   th:field="*{rate}"
+                                   th:errorclass="bg-danger"
+                                   min="0"
+                                   max="6"/>
+                        </div>
+
+                        <div class="button-holder d-flex justify-content-center">
+                            <button type="submit" class="btn btn-warning  mb-3 sign_btns form_submit_btn log_in_btn">
+                                Rate
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="main_div">
         <div id="table_border">
             <table id="collection">
@@ -31,6 +68,7 @@
                 <tr>
                     <th>Site Domain</th>
                     <th>Address</th>
+                    <th>RATING</th>
                     <th>Rate</th>
                     <th>Comments</th>
                     <th>Safety</th>
@@ -41,6 +79,15 @@
                     <td th:text="${site.getDomainName()}"></td>
                     <td th:text="${site.getAddress()}"></td>
                     <td th:text="${site.getRate()}"></td>
+                    <td>
+                        <div th:class="iconsDiv">
+                            <!--                            <a th:href="@{/rates/site/{site_id}(site_id=*{site.getId()})}">-->
+                            <button th:id="${site.getId()}" th:class="comment-button"><img
+                                    th:src="@{/images/star-regular.svg}"
+                                    alt="rate svg" th:class="iconTable"></button>
+                            <!--                            </a>-->
+                        </div>
+                    </td>
                     <td>
                         <div th:class="iconsDiv">
                             <a th:href="@{/comments/site/{site_id}(site_id=*{site.getId()})}">

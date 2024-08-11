@@ -1,6 +1,6 @@
 package com.emailspringproject.emailholder.web.controllers;
 
-import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
+import com.emailspringproject.emailholder.domain.dtos.RateDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteImportDTO;
 import com.emailspringproject.emailholder.services.SiteService;
@@ -8,7 +8,13 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -28,7 +34,7 @@ public class SiteController {
     }
 
     @GetMapping("/all")
-    public ModelAndView getAllSites(ModelAndView modelAndView) {
+    public ModelAndView getAllSites(@ModelAttribute("rateDTO") RateDTO rateDTO, ModelAndView modelAndView) {
         modelAndView.setViewName("sitesAll");
         modelAndView.addObject("sites", siteService.getAllSites());
         return modelAndView;

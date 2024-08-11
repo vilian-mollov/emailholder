@@ -1,0 +1,26 @@
+#rate_popup_wrapper {
+    position: absolute;
+    background-color: rgba(159, 205, 255, 0.63);
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#form_box {
+    background-color: #4e555b;
+    width: 500px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#fpage-form-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

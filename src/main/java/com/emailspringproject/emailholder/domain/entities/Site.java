@@ -39,7 +39,7 @@ public class Site extends BaseEntity {
     @JoinTable(name = "sites_commets")
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "sites_rates")
     private List<Rate> rates = new ArrayList<>();
 
@@ -131,6 +131,10 @@ public class Site extends BaseEntity {
 
     public void setRate(Integer rate) {
         this.rate = rate;
+    }
+
+    public void addRate(Rate rate) {
+        this.rates.add(rate);
     }
 
     public Integer getSiteRate() {
