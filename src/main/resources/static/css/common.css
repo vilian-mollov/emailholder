@@ -1,6 +1,5 @@
 html{
     font-family: Arial, Helvetica, sans-serif;
-    background-color: rgba(243, 235, 235, 0.495);
     scroll-behavior: smooth;
     margin: 0px;
 }
@@ -15,6 +14,55 @@ body {
 header nav {
     display: inline;
     padding-top: 7px;
+}
+
+/* NAVIGATION Menu artifacts ------------------------------ */
+
+#aside_nav {
+    position: relative;
+    top: 88px;
+    left: 180px;
+    width: 200px;
+}
+
+#nav_ul li {
+    float: left;
+}
+
+#aside_nav div ul li {
+    margin-right: 6px;
+}
+
+.nav_buttons {
+    background-color: transparent;
+    border: 1px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    border-radius: 40px;
+    font-size: 20px;
+}
+
+#create_btn {
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+}
+
+#create_btn:hover {
+    background-color: #e2b04ae1;
+    border-color: #e2b04ae1;
+    cursor: pointer;
+    color: white;
+}
+
+#all_sites_btn {
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+}
+
+#all_sites_btn:hover {
+    background-color: #BB17CEE0;
+    border-color: #BB17CEE0;
+    cursor: pointer;
+    color: white;
 }
 
 /* Header ------------------------------------------------------------------------------ */

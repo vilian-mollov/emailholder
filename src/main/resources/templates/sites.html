@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sites</title>
     <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/tables.css}" rel="stylesheet"/>
+    <link th:href="@{/css/media_sites.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -15,14 +17,11 @@
 
 <main>
 
-    <aside>
+    <aside th:id="aside_nav">
         <div>
-            <ul role="list">
-                <li>Search</li>
-                <li><a th:href="@{/sites/create}">Create</a></li>
-                <li><a th:href="@{/sites/all}">All Sites</a></li>
-                <li>Update</li>
-                <li>Delete</li>
+            <ul role="list" th:id="nav_ul">
+                <li><a th:href="@{/sites/create}"><button th:id="create_btn" th:class="nav_buttons">Create</button></a></li>
+                <li><a th:href="@{/sites/all}"><button th:id="all_sites_btn" th:class="nav_buttons">All Sites</button></a></li>
             </ul>
         </div>
     </aside>

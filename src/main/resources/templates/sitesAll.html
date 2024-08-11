@@ -10,6 +10,7 @@
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/tables.css}" rel="stylesheet"/>
     <link th:href="@{/css/rates.css}" rel="stylesheet"/>
+    <link th:href="@{/css/media_sites_all.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -17,10 +18,12 @@
 
 <main>
 
-    <aside>
+    <aside th:id="aside_nav">
         <div>
-            <ul role="list">
-                <li><a th:href="@{/sites/create}">Create</a></li>
+            <ul role="list" th:id="nav_ul">
+                <li><a th:href="@{/sites/create}">
+                    <button th:id="create_btn" th:class="nav_buttons">Create</button>
+                </a></li>
             </ul>
         </div>
     </aside>
@@ -32,7 +35,8 @@
                 </div>
 
                 <div id="fpage-form-div">
-                    <form id="fpage-form" name="form_rate" th:action="@{/rates/site/{site_id}(site_id = ${site_id})}" th:method="POST"
+                    <form id="fpage-form" name="form_rate" th:action="@{/rates/site/{site_id}(site_id = ${site_id})}"
+                          th:method="POST"
                           th:object="${rateDTO}">
 
 

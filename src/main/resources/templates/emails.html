@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>List of emails</title>
     <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/tables.css}" rel="stylesheet"/>
     <link th:href="@{/css/emails.css}" rel="stylesheet"/>
+    <link th:href="@{/css/media_emails.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -16,13 +18,10 @@
 
 <main>
 
-    <aside>
+    <aside th:id="aside_nav">
         <div>
-            <ul role="list">
-                <li>Search</li>
-                <li><a th:href="@{/emails/create}">Create</a></li>
-                <li>Update</li>
-                <li>Delete</li>
+            <ul role="list" th:id="nav_ul">
+                <li><a th:href="@{/emails/create}"><button th:id="create_btn" th:class="nav_buttons">Create</button></a></li>
             </ul>
         </div>
     </aside>
