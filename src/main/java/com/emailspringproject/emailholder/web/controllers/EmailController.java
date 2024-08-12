@@ -1,7 +1,7 @@
 package com.emailspringproject.emailholder.web.controllers;
 
 
-import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
+import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.services.EmailService;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,24 +33,19 @@ public class EmailController {
         return "emails";
     }
 
-    @GetMapping("/{id}")
-    public Email getEmailById(@PathVariable Long id) {
-        return emailService.getEmailById(id);
-    }
-
     @PostMapping("/{siteId}")
     public Email createEmail(@PathVariable Long siteId, @RequestBody Email email) {
         return emailService.createEmail(siteId, email);
     }
 
     @GetMapping("/create")
-    public ModelAndView getCreateEmail(@ModelAttribute("emailDTO") EmailImportDTO emailDTO, ModelAndView modelAndView) {
+    public ModelAndView getCreateEmail(@ModelAttribute("emailDTO") EmailDTO emailDTO, ModelAndView modelAndView) {
         modelAndView.setViewName("createEmail");
         return modelAndView;
     }
 
     @PostMapping("/create")
-    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailImportDTO emailDTO, ModelAndView modelAndView) {
+    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO, ModelAndView modelAndView) {
 
         Email email = emailService.createEmail(emailDTO);
 
@@ -76,8 +70,26 @@ public class EmailController {
         return emailService.removeSiteFromEmail(emailId, siteId);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteEmail(@PathVariable Long id) {
-        emailService.deleteEmail(id);
+    @DeleteMapping("/delete/{email_id}")
+    public String deleteEmail(@PathVariable Long email_id) {
+        emailService.deleteEmail(email_id);
+
+        return "redirect:/emails";
+    }
+
+    @GetMapping("/edit/{email_id}")
+    public ModelAndView editEmail(@PathVariable Long email_id, ModelAndView modelAndView) {
+        EmailDTO returnedEmailDTO = emailService.getEmailById(email_id);
+        modelAndView.setViewName("updateEmail");
+        modelAndView.addObject("emailDTO",returnedEmailDTO);
+        modelAndView.addObject("emailId",email_id);
+        return modelAndView;
+    }
+
+    @PostMapping("/update/{email_id}")
+    public ModelAndView updateEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO,@PathVariable Long email_id, ModelAndView modelAndView) {
+        emailService.updateEmail(emailDTO, email_id);
+        modelAndView.setViewName("redirect:/emails");
+        return modelAndView;
     }
 }

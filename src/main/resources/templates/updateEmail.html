@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>List of emails</title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+  <link th:href="@{/css/common.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<header th:replace="~{fragments/navigation}"></header>
+
+<main>
+
+  <div class="wrapper">
+
+    <div class="header_fpage">
+      <h1 id="fpage_h1">Update Email</h1>
+    </div>
+
+    <div id="fpage-form-div">
+      <form id="fpage-form" th:action="@{/emails/update/{email_id}(email_id=${emailId})}" th:method="POST" th:object="${emailDTO}">
+
+        <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
+
+<!--        <div th:if="${hasRegisterError}">-->
+<!--          <div th:each="error : ${errors}" th:text="${error.toString()}" class="text-danger">-->
+
+<!--          </div>-->
+<!--        </div>-->
+
+        <div class="form-group">
+          <div class="label-holder text-white d-flex justify-content-center">
+            <label for="emailAddress" class="h3 mb-2">Email Address</label><br>
+          </div>
+          <input type="email" class="form-control" id="emailAddress" name="mainEmail"
+                 th:value="*{emailAddress}"
+                 th:field="*{emailAddress}"
+                 th:errorclass="bg-danger"/>
+        </div>
+
+        <div class="form-group">
+          <div class="label-holder text-white d-flex justify-content-center">
+            <label for="description" class="h3 mb-2">Description</label>
+          </div>
+          <input type="text" class="form-control" id="description"
+                 th:value="*{description}"
+                 th:field="*{description}"
+                 th:errorclass="bg-danger"/>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+          <button type="submit" class="btn btn-warning  mb-3 sign_btns form_submit_btn create_btn">Update
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</main>
+
+<footer id="footer-content">
+  <p>Email Holder &copy; All rights reserved</p>
+</footer>
+
+<script th:src="@{/js/common.js}"></script>
+
+</body>
+</html>

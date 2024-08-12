@@ -1,6 +1,6 @@
 package com.emailspringproject.emailholder.services.impl;
 
-import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
+import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.domain.entities.User;
@@ -9,6 +9,7 @@ import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.services.EmailService;
 import com.emailspringproject.emailholder.services.UserService;
 import com.emailspringproject.emailholder.utilities.ValidationUtils;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,12 +51,13 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public Email getEmailById(Long id) {
-        return emailRepository.findById(id).orElse(null);
+    public EmailDTO getEmailById(Long id) {
+        Email email = emailRepository.findById(id).orElse(null);
+        return modelMapper.map(email, EmailDTO.class);
     }
 
     @Override
-    public Email createEmail(EmailImportDTO emailDTO) {
+    public Email createEmail(EmailDTO emailDTO) {
         if (!this.validationUtils.isValid(emailDTO)) {
             return null;
         }
@@ -77,15 +79,24 @@ public class EmailServiceImpl implements EmailService {
         return null;
     }
 
-    //TODO implement the updateEmail method
+
     @Override
-    public Email updateEmail(Long id, Email updatedEmail) {
-        return null;
+    public EmailDTO updateEmail(EmailDTO updatedEmail, Long emailId) {
+        Optional<Email> emailOpt = emailRepository.findById(emailId);
+        Email email = emailOpt.get();
+        email.setEmailAddress(updatedEmail.getEmailAddress());
+        email.setDescription(updatedEmail.getDescription());
+        emailRepository.save(email);
+
+        return updatedEmail;
     }
 
     @Override
+    @Transactional
     public void deleteEmail(Long id) {
-        emailRepository.deleteById(id);
+        Optional<Email> emailOpt = emailRepository.findById(id);
+        Email email = emailOpt.get();
+        emailRepository.delete(email);
     }
 
     @Override

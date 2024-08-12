@@ -32,7 +32,7 @@ public class User extends BaseEntity {
     private Timestamp lastChangedAt;
 
     //    @OneToMany(mappedBy = "user",targetEntity = Email.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Set<Email> emails = new HashSet<>();
 

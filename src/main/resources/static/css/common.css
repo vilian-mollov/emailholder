@@ -1,4 +1,4 @@
-html{
+html {
     font-family: Arial, Helvetica, sans-serif;
     scroll-behavior: smooth;
     margin: 0px;
@@ -17,7 +17,7 @@ header nav {
 }
 
 /* NAVIGATION Menu artifacts ------------------------------ */
-
+/* General for navigation */
 #aside_nav {
     position: relative;
     top: 88px;
@@ -33,6 +33,7 @@ header nav {
     margin-right: 6px;
 }
 
+/* General for buttons */
 .nav_buttons {
     background-color: transparent;
     border: 1px solid rgb(0, 0, 0);
@@ -41,6 +42,7 @@ header nav {
     font-size: 20px;
 }
 
+/* Create button */
 #create_btn {
     transition: 300ms ease-in-out;
     transition-delay: 50ms;
@@ -53,6 +55,7 @@ header nav {
     color: white;
 }
 
+/* All Sites button*/
 #all_sites_btn {
     transition: 300ms ease-in-out;
     transition-delay: 50ms;
@@ -61,6 +64,19 @@ header nav {
 #all_sites_btn:hover {
     background-color: #BB17CEE0;
     border-color: #BB17CEE0;
+    cursor: pointer;
+    color: white;
+}
+
+/* Edit button*/
+#edit_btn {
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+}
+
+#edit_btn:hover {
+    background-color: #18E7CEE0;
+    border-color: #18E7CEE0;
     cursor: pointer;
     color: white;
 }
@@ -78,7 +94,7 @@ header {
 #theme_btn {
     border: none;
     background-color: transparent;
-    width:  40px;
+    width: 40px;
     font-size: 23px;
 }
 
@@ -174,7 +190,7 @@ header {
 
 #sign_in_btn,
 #sign_up_btn,
-#sign_out_btn{
+#sign_out_btn {
     transition: 300ms ease-in-out;
     transition-delay: 50ms;
 }
@@ -208,7 +224,6 @@ header {
     text-decoration: none;
     color: black;
 }
-
 
 
 /* Footer -------------------------------------------------------------------------------------------- */

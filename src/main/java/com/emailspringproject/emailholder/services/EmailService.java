@@ -1,6 +1,6 @@
 package com.emailspringproject.emailholder.services;
 
-import com.emailspringproject.emailholder.domain.dtos.EmailImportDTO;
+import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +12,13 @@ public interface EmailService {
 
     List<Site> getAllSitesForEmail();
 
-    Email getEmailById(Long id);
+    EmailDTO getEmailById(Long id);
 
-    Email createEmail(EmailImportDTO email);
+    Email createEmail(EmailDTO email);
 
     Email createEmail(Long id, Email email);
 
-    Email updateEmail(Long siteId, Email updatedEmail);
+    EmailDTO updateEmail(EmailDTO updatedEmail, Long emailId);
 
     void deleteEmail(Long id);
 

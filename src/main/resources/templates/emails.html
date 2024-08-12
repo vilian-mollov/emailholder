@@ -22,6 +22,7 @@
         <div>
             <ul role="list" th:id="nav_ul">
                 <li><a th:href="@{/emails/create}"><button th:id="create_btn" th:class="nav_buttons">Create</button></a></li>
+                <li><button th:id="edit_btn" th:class="nav_buttons">Edit</button></li>
             </ul>
         </div>
     </aside>
@@ -31,16 +32,16 @@
             <table id="collection">
                 <thead>
                 <tr>
-                    <th>id</th>
                     <th>Email Address</th>
                     <th>Description</th>
                     <th>Sites</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="email : ${emails}">
+                <tr th:id="row + ${email.id}" th:each="email : ${emails}">
 
-                    <td th:text="${email.getId()}"></td>
                     <td th:text="${email.getEmailAddress()}"></td>
                     <td th:text="${email.getDescription()}"></td>
                     <td>
@@ -49,6 +50,17 @@
                             <button class="goToSites"><img id="arrow" th:src="@{/images/arrow.png}" alt="arrow"/>
                             </button>
                         </a>
+
+                    </td>
+                    <td><a th:href="@{emails/edit/{email_id}(email_id=*{email.getId()})}"><button th:class="email_svgs_btn"><img id="gear" th:src="@{/images/gear-solid.svg}" alt="gear"/></button></a></td>
+                    <td>
+<!--                        <a th:method="Delete" th:href="@{emails/delete/{email_id}(email_id=*{email.getId()})}"><button>Delete</button></a>-->
+
+                        <form th:method="DELETE" th:action="@{/emails/delete/{email_id}(email_id=${email.getId()})}">
+<!--                            <input th:type="submit"></input>-->
+                            <button th:type="submit" th:class="email_svgs_btn"><img id="trash_can" th:src="@{/images/trash-can-solid.svg}" alt="trash can"/></button>
+                        </form>
+
 
                     </td>
 
