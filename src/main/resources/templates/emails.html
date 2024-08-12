@@ -54,14 +54,9 @@
                     </td>
                     <td><a th:href="@{emails/edit/{email_id}(email_id=*{email.getId()})}"><button th:class="email_svgs_btn"><img id="gear" th:src="@{/images/gear-solid.svg}" alt="gear"/></button></a></td>
                     <td>
-<!--                        <a th:method="Delete" th:href="@{emails/delete/{email_id}(email_id=*{email.getId()})}"><button>Delete</button></a>-->
-
                         <form th:method="DELETE" th:action="@{/emails/delete/{email_id}(email_id=${email.getId()})}">
-<!--                            <input th:type="submit"></input>-->
                             <button th:type="submit" th:class="email_svgs_btn"><img id="trash_can" th:src="@{/images/trash-can-solid.svg}" alt="trash can"/></button>
                         </form>
-
-
                     </td>
 
                 </tr>
