@@ -1,8 +1,9 @@
 #rate_popup_wrapper {
     position: absolute;
-    background-color: rgba(159, 205, 255, 0.63);
+    top: 0px;
+    background-color: #000000E0;
     width: 100vw;
-    height: 80vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,4 +24,43 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#upper_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#rate_popup_close_btn {
+    width: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+    margin-bottom: 15px;
+}
+
+#rate_popup_close_btn:hover {
+    background-color: rgba(128, 128, 128, 0.65);
+}
+
+#fpage_h1 {
+    color: white;
+}
+
+.rate_btn {
+    color: white;
+    border-color: white;
+    transition-delay: 50ms;
+    margin-bottom: 15px;
+}
+
+.rate_btn:hover {
+    color: black;
+    background-color: #e2b04ae1;
+    border-color: #e2b04ae1;
 }

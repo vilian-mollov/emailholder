@@ -27,41 +27,51 @@
             </ul>
         </div>
     </aside>
+
+    <!--  Popup of Rate dialog   ----------------------------------------------------------------------------------------------------------------->
     <div id="rate_popup_block" style="display: none;">
+
         <div id="rate_popup_wrapper">
-            <div id="form_box">
-                <div class="header_fpage">
-                    <h1 id="fpage_h1">Rate a Site</h1>
-                </div>
+            <div th:id="upper_wrapper">
+                <button th:id="rate_popup_close_btn">X</button>
+                <div id="form_box">
+                    <div class="header_fpage">
+                        <h1 id="fpage_h1">Rate a Site</h1>
+                    </div>
 
-                <div id="fpage-form-div">
-                    <form id="fpage-form" name="form_rate" th:action="@{/rates/site/{site_id}(site_id = ${site_id})}"
-                          th:method="POST"
-                          th:object="${rateDTO}">
+                    <div id="fpage-form-div">
+                        <form id="fpage-form" name="form_rate"
+                              th:action="@{/rates/site/{site_id}(site_id = ${site_id})}"
+                              th:method="POST"
+                              th:object="${rateDTO}">
 
 
-                        <div class="form-group">
-                            <div class="label-holder text-white d-flex justify-content-center">
-                                <label for="rate" class="h3 mb-2">Rate</label>
+                            <div class="form-group">
+                                <div class="label-holder text-white d-flex justify-content-center">
+                                    <label for="rate" class="h3 mb-2">Rate</label>
+                                </div>
+                                <input type="number" class="form-control" id="rate"
+                                       th:field="*{rate}"
+                                       th:errorclass="bg-danger"
+                                       min="0"
+                                       max="6"/>
                             </div>
-                            <input type="number" class="form-control" id="rate"
-                                   th:field="*{rate}"
-                                   th:errorclass="bg-danger"
-                                   min="0"
-                                   max="6"/>
-                        </div>
 
-                        <div class="button-holder d-flex justify-content-center">
-                            <button type="submit" class="btn btn-warning  mb-3 sign_btns form_submit_btn log_in_btn">
-                                Rate
-                            </button>
-                        </div>
+                            <div class="button-holder d-flex justify-content-center">
+                                <button type="submit"
+                                        class="btn btn-warning  mb-3 sign_btns rate_btn">
+                                    Rate
+                                </button>
+                            </div>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--  Table of all sites  ------------------------------------------------------------------------------------------------------------------>
     <div id="main_div">
         <div id="table_border">
             <table id="collection">
@@ -82,11 +92,9 @@
                     <td th:text="${site.getRate()}"></td>
                     <td>
                         <div th:class="iconsDiv">
-                            <!--                            <a th:href="@{/rates/site/{site_id}(site_id=*{site.getId()})}">-->
                             <button th:id="${site.getId()}" th:class="comment-button"><img
                                     th:src="@{/images/star-regular.svg}"
                                     alt="rate svg" th:class="iconTable"></button>
-                            <!--                            </a>-->
                         </div>
                     </td>
                     <td>
