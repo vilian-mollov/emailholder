@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface EmailService {
-    List<Email> getAllEmailsByUser();
+    List<EmailDTO> getAllEmailsByUser();
 
     List<Site> getAllSitesForEmail();
 

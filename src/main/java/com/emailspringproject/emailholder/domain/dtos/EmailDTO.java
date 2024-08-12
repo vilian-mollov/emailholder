@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 
 public class EmailDTO {
 
+
+    private Long id;
+
     @NotNull
     @NotBlank
     @Email
@@ -13,6 +16,13 @@ public class EmailDTO {
 
     private String description;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmailAddress() {
         return emailAddress;

@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,9 +41,17 @@ public class EmailServiceImpl implements EmailService {
 
     //TODO make validations
     @Override
-    public List<Email> getAllEmailsByUser() {
+    public List<EmailDTO> getAllEmailsByUser() {
         User user = userService.getCurrentUser();
-        return emailRepository.findAllByUser(user);
+        List<Email> emails = emailRepository.findAllByUser(user);
+        List<EmailDTO> emailDTOS = new ArrayList<>();
+
+        for (Email email : emails) {
+            EmailDTO dto = modelMapper.map(email, EmailDTO.class);
+            emailDTOS.add(dto);
+        }
+
+        return emailDTOS;
     }
 
     @Override

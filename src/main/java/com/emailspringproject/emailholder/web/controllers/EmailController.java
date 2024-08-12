@@ -27,10 +27,11 @@ public class EmailController {
     }
 
     @GetMapping
-    public String getAllEmailsOfUser(Model model) {
-        List<Email> emails = emailService.getAllEmailsByUser(); //TODO replace with DTO and return only emails of the current user (cookie)
-        model.addAttribute("emails", emails);
-        return "emails";
+    public ModelAndView getAllEmailsOfUser(ModelAndView modelAndView) {
+        List<EmailDTO> emailsDTOs = emailService.getAllEmailsByUser();
+        modelAndView.addObject("emails", emailsDTOs);
+        modelAndView.setViewName("emails");
+        return modelAndView;
     }
 
     @PostMapping("/{siteId}")
