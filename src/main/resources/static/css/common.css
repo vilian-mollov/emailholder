@@ -68,18 +68,6 @@ header nav {
     color: white;
 }
 
-/* Edit button*/
-#edit_btn {
-    transition: 300ms ease-in-out;
-    transition-delay: 50ms;
-}
-
-#edit_btn:hover {
-    background-color: #18E7CEE0;
-    border-color: #18E7CEE0;
-    cursor: pointer;
-    color: white;
-}
 
 /* Header ------------------------------------------------------------------------------ */
 
