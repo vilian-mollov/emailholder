@@ -50,6 +50,15 @@ main {
     text-align: center;
 }
 
+.rate-button {
+    border: none;
+    background-color: transparent;
+}
+
+.rate-button:hover {
+    cursor: pointer;
+}
+
 .comment-button {
     border: none;
     background-color: transparent;

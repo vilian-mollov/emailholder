@@ -1,4 +1,4 @@
-let open_popups = document.getElementsByClassName("comment-button");
+let open_popups = document.getElementsByClassName("rate-button");
 let popup_dialog = document.getElementById("rate_popup_close_btn");
 
 function addHandlers() {
