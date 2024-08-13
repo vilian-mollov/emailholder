@@ -39,23 +39,19 @@ public class Site extends BaseEntity {
     @JoinTable(name = "sites_commets")
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "sites_rates")
-    private List<Rate> rates = new ArrayList<>();
-
-    private Integer rate = 0;
+    @OneToMany(mappedBy = "site", cascade = CascadeType.ALL)
+    private Set<Rate> rates = new HashSet<>();
 
     public Site() {
     }
 
-    public Site(String address, String domainName, User user, List<Comment> comments, List<Rate> rates) {
+    public Site(String address, String domainName, User user, List<Comment> comments, Set<Rate> rates) {
         this.domainName = domainName;
         this.address = address;
         this.emails = new HashSet<>();
         this.user = user;
         this.comments = comments;
         this.rates = rates;
-        this.rate = getSiteRate();
     }
 
     public String getDomainName() {
@@ -116,44 +112,16 @@ public class Site extends BaseEntity {
         this.comments = comments;
     }
 
-    public List<Rate> getRates() {
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
+    public Set<Rate> getRates() {
         return rates;
     }
 
-    public void setRates(List<Rate> rates) {
+    public void setRates(Set<Rate> rates) {
         this.rates = rates;
-        this.rate = getSiteRate();
-    }
-
-    public Integer getRate() {
-        return rate;
-    }
-
-    public void setRate(Integer rate) {
-        this.rate = rate;
-    }
-
-    public void addRate(Rate rate) {
-        this.rates.add(rate);
-        this.rate = getSiteRate();
-    }
-
-    public Integer getSiteRate() {
-
-        Integer averageRate = 0;
-
-        for (Rate rate : this.rates) {
-            averageRate += rate.getRate();
-        }
-
-        if (this.rates.size() > 0) {
-            averageRate = averageRate / this.rates.size();
-        }
-        return averageRate;
-    }
-
-    public void addComment(Comment comment) {
-        this.comments.add(comment);
     }
 
     @Override

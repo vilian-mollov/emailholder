@@ -14,7 +14,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.beans.Transient;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -42,45 +44,53 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+//      Users ---------------------------------------------------------------------------------------------------------------------------
 
         User user = new User();
         user.setUsername("test");
         user.setPassword(encoder.encode(pass));
         userRepository.save(user);
 
-        Site facebook = new Site("https://www.facebook.com", "Facebook", user, new ArrayList<>(), new ArrayList<>());
+        User user2 = new User();
+        user2.setUsername("timcook");
+        user2.setPassword(encoder.encode(pass));
+        userRepository.save(user2);
+
+//      Sites --------------------------------------------------------------------------------------------------------------------------
+
+        Site facebook = new Site("https://www.facebook.com", "Facebook", user, new ArrayList<>(), new HashSet<>());
         facebook.setSafety(true);
         siteRepository.save(facebook);
 
-        rateSite(facebook);
+        rateSite(facebook, user);
 
-        Site notSafetySite = new Site("http://www.strangethings.com", "StrangeThings", user, new ArrayList<>(), new ArrayList<>());
+        Site notSafetySite = new Site("http://www.strangethings.com", "StrangeThings", user, new ArrayList<>(), new HashSet<>());
         notSafetySite.setSafety(false);
         siteRepository.save(notSafetySite);
 
-        rateSite(notSafetySite);
+        rateSite(notSafetySite, user);
 
-        Site instagram = new Site("https://www.instagram.com", "Instagram", user, new ArrayList<>(), new ArrayList<>());
+        Site instagram = new Site("https://www.instagram.com", "Instagram", user, new ArrayList<>(), new HashSet<>());
         instagram.setSafety(true);
         siteRepository.save(instagram);
 
-        rateSite(instagram);
+        rateSite(instagram, user);
 
-        Site linkedIn = new Site("https://www.linkedin.com", "LinkedIn", user, new ArrayList<>(), new ArrayList<>());
+        Site linkedIn = new Site("https://www.linkedin.com", "LinkedIn", user, new ArrayList<>(), new HashSet<>());
         linkedIn.setSafety(true);
         siteRepository.save(linkedIn);
 
-        rateSite(linkedIn);
+        rateSite(linkedIn, user);
 
         Email email = new Email("immortals@gmail.com", "email description .....................");
         email.addSite(facebook);
         email.addSite(instagram);
         email.addSite(linkedIn);
         for (int i = 1; i <= 3; i++) {
-            Site testSite = new Site("https://www.test" + i + ".com", "test" + i, user, new ArrayList<>(), new ArrayList<>());
+            Site testSite = new Site("https://www.test" + i + ".com", "test" + i, user, new ArrayList<>(), new HashSet<>());
             testSite.setSafety(true);
             siteRepository.save(testSite);
-            rateSite(testSite);
+            rateSite(testSite, user);
             email.addSite(testSite);
         }
         emailRepository.save(email);
@@ -110,21 +120,18 @@ public class BootStrapData implements CommandLineRunner {
 
     }
 
-    private void rateSite(Site site) {
 
+    private void rateSite(Site site, User user) {
+//      Rate
         Random random = new Random();
-
-        Rate rate = new Rate(random.nextInt(1, 6));
+        Rate rate = new Rate(random.nextInt(1, 6), user, site);
+//      Save the at last Rate
         rateRepository.save(rate);
 
-        Rate rate2 = new Rate(random.nextInt(1, 6));
-        rateRepository.save(rate2);
+        user.getRates().add(rate);
+        userRepository.save(user);
 
-        Rate rate3 = new Rate(random.nextInt(1, 6));
-        rateRepository.save(rate3);
-
-        List<Rate> rates = new ArrayList<>(List.of(rate, rate2, rate3));
-        site.setRates(rates);
+        site.getRates().add(rate);
         siteRepository.save(site);
     }
 

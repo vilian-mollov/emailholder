@@ -39,10 +39,13 @@ public class User extends BaseEntity {
     @JoinColumn(name = "user_id")
     private Set<Site> sites = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Rate> rates = new HashSet<>();
+
     public User() {
     }
 
-    public User(String username, String mainEmail, String password, Timestamp createdAt, Timestamp lastChangedAt, Set<Email> emails, Set<Site> sites) {
+    public User(String username, String mainEmail, String password, Timestamp createdAt, Timestamp lastChangedAt, Set<Email> emails, Set<Site> sites, Set<Rate> rates) {
         this.username = username;
         this.mainEmail = mainEmail;
         this.password = password;
@@ -50,6 +53,7 @@ public class User extends BaseEntity {
         this.lastChangedAt = lastChangedAt;
         this.emails = emails;
         this.sites = sites;
+        this.rates = rates;
     }
 
     public String getUsername() {
@@ -110,5 +114,13 @@ public class User extends BaseEntity {
 
     public void setSites(Set<Site> sites) {
         this.sites = sites;
+    }
+
+    public Set<Rate> getRates() {
+        return rates;
+    }
+
+    public void setRates(Set<Rate> rates) {
+        this.rates = rates;
     }
 }

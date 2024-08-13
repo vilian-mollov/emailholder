@@ -1,5 +1,9 @@
 package com.emailspringproject.emailholder.domain.dtos;
 
+import com.emailspringproject.emailholder.domain.entities.Rate;
+
+import java.util.Set;
+
 public class SiteExportDTO {
 
     private Long id;
@@ -10,7 +14,7 @@ public class SiteExportDTO {
 
     private Boolean safety;
 
-    private Integer rate;
+    private Set<Rate> rates;
 
 
     public Long getId() {
@@ -45,13 +49,22 @@ public class SiteExportDTO {
         this.safety = safety;
     }
 
-    public Integer getRate() {
-        return rate;
+    public Set<Rate> getRates() {
+        return rates;
     }
 
-    public void setRate(Integer rate) {
-        this.rate = rate;
+    public void setRates(Set<Rate> rates) {
+        this.rates = rates;
     }
 
-
+    public Integer getAverageForSite() {
+        if(this.rates == null || this.rates.isEmpty()){
+            return 0;
+        }
+        Integer avg = 0;
+        for (Rate rate : this.rates) {
+            avg += rate.getRate();
+        }
+        return avg / rates.size();
+    }
 }

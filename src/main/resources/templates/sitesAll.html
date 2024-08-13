@@ -41,7 +41,7 @@
 
                     <div id="fpage-form-div">
                         <form id="fpage-form" name="form_rate"
-                              th:action="@{/rates/site/{site_id}(site_id = ${site_id})}"
+                              th:action="@{/rates/site/}"
                               th:method="POST"
                               th:object="${rateDTO}">
 
@@ -89,7 +89,7 @@
                 <tr th:each="site : ${sites}">
                     <td th:text="${site.getDomainName()}"></td>
                     <td th:text="${site.getAddress()}"></td>
-                    <td th:text="${site.getRate()}"></td>
+                    <td th:text="${site.getAverageForSite()}"></td>
                     <td>
                         <div th:class="iconsDiv">
                             <button th:id="${site.getId()}" th:class="comment-button"><img
