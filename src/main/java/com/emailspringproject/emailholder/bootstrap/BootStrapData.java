@@ -48,25 +48,25 @@ public class BootStrapData implements CommandLineRunner {
         user.setPassword(encoder.encode(pass));
         userRepository.save(user);
 
-        Site facebook = new Site("https://www.facebook.com/", "Facebook", user, new ArrayList<>(), new ArrayList<>());
+        Site facebook = new Site("https://www.facebook.com", "Facebook", user, new ArrayList<>(), new ArrayList<>());
         facebook.setSafety(true);
         siteRepository.save(facebook);
 
         rateSite(facebook);
 
-        Site notSafetySite = new Site("http://www.strangethings.com/", "StrangeThings", user, new ArrayList<>(), new ArrayList<>());
+        Site notSafetySite = new Site("http://www.strangethings.com", "StrangeThings", user, new ArrayList<>(), new ArrayList<>());
         notSafetySite.setSafety(false);
         siteRepository.save(notSafetySite);
 
         rateSite(notSafetySite);
 
-        Site instagram = new Site("https://www.instagram.com/", "Instagram", user, new ArrayList<>(), new ArrayList<>());
+        Site instagram = new Site("https://www.instagram.com", "Instagram", user, new ArrayList<>(), new ArrayList<>());
         instagram.setSafety(true);
         siteRepository.save(instagram);
 
         rateSite(instagram);
 
-        Site linkedIn = new Site("https://www.linkedin.com/", "LinkedIn", user, new ArrayList<>(), new ArrayList<>());
+        Site linkedIn = new Site("https://www.linkedin.com", "LinkedIn", user, new ArrayList<>(), new ArrayList<>());
         linkedIn.setSafety(true);
         siteRepository.save(linkedIn);
 
@@ -77,7 +77,7 @@ public class BootStrapData implements CommandLineRunner {
         email.addSite(instagram);
         email.addSite(linkedIn);
         for (int i = 1; i <= 3; i++) {
-            Site testSite = new Site("https://www.test" + i + ".com/", "test" + i, user, new ArrayList<>(), new ArrayList<>());
+            Site testSite = new Site("https://www.test" + i + ".com", "test" + i, user, new ArrayList<>(), new ArrayList<>());
             testSite.setSafety(true);
             siteRepository.save(testSite);
             rateSite(testSite);

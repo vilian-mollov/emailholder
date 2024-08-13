@@ -90,16 +90,19 @@ public class SiteServiceImpl implements SiteService {
     @Override
     public List<String> createSite(SiteImportDTO siteDTO) {
 
-        List<String> problems = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
 
         if (!siteDTO.getAddress().startsWith("http")) {
-            problems.add("Incomplete link, sites should start with http or https");
+            errors.add("Incomplete link, sites should start with http or https");
         }
 
-        //starts with http
-        //ends in top level domain they are to many com/edu ?
+        List<Site> sitesFoundByAddress = siteRepository.findAllByAddress(siteDTO.getAddress());
 
-        if (problems.isEmpty()) {
+        if (!sitesFoundByAddress.isEmpty()) {
+            errors.add("Site with this address already exist");
+        }
+
+        if (errors.isEmpty()) {
             Site site = modelMapper.map(siteDTO, Site.class);
             site.setUser(userRepository.findFirstByUsername(currentUser.getUsername()).get());
 
@@ -110,7 +113,7 @@ public class SiteServiceImpl implements SiteService {
             siteRepository.save(site);
         }
 
-        return problems;
+        return errors;
     }
 
     @Override

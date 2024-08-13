@@ -15,6 +15,8 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
 
     List<Site> findAllByUser(User user);
 
+    List<Site> findAllByAddress(String address);
+
     void deleteById(Long id);
 
 }

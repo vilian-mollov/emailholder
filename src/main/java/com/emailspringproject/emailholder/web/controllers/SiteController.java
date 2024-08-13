@@ -4,6 +4,7 @@ import com.emailspringproject.emailholder.domain.dtos.RateDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteImportDTO;
 import com.emailspringproject.emailholder.services.SiteService;
+import com.emailspringproject.emailholder.utilities.CurrentUser;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,12 @@ public class SiteController {
 
     private final SiteService siteService;
 
+    private final CurrentUser currentUser;
+
     @Autowired
-    public SiteController(SiteService siteService) {
+    public SiteController(SiteService siteService, CurrentUser currentUser) {
         this.siteService = siteService;
+        this.currentUser = currentUser;
     }
 
     @GetMapping("/all")
@@ -56,14 +60,21 @@ public class SiteController {
 
     @PostMapping("create")
     public ModelAndView createSite(@ModelAttribute("siteDTO") @Valid SiteImportDTO siteDTO, BindingResult bindingResult, ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:/sites/create");
 
-        List<String> problems = siteService.createSite(siteDTO);
-
-        if (!problems.isEmpty()) {
-            modelAndView.addObject("problems", problems);
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("createSite");
+            return modelAndView;
         }
 
+        List<String> errors = siteService.createSite(siteDTO);
+
+        if (!errors.isEmpty()) {
+            modelAndView.addObject("errors", errors);
+            modelAndView.setViewName("createSite");
+            return modelAndView;
+        }
+
+        modelAndView.setViewName("redirect:/sites/user?username=" + currentUser.getUsername());
         return modelAndView;
     }
 

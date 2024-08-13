@@ -27,7 +27,7 @@
 
                 <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
 
-                <div th:if="${hasRegisterError}">
+                <div th:if="${errors != null}">
                     <div th:each="error : ${errors}" th:text="${error.toString()}" class="text-danger">
 
                     </div>

@@ -8,6 +8,7 @@
   <link th:href="@{/css/reset.css}" rel="stylesheet"/>
   <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
   <link th:href="@{/css/common.css}" rel="stylesheet"/>
+  <link th:href="@{/css/forms_commons.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -25,12 +26,6 @@
       <form id="fpage-form" th:action="@{/emails/update/{email_id}(email_id=${emailId})}" th:method="POST" th:object="${emailDTO}">
 
         <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
-
-<!--        <div th:if="${hasRegisterError}">-->
-<!--          <div th:each="error : ${errors}" th:text="${error.toString()}" class="text-danger">-->
-
-<!--          </div>-->
-<!--        </div>-->
 
         <div class="form-group">
           <div class="label-holder text-white d-flex justify-content-center">
