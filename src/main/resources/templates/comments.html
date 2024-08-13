@@ -50,20 +50,17 @@
         </div>
 
 
-        <div id="table_border">
-            <table id="collection">
-                <thead>
-                <tr>
-                    <th>Comments</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="comment : ${comments}">
-                    <td th:text="${comment.getComment()}"></td>
-                </tr>
-                </tbody>
-            </table>
+        <div th:id="comments_wrapper_div">
+            <div th:class="comment_block_div" th:each="comment : ${comments}">
+                <div th:id="user_comment_div">
+                    <h4 th:text="${comment.getUser().getUsername()}"></h4>
+                </div>
+                <div th:id="comment_div">
+                    <p th:text="${comment.getComment()}"></p>
+                </div>
+            </div>
         </div>
+
     </div>
 
 </main>

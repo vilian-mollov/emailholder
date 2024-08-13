@@ -1,10 +1,12 @@
 package com.emailspringproject.emailholder.bootstrap;
 
 
+import com.emailspringproject.emailholder.domain.entities.Comment;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Rate;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.domain.entities.User;
+import com.emailspringproject.emailholder.repositories.CommentRepository;
 import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.RateRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
@@ -14,7 +16,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,16 +30,23 @@ public class BootStrapData implements CommandLineRunner {
     private final SiteRepository siteRepository;
     private final UserRepository userRepository;
     private final RateRepository rateRepository;
+    private final CommentRepository commentRepository;
     private PasswordEncoder encoder;
 
     @Value("${PASSWORD}")
     private String pass;
 
-    public BootStrapData(EmailRepository emailRepository, SiteRepository siteRepository, UserRepository userRepository, RateRepository rateRepository, PasswordEncoder encoder) {
+    public BootStrapData(EmailRepository emailRepository,
+                         SiteRepository siteRepository,
+                         UserRepository userRepository,
+                         RateRepository rateRepository,
+                         CommentRepository commentRepository,
+                         PasswordEncoder encoder) {
         this.emailRepository = emailRepository;
         this.siteRepository = siteRepository;
         this.userRepository = userRepository;
         this.rateRepository = rateRepository;
+        this.commentRepository = commentRepository;
         this.encoder = encoder;
     }
 
@@ -52,34 +60,50 @@ public class BootStrapData implements CommandLineRunner {
         userRepository.save(user);
 
         User user2 = new User();
-        user2.setUsername("timcook");
+        user2.setUsername("lethimcook_tim_24");
         user2.setPassword(encoder.encode(pass));
         userRepository.save(user2);
 
+        User user3 = new User();
+        user3.setUsername("daniel2489");
+        user3.setPassword(encoder.encode(pass));
+        userRepository.save(user3);
+
+        User user4 = new User();
+        user4.setUsername("Richard_009");
+        user4.setPassword(encoder.encode(pass));
+        userRepository.save(user4);
+
 //      Sites --------------------------------------------------------------------------------------------------------------------------
 
-        Site facebook = new Site("https://www.facebook.com", "Facebook", user, new ArrayList<>(), new HashSet<>());
+        Site facebook = new Site("https://www.facebook.com", "Facebook", user, new HashSet<>(), new HashSet<>());
         facebook.setSafety(true);
         siteRepository.save(facebook);
-
+        addCommentToSite(facebook, user4);
+        addCommentToSite(facebook, user3);
+        addCommentToSite(facebook, user2);
         rateSite(facebook, user);
 
-        Site notSafetySite = new Site("http://www.strangethings.com", "StrangeThings", user, new ArrayList<>(), new HashSet<>());
+        Site notSafetySite = new Site("http://www.strangethings.com", "StrangeThings", user, new HashSet<>(), new HashSet<>());
         notSafetySite.setSafety(false);
         siteRepository.save(notSafetySite);
-
+        addCommentToSite(notSafetySite, user2);
         rateSite(notSafetySite, user);
 
-        Site instagram = new Site("https://www.instagram.com", "Instagram", user, new ArrayList<>(), new HashSet<>());
+        Site instagram = new Site("https://www.instagram.com", "Instagram", user, new HashSet<>(), new HashSet<>());
         instagram.setSafety(true);
         siteRepository.save(instagram);
-
+        addCommentToSite(instagram, user4);
+        addCommentToSite(instagram, user3);
+        addCommentToSite(instagram, user2);
         rateSite(instagram, user);
 
-        Site linkedIn = new Site("https://www.linkedin.com", "LinkedIn", user, new ArrayList<>(), new HashSet<>());
+        Site linkedIn = new Site("https://www.linkedin.com", "LinkedIn", user, new HashSet<>(), new HashSet<>());
         linkedIn.setSafety(true);
         siteRepository.save(linkedIn);
-
+        addCommentToSite(linkedIn, user4);
+        addCommentToSite(linkedIn, user3);
+        addCommentToSite(linkedIn, user2);
         rateSite(linkedIn, user);
 
         Email email = new Email("immortals@gmail.com", "email description .....................");
@@ -87,9 +111,10 @@ public class BootStrapData implements CommandLineRunner {
         email.addSite(instagram);
         email.addSite(linkedIn);
         for (int i = 1; i <= 3; i++) {
-            Site testSite = new Site("https://www.test" + i + ".com", "test" + i, user, new ArrayList<>(), new HashSet<>());
+            Site testSite = new Site("https://www.test" + i + ".com", "test" + i, user, new HashSet<>(), new HashSet<>());
             testSite.setSafety(true);
             siteRepository.save(testSite);
+            addCommentToSite(testSite, user4);
             rateSite(testSite, user);
             email.addSite(testSite);
         }
@@ -132,6 +157,28 @@ public class BootStrapData implements CommandLineRunner {
         userRepository.save(user);
 
         site.getRates().add(rate);
+        siteRepository.save(site);
+    }
+
+    private void addCommentToSite(Site site, User user) {
+        Random random = new Random();
+        List<String> comments = new ArrayList<>();
+        comments.add("Amazing site. I am using it every day!");
+        comments.add("Need improvements");
+        comments.add("The new feature is awesome! Thanks guys! XD");
+        comments.add("No a big fan, but it is very fast.");
+        comments.add("Frontend needs refactoring, it is really not user friendly!");
+
+        int index = random.nextInt(0,4);
+        String randomComment = comments.get(index);
+
+        Comment comment = new Comment(randomComment,user, site);
+        commentRepository.save(comment);
+
+        user.getComments().add(comment);
+        userRepository.save(user);
+
+        site.getComments().add(comment);
         siteRepository.save(site);
     }
 

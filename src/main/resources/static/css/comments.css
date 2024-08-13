@@ -15,3 +15,7 @@
     color: #000000;
     cursor: not-allowed;
 }
+
+.form-control {
+    resize: none;
+}

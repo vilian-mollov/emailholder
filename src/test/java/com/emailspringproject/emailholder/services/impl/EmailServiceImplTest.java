@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +69,7 @@ public class EmailServiceImplTest {
         emailDTO.setDescription(expectedDescription);
 
 //      Site
-        expectedSite = new Site(expectedAddress, expectedDomainName, expectedUser, new ArrayList<>(), new ArrayList<>());
+        expectedSite = new Site(expectedAddress, expectedDomainName, expectedUser, new ArrayList<>(), new HashSet<>());
         expectedSite.setId(expectedId);
 
 //      Email

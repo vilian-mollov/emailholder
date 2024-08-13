@@ -9,7 +9,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,12 +43,15 @@ public class User extends BaseEntity {
     private Set<Site> sites = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Comment> comments = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Rate> rates = new HashSet<>();
 
     public User() {
     }
 
-    public User(String username, String mainEmail, String password, Timestamp createdAt, Timestamp lastChangedAt, Set<Email> emails, Set<Site> sites, Set<Rate> rates) {
+    public User(String username, String mainEmail, String password, Timestamp createdAt, Timestamp lastChangedAt,
+                Set<Email> emails, Set<Site> sites,Set<Comment> comments, Set<Rate> rates) {
         this.username = username;
         this.mainEmail = mainEmail;
         this.password = password;
@@ -53,6 +59,7 @@ public class User extends BaseEntity {
         this.lastChangedAt = lastChangedAt;
         this.emails = emails;
         this.sites = sites;
+        this.comments =comments;
         this.rates = rates;
     }
 
@@ -114,6 +121,14 @@ public class User extends BaseEntity {
 
     public void setSites(Set<Site> sites) {
         this.sites = sites;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public Set<Rate> getRates() {

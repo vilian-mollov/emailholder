@@ -35,9 +35,8 @@ public class Site extends BaseEntity {
     @ManyToOne
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "sites_commets")
-    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "site", cascade = CascadeType.ALL)
+    private Set<Comment> comments = new HashSet<>();
 
     @OneToMany(mappedBy = "site", cascade = CascadeType.ALL)
     private Set<Rate> rates = new HashSet<>();
@@ -45,7 +44,7 @@ public class Site extends BaseEntity {
     public Site() {
     }
 
-    public Site(String address, String domainName, User user, List<Comment> comments, Set<Rate> rates) {
+    public Site(String address, String domainName, User user, Set<Comment> comments, Set<Rate> rates) {
         this.domainName = domainName;
         this.address = address;
         this.emails = new HashSet<>();
@@ -104,11 +103,11 @@ public class Site extends BaseEntity {
         return Objects.equals(this.getId(), site.getId());
     }
 
-    public List<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
