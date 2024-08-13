@@ -1,6 +1,7 @@
 package com.emailspringproject.emailholder.services.impl;
 
 import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
+import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.domain.entities.User;
@@ -109,9 +110,9 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public ResponseEntity<Email> addSiteToEmail(Long emailId, Long siteId) {
+    public ResponseEntity<Email> addSiteToEmail(Long emailId, SiteExportDTO siteDTO) {
         Optional<Email> optionalEmail = emailRepository.findById(emailId);
-        Optional<Site> optionalSite = siteRepository.findById(siteId);
+        Optional<Site> optionalSite = siteRepository.findById(siteDTO.getId());
 
         if (optionalEmail.isPresent() && optionalSite.isPresent()) {
             Email email = optionalEmail.get();

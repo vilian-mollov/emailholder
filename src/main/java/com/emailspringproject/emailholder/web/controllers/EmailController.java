@@ -2,9 +2,11 @@ package com.emailspringproject.emailholder.web.controllers;
 
 
 import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
+import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.services.EmailService;
+import com.emailspringproject.emailholder.services.SiteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +22,12 @@ import java.util.List;
 public class EmailController {
 
     private final EmailService emailService;
+    private final SiteService siteService;
 
     @Autowired
-    public EmailController(EmailService emailService) {
+    public EmailController(EmailService emailService, SiteService siteService) {
         this.emailService = emailService;
+        this.siteService = siteService;
     }
 
     @GetMapping
@@ -61,9 +65,21 @@ public class EmailController {
         return "emails";
     }
 
-    @PutMapping("/{emailId}/sites/{siteId}")
-    public ResponseEntity<Email> addSiteToEmail(@PathVariable Long emailId, @PathVariable Long siteId) {
-        return emailService.addSiteToEmail(emailId, siteId);
+    @GetMapping("/add/site/{email_id}")
+    public ModelAndView getAddSiteToEmail(@PathVariable Long email_id, @ModelAttribute("siteDTO") SiteExportDTO siteDTO, ModelAndView modelAndView) {
+        List<SiteExportDTO> allSites = siteService.getAllSites();
+        modelAndView.setViewName("addSiteToEmail");
+        modelAndView.addObject("email_id", email_id);
+        modelAndView.addObject("allSitesDTO", allSites);
+        modelAndView.addObject("siteDTO", siteDTO);
+        return modelAndView;
+    }
+
+    @PostMapping("/add/sites/{emailId}")
+    public ModelAndView addSiteToEmail(@PathVariable Long emailId, @ModelAttribute("siteDTO") SiteExportDTO siteDTO, ModelAndView modelAndView) {
+        emailService.addSiteToEmail(emailId, siteDTO);
+        modelAndView.setViewName("redirect:/emails");
+        return modelAndView;
     }
 
     @DeleteMapping("/{emailId}/sites/{siteId}")
@@ -72,7 +88,7 @@ public class EmailController {
     }
 
     @DeleteMapping("/delete/{email_id}")
-    public String deleteEmail(@PathVariable Long email_id) {
+    public String deleteEmail(@PathVariable Long email_id) { //TODO Model and view
         emailService.deleteEmail(email_id);
 
         return "redirect:/emails";
@@ -82,13 +98,13 @@ public class EmailController {
     public ModelAndView editEmail(@PathVariable Long email_id, ModelAndView modelAndView) {
         EmailDTO returnedEmailDTO = emailService.getEmailById(email_id);
         modelAndView.setViewName("updateEmail");
-        modelAndView.addObject("emailDTO",returnedEmailDTO);
-        modelAndView.addObject("emailId",email_id);
+        modelAndView.addObject("emailDTO", returnedEmailDTO);
+        modelAndView.addObject("emailId", email_id);
         return modelAndView;
     }
 
     @PostMapping("/update/{email_id}")
-    public ModelAndView updateEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO,@PathVariable Long email_id, ModelAndView modelAndView) {
+    public ModelAndView updateEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO, @PathVariable Long email_id, ModelAndView modelAndView) {
         emailService.updateEmail(emailDTO, email_id);
         modelAndView.setViewName("redirect:/emails");
         return modelAndView;

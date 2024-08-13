@@ -34,6 +34,7 @@
                     <th>Email Address</th>
                     <th>Description</th>
                     <th>Sites</th>
+                    <th>Add Site</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -44,12 +45,12 @@
                     <td th:text="${email.getEmailAddress()}"></td>
                     <td th:text="${email.getDescription()}"></td>
                     <td>
-
                         <a th:href="@{/sites/email/{email_id}(email_id=*{email.getId()})}">
-                            <button class="goToSites"><img id="arrow" th:src="@{/images/arrow.png}" alt="arrow"/>
-                            </button>
-                        </a>
-
+                            <button class="goToSites"><img id="arrow" th:src="@{/images/arrow.png}" alt="arrow"/></button></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/emails/add/site/{email_id}(email_id=*{email.getId()})}">
+                        <button th:class="email_svgs_btn"><img th:id="add_site_svg" th:src="@{/images/plus-solid.svg}" th:alt="plus_sign"/></button></a>
                     </td>
                     <td><a th:href="@{emails/edit/{email_id}(email_id=*{email.getId()})}"><button th:class="email_svgs_btn"><img id="gear" th:src="@{/images/gear-solid.svg}" alt="gear"/></button></a></td>
                     <td>

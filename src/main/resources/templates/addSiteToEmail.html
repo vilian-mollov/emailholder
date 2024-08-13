@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Add site to Email</title>
+    <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/forms_commons.css}" rel="stylesheet"/>
+    <link th:href="@{/css/add_site_to_email.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<header th:replace="~{fragments/navigation}"></header>
+
+<main>
+
+    <div class="wrapper">
+
+        <div class="header_fpage">
+            <h1 id="fpage_h1">Add Site to Email</h1>
+        </div>
+
+        <div id="fpage-form-div">
+            <form id="fpage-form" th:action="@{/emails/add/sites/{email_id}(email_id=${email_id})}" th:method="POST"
+                  th:object="${siteDTO}">
+
+                <div th:id="select_div" class="form-group col-md-6 mb-3">
+                    <label class="text-center text-white font-weight-bold" for="id">Site</label>
+                    <select id="id"
+                            th:field="*{id}"
+                            th:errorclass="is-invalid"
+                            class="form-control">
+                        <option value="">- Select a Site -</option>
+                        <option
+                                th:each="site : ${allSitesDTO}"
+                                th:text="${site.getAddress()}"
+                                th:value="${site.getId()}">
+                            Site
+                        </option>
+                    </select>
+                </div>
+
+                <div th:id="button_div" class="button-holder d-flex justify-content-center">
+                    <button type="submit" class="btn btn-warning  mb-3 sign_btns form_submit_btn add_btn">Add
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</main>
+
+<footer id="footer-content">
+    <p>Email Holder &copy; All rights reserved</p>
+</footer>
+
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

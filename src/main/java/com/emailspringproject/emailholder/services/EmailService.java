@@ -1,6 +1,7 @@
 package com.emailspringproject.emailholder.services;
 
 import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
+import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public interface EmailService {
 
     void deleteEmail(Long id);
 
-    ResponseEntity<Email> addSiteToEmail(Long emailId, Long siteId);
+    ResponseEntity<Email> addSiteToEmail(Long emailId, SiteExportDTO siteDTO);
 
     ResponseEntity<Email> removeSiteFromEmail(Long emailId, Long siteId);
 }
