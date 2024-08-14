@@ -4,9 +4,10 @@ import com.emailspringproject.emailholder.domain.dtos.RateDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteImportDTO;
 import com.emailspringproject.emailholder.services.SiteService;
-import com.emailspringproject.emailholder.utilities.CurrentUser;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,12 +29,10 @@ public class SiteController {
 
     private final SiteService siteService;
 
-    private final CurrentUser currentUser;
 
     @Autowired
-    public SiteController(SiteService siteService, CurrentUser currentUser) {
+    public SiteController(SiteService siteService) {
         this.siteService = siteService;
-        this.currentUser = currentUser;
     }
 
     @GetMapping("/all")
@@ -45,9 +43,9 @@ public class SiteController {
     }
 
     @GetMapping("/user")
-    public ModelAndView getAllSitesForUser(ModelAndView modelAndView, @RequestParam String username) {
+    public ModelAndView getAllSitesForUser(@AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
         modelAndView.setViewName("sites");
-        modelAndView.addObject("sites", siteService.getAllSitesForUser(username));
+        modelAndView.addObject("sites", siteService.getAllSitesForUser(userDetails.getUsername()));
         return modelAndView;
     }
 
@@ -59,14 +57,15 @@ public class SiteController {
     }
 
     @PostMapping("create")
-    public ModelAndView createSite(@ModelAttribute("siteDTO") @Valid SiteImportDTO siteDTO, BindingResult bindingResult, ModelAndView modelAndView) {
+    public ModelAndView createSite(@ModelAttribute("siteDTO") @Valid SiteImportDTO siteDTO, BindingResult bindingResult,
+                                   @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("createSite");
             return modelAndView;
         }
 
-        List<String> errors = siteService.createSite(siteDTO);
+        List<String> errors = siteService.createSite(siteDTO, userDetails);
 
         if (!errors.isEmpty()) {
             modelAndView.addObject("errors", errors);
@@ -74,7 +73,7 @@ public class SiteController {
             return modelAndView;
         }
 
-        modelAndView.setViewName("redirect:/sites/user?username=" + currentUser.getUsername());
+        modelAndView.setViewName("redirect:/sites/user?username=" + userDetails.getUsername());
         return modelAndView;
     }
 
@@ -87,9 +86,9 @@ public class SiteController {
     }
 
     @DeleteMapping("/{id}")
-    public ModelAndView deleteSiteFromAllEmailsOfUser(ModelAndView modelAndView, @PathVariable Long id) {
+    public ModelAndView deleteSiteFromAllEmailsOfUser(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
 
-        SiteExportDTO expSiteDTO = siteService.deleteSiteFromAllEmailsOfUser(id);
+        SiteExportDTO expSiteDTO = siteService.deleteSiteFromAllEmailsOfUser(id, userDetails);
 
         if (expSiteDTO == null) {
             modelAndView.addObject("error", String.format(SITE_NOT_FOUND.toString()));

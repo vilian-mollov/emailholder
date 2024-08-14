@@ -8,15 +8,12 @@ import com.emailspringproject.emailholder.repositories.RateRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.RateService;
-import com.emailspringproject.emailholder.utilities.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class RateServiceImpl implements RateService {
@@ -26,21 +23,18 @@ public class RateServiceImpl implements RateService {
     private final SiteRepository siteRepository;
     private final UserRepository userRepository;
 
-    private final CurrentUser currentUser;
-
     @Autowired
-    public RateServiceImpl(ModelMapper modelMapper, RateRepository rateRepository, SiteRepository siteRepository, UserRepository userRepository, CurrentUser currentUser) {
+    public RateServiceImpl(ModelMapper modelMapper, RateRepository rateRepository, SiteRepository siteRepository, UserRepository userRepository) {
         this.modelMapper = modelMapper;
         this.rateRepository = rateRepository;
         this.siteRepository = siteRepository;
         this.userRepository = userRepository;
-        this.currentUser = currentUser;
     }
 
     @Override
-    public void addRateToSite(Long siteId, RateDTO rateDTO) {
+    public void addRateToSite(Long siteId, RateDTO rateDTO, UserDetails userDetails) {
 
-        Optional<User> userOpt = userRepository.findFirstByUsername(currentUser.getUsername());
+        Optional<User> userOpt = userRepository.findFirstByUsername(userDetails.getUsername());
         User user = userOpt.get();
 
         Optional<Site> siteOpt = siteRepository.findById(siteId);

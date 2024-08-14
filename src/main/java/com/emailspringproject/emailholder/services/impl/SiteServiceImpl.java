@@ -9,9 +9,9 @@ import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.SiteService;
-import com.emailspringproject.emailholder.utilities.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,19 +25,15 @@ public class SiteServiceImpl implements SiteService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    private final CurrentUser currentUser;
-
     @Autowired
     public SiteServiceImpl(SiteRepository siteRepository,
                            EmailRepository emailRepository,
                            UserRepository userRepository,
-                           ModelMapper modelMapper,
-                           CurrentUser currentUser) {
+                           ModelMapper modelMapper) {
         this.siteRepository = siteRepository;
         this.emailRepository = emailRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-        this.currentUser = currentUser;
     }
 
 
@@ -88,7 +84,7 @@ public class SiteServiceImpl implements SiteService {
     }
 
     @Override
-    public List<String> createSite(SiteImportDTO siteDTO) {
+    public List<String> createSite(SiteImportDTO siteDTO, UserDetails userDetails) {
 
         List<String> errors = new ArrayList<>();
 
@@ -104,7 +100,7 @@ public class SiteServiceImpl implements SiteService {
 
         if (errors.isEmpty()) {
             Site site = modelMapper.map(siteDTO, Site.class);
-            site.setUser(userRepository.findFirstByUsername(currentUser.getUsername()).get());
+            site.setUser(userRepository.findFirstByUsername(userDetails.getUsername()).get());
 
             if (site.getAddress().startsWith("https")) {
                 site.setSafety(true);
@@ -122,7 +118,7 @@ public class SiteServiceImpl implements SiteService {
     }
 
     @Override
-    public SiteExportDTO deleteSiteFromAllEmailsOfUser(Long id) {
+    public SiteExportDTO deleteSiteFromAllEmailsOfUser(Long id, UserDetails userDetails) {
 
         Optional<Site> optSite = siteRepository.findById(id);
 
@@ -134,7 +130,7 @@ public class SiteServiceImpl implements SiteService {
         SiteExportDTO expSiteDTO = modelMapper.map(site, SiteExportDTO.class);
 
 
-        Optional<User> optUser = userRepository.findFirstByUsername(currentUser.getUsername());
+        Optional<User> optUser = userRepository.findFirstByUsername(userDetails.getUsername());
 
         User user = optUser.get();
         for (Email email : user.getEmails()) {

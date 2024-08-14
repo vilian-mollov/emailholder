@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -16,17 +16,20 @@
     <nav id="home-nav">
         <div>
             <button id="menu"><img th:src="@{/images/bars-solid.png}" alt="menu"/></button>
-            <ul id="menu_list" class="disappear" role="list"
-                th:classappend="${@currentUser.isLogged() ? 'menu_list_logged' : 'menu_list_logout'}">
+            <ul sec:authorize="isAuthenticated()"
+                class="disappear menu_list_logged menu_list"
+                role="list"
+
+            >
                 <li><a th:href="@{/home}">Home</a></li>
-                <div th:if="${@currentUser.isLogged()}">
+                <div sec:authorize="isAuthenticated()">
                     <hr>
                     <li>
                         <a th:href="@{/emails}">Emails</a>
                     </li>
                     <hr>
                     <li>
-                        <a th:href="@{/sites/user(username=${@currentUser.getUsername()})}">Sites</a>
+                        <a th:href="@{/sites/user}">Sites</a>
                     </li>
                     <hr>
                     <li>
@@ -37,16 +40,49 @@
                 <li><a th:href="@{/about}">About</a></li>
                 <hr>
             </ul>
+
+            <ul sec:authorize="!isAuthenticated()"
+                class="disappear menu_list_logout menu_list"
+                role="list"
+
+            >
+                <li><a th:href="@{/home}">Home</a></li>
+                <div sec:authorize="isAuthenticated()">
+                    <hr>
+                    <li>
+                        <a th:href="@{/emails}">Emails</a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a th:href="@{/sites/user}">Sites</a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a th:href="@{/users/profile}">Profile</a>
+                    </li>
+                </div>
+                <hr>
+                <li><a th:href="@{/about}">About</a></li>
+                <hr>
+            </ul>
+
+
         </div>
-        <a th:href="@{/users/login}" th:unless="${@currentUser.isLogged()}">
+        <a th:href="@{/users/login}" sec:authorize="!isAuthenticated()">
             <button class="sign_btns" id="sign_in_btn">Sign In</button>
         </a>
-        <a th:href="@{/users/register}" th:unless="${@currentUser.isLogged()}">
+        <a th:href="@{/users/register}" sec:authorize="!isAuthenticated()">
             <button class="sign_btns" id="sign_up_btn">Sign Up</button>
         </a>
-        <a th:href="@{/users/logout}" th:if="${@currentUser.isLogged()}">
-            <button class="sign_btns" id="sign_out_btn">Sign Out</button>
-        </a>
+        <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/users/logout}" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <button class="sign_btns" id="sign_out_btn" type="submit">Logout</button>
+        </form>
+        </div>
+<!--        <a th:href="@{/users/logout}" sec:authorize="isAuthenticated()">-->
+<!--            <button class="sign_btns" id="sign_out_btn">Sign Out</button>-->
+<!--        </a>-->
     </nav>
 
 </header>

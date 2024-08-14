@@ -13,6 +13,7 @@ import com.emailspringproject.emailholder.utilities.ValidationUtils;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,8 +43,8 @@ public class EmailServiceImpl implements EmailService {
 
     //TODO make validations
     @Override
-    public List<EmailDTO> getAllEmailsByUser() {
-        User user = userService.getCurrentUser();
+    public List<EmailDTO> getAllEmailsByUser(UserDetails userDetails) {
+        User user = userService.getCurrentUser(userDetails);
         List<Email> emails = emailRepository.findAllByUser(user);
         List<EmailDTO> emailDTOS = new ArrayList<>();
 
@@ -67,11 +68,11 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public Email createEmail(EmailDTO emailDTO) {
+    public Email createEmail(EmailDTO emailDTO, UserDetails userDetails) {
         if (!this.validationUtils.isValid(emailDTO)) {
             return null;
         }
-        User user = userService.getCurrentUser();
+        User user = userService.getCurrentUser(userDetails);
         Email email = modelMapper.map(emailDTO, Email.class);
         user.addEmail(email);
         Email savedEmail = emailRepository.save(email);

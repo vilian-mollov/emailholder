@@ -10,6 +10,8 @@ import com.emailspringproject.emailholder.services.SiteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +33,8 @@ public class EmailController {
     }
 
     @GetMapping
-    public ModelAndView getAllEmailsOfUser(ModelAndView modelAndView) {
-        List<EmailDTO> emailsDTOs = emailService.getAllEmailsByUser();
+    public ModelAndView getAllEmailsOfUser(ModelAndView modelAndView, @AuthenticationPrincipal UserDetails userDetails) {
+        List<EmailDTO> emailsDTOs = emailService.getAllEmailsByUser(userDetails);
         modelAndView.addObject("emails", emailsDTOs);
         modelAndView.setViewName("emails");
         return modelAndView;
@@ -50,9 +52,9 @@ public class EmailController {
     }
 
     @PostMapping("/create")
-    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO, ModelAndView modelAndView) {
+    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO, @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
 
-        Email email = emailService.createEmail(emailDTO);
+        Email email = emailService.createEmail(emailDTO, userDetails);
 
         modelAndView.setViewName("redirect:/emails");
         return modelAndView;

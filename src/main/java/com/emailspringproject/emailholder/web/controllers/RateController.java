@@ -3,6 +3,8 @@ package com.emailspringproject.emailholder.web.controllers;
 import com.emailspringproject.emailholder.domain.dtos.RateDTO;
 import com.emailspringproject.emailholder.services.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +31,9 @@ public class RateController {
 
 
     @PostMapping("/site/{site_id}")
-    public ModelAndView addRateForSite(@ModelAttribute("rateDTO") RateDTO rateDTO, ModelAndView modelAndView, @PathVariable Long site_id) {
-        rateService.addRateToSite(site_id, rateDTO);
+    public ModelAndView addRateForSite(@ModelAttribute("rateDTO") RateDTO rateDTO, @PathVariable Long site_id,
+                                       @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
+        rateService.addRateToSite(site_id, rateDTO, userDetails);
         modelAndView.setViewName("redirect:/sites/all");
         return modelAndView;
     }

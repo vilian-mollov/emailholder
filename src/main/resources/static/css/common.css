@@ -108,16 +108,13 @@ header {
     cursor: pointer;
 }
 
-#menu_list {
+.menu_list {
     border-radius: 5px;
     position: absolute;
 
     font-size: 24px;
 
-    padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 15px;
-    padding-right: 40px;
+    padding: 20px !important;
 
     background-color: rgb(58, 58, 58);
     color: #fff;
@@ -128,7 +125,7 @@ header {
     transition: opacity 300ms ease-in-out, max-height 300ms ease-in-out;
 }
 
-#menu_list a {
+.menu_list a {
     text-decoration: none;
     color: #fff;
 }
@@ -143,7 +140,7 @@ header {
     max-height: 500px;
 }
 
-#menu_list a:hover {
+.menu_list a:hover {
     color: #68e468;
     cursor: pointer;
 }

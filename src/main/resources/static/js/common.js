@@ -1,6 +1,6 @@
 let themeBtn = document.getElementById("theme_btn");
 let menu = document.getElementById("menu");
-let menu_list = document.getElementById("menu_list");
+let menu_list = document.getElementsByClassName("menu_list")[0];
 
 let buttonIsOn = false;
 

@@ -5,6 +5,8 @@ import com.emailspringproject.emailholder.domain.dtos.CommentDTO;
 import com.emailspringproject.emailholder.services.CommentsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,9 +35,10 @@ public class CommentController {
 
 
     @PostMapping("/site/{site_id}")
-    public ModelAndView addCommentForSite(@ModelAttribute("commentDTO") @Valid CommentDTO commentDTO, ModelAndView modelAndView, @PathVariable Long site_id) {
+    public ModelAndView addCommentForSite(@ModelAttribute("commentDTO") @Valid CommentDTO commentDTO, @PathVariable Long site_id,
+                                          @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
         modelAndView.setViewName("redirect:/comments/site/" + site_id);
-        commentsService.addCommentForSite(commentDTO, site_id);
+        commentsService.addCommentForSite(commentDTO, site_id, userDetails);
 
         return modelAndView;
     }

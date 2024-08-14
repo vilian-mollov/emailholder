@@ -8,10 +8,10 @@ import com.emailspringproject.emailholder.repositories.CommentRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.CommentsService;
-import com.emailspringproject.emailholder.utilities.CurrentUser;
 import com.emailspringproject.emailholder.utilities.ValidationUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,21 +29,18 @@ public class CommentsServiceImpl implements CommentsService {
 
     private final UserRepository userRepository;
 
-    private final CurrentUser currentUser;
 
     @Autowired
     public CommentsServiceImpl(SiteRepository siteRepository,
                                CommentRepository commentRepository,
                                ModelMapper modelMapper,
                                ValidationUtils validationUtils,
-                               UserRepository userRepository,
-                               CurrentUser currentUser) {
+                               UserRepository userRepository) {
         this.siteRepository = siteRepository;
         this.commentRepository = commentRepository;
         this.modelMapper = modelMapper;
         this.validationUtils = validationUtils;
         this.userRepository = userRepository;
-        this.currentUser = currentUser;
     }
 
     @Override
@@ -62,7 +59,7 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     @Override
-    public CommentDTO addCommentForSite(CommentDTO commentDTO, Long siteId) {
+    public CommentDTO addCommentForSite(CommentDTO commentDTO, Long siteId, UserDetails userDetails) {
 
         if (!this.validationUtils.isValid(commentDTO)) {
             return null;
@@ -73,7 +70,7 @@ public class CommentsServiceImpl implements CommentsService {
 
         Comment comment = modelMapper.map(commentDTO, Comment.class);
 
-        Optional<User> userOpt = userRepository.findFirstByUsername(currentUser.getUsername());
+        Optional<User> userOpt = userRepository.findFirstByUsername(userDetails.getUsername());
         User user = userOpt.get();
 
         comment.setSite(site);

@@ -1,14 +1,16 @@
 package com.emailspringproject.emailholder.web.controllers;
 
-import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
+
 import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserUpdateUsernameDTO;
 import com.emailspringproject.emailholder.domain.entities.User;
 import com.emailspringproject.emailholder.services.UserService;
-import com.emailspringproject.emailholder.utilities.CurrentUser;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,42 +27,59 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
-    private CurrentUser currentUser;
+
 
     @Autowired
-    public UserController(UserService userService, CurrentUser currentUser) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.currentUser = currentUser;
+
     }
 
     @GetMapping("/login")
-    public ModelAndView getLoginPage(@ModelAttribute("userLoginDTO") UserLoginDTO userLoginDTO) {
-
-        return new ModelAndView("login");
-    }
-
-    @PostMapping("/login")
-    public ModelAndView loginUser(@ModelAttribute("userLoginDTO") @Valid UserLoginDTO userLoginDTO,
-                                  BindingResult bindingResult, ModelAndView modelAndView) {
-
-        if (bindingResult.hasErrors()) {
-
-            modelAndView.setViewName("login");
-            return modelAndView;
-        }
-
-
-        Boolean isLogged = userService.loginUser(userLoginDTO);
-
-        if (!isLogged) {
-            modelAndView.addObject("hasLoginError", true);
-            modelAndView.setViewName("login");
-            return modelAndView;
-        }
-
-        modelAndView.setViewName("redirect:/index");
+    public ModelAndView loginPage(ModelAndView modelAndView) {
+        modelAndView.setViewName("login");
         return modelAndView;
     }
+
+    @PostMapping("/login-error")
+    public String onFailure(
+            @ModelAttribute("username") String username,
+            Model model) {
+
+        model.addAttribute("username", username);
+        model.addAttribute("bad_credentials", "true");
+
+        return "login";
+    }
+
+//    @GetMapping("/login")
+//    public ModelAndView getLoginPage(@ModelAttribute("userLoginDTO") UserLoginDTO userLoginDTO) {
+//
+//        return new ModelAndView("login");
+//    }
+//
+//    @PostMapping("/login")
+//    public ModelAndView loginUser(@ModelAttribute("userLoginDTO") @Valid UserLoginDTO userLoginDTO,
+//                                  BindingResult bindingResult, ModelAndView modelAndView) {
+//
+//        if (bindingResult.hasErrors()) {
+//
+//            modelAndView.setViewName("login");
+//            return modelAndView;
+//        }
+//
+//
+//        Boolean isLogged = userService.loginUser(userLoginDTO);
+//
+//        if (!isLogged) {
+//            modelAndView.addObject("hasLoginError", true);
+//            modelAndView.setViewName("login");
+//            return modelAndView;
+//        }
+//
+//        modelAndView.setViewName("redirect:/index");
+//        return modelAndView;
+//    }
 
 
     @GetMapping("/register")
@@ -98,8 +117,8 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public ModelAndView getProfile(ModelAndView modelAndView) {
-        User user = userService.getCurrentUser();
+    public ModelAndView getProfile(@AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
+        User user = userService.getCurrentUser(userDetails);
 
         modelAndView.setViewName("profile");
         modelAndView.addObject("username", user.getUsername());
@@ -108,9 +127,10 @@ public class UserController {
     }
 
     @GetMapping("/update/username")
-    public ModelAndView getUpdateUser(@ModelAttribute("userUpdateUsernameDTO") UserUpdateUsernameDTO userUpdateUsernameDTO, ModelAndView modelAndView) {
-        User user = userService.getCurrentUser();
-        if (!currentUser.isLogged()) {
+    public ModelAndView getUpdateUser(@ModelAttribute("userUpdateUsernameDTO") UserUpdateUsernameDTO userUpdateUsernameDTO,
+                                      @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
+        User user = userService.getCurrentUser(userDetails);
+        if (!userDetails.isAccountNonExpired()) {
             modelAndView.setViewName("redirect:/home");
             return modelAndView;
         }
@@ -121,14 +141,15 @@ public class UserController {
     }
 
     @PostMapping("/update/username")
-    public ModelAndView updateUserUsername(@ModelAttribute("userUpdateUsernameDTO") @Valid UserUpdateUsernameDTO userUpdateUsernameDTO, BindingResult bindingResult, ModelAndView modelAndView) {
+    public ModelAndView updateUserUsername(@ModelAttribute("userUpdateUsernameDTO") @Valid UserUpdateUsernameDTO userUpdateUsernameDTO, BindingResult bindingResult,
+                                           @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("update_username");
             return modelAndView;
         }
 
-        List<String> errors = userService.updateUserUsername(userUpdateUsernameDTO);
+        List<String> errors = userService.updateUserUsername(userUpdateUsernameDTO, userDetails);
 
         if (errors != null && !errors.isEmpty()) {
             modelAndView.addObject("hasUpdateError", true);
@@ -142,14 +163,14 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/logout")
-    public ModelAndView logout(ModelAndView modelAndView) {
-
-        userService.logoutUser();
-
-        modelAndView.setViewName("redirect:/home");
-        return modelAndView;
-    }
+//    @GetMapping("/logout")
+//    public ModelAndView logout(ModelAndView modelAndView) {
+//
+//        userService.logoutUser();
+//
+//        modelAndView.setViewName("redirect:/home");
+//        return modelAndView;
+//    }
 
     @DeleteMapping("/delete")
     public ModelAndView deleteUser(ModelAndView modelAndView) {

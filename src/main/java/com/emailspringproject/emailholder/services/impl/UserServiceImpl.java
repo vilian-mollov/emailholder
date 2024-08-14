@@ -6,10 +6,14 @@ import com.emailspringproject.emailholder.domain.dtos.UserUpdateUsernameDTO;
 import com.emailspringproject.emailholder.domain.entities.User;
 import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.UserService;
-import com.emailspringproject.emailholder.utilities.CurrentUser;
 import com.emailspringproject.emailholder.utilities.ValidationUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,43 +32,36 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
     private ValidationUtils validationUtils;
     private PasswordEncoder encoder;
-    private CurrentUser currentUser;
+
+    private final UserDetailsService emailHolderDetailsService;
+
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            ModelMapper modelMapper,
                            ValidationUtils validationUtils,
                            PasswordEncoder encoder,
-                           CurrentUser currentUser) {
+                           UserDetailsService emailHolderDetailsService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.validationUtils = validationUtils;
         this.encoder = encoder;
-        this.currentUser = currentUser;
+        this.emailHolderDetailsService = emailHolderDetailsService;
     }
 
     @Override
-    public Boolean loginUser(UserLoginDTO userLoginDTO) {
+    public Authentication login(String username) {
+        UserDetails userDetails = emailHolderDetailsService.loadUserByUsername(username);
 
-        User persistedUser = userRepository.findFirstByUsername(userLoginDTO.getUsername()).orElse(null);
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                userDetails.getPassword(),
+                userDetails.getAuthorities()
+        );
 
-        boolean isCorrect = false;
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
-        if (persistedUser != null) {
-            String encodedPassword = persistedUser.getPassword();
-            String rawPassword = userLoginDTO.getPassword();
-
-            isCorrect = encodedPassword != null && encoder.matches(rawPassword, encodedPassword);
-
-            if (isCorrect) {
-                currentUser.setLogged(true);
-                currentUser.setUsername(userLoginDTO.getUsername());
-            } else {
-                currentUser.logout();
-            }
-        }
-
-        return isCorrect;
+        return auth;
     }
 
     @Override
@@ -101,20 +98,16 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
 //      Successful Register and need a login
-        UserLoginDTO loginDTO = new UserLoginDTO();
-        loginDTO.setUsername(user.getUsername());
-        loginDTO.setPassword(rawPassword);
-
-        loginUser(loginDTO);
+        login(user.getUsername());
 
         return errors;
     }
 
     @Override
-    public List<String> updateUserUsername(UserUpdateUsernameDTO userUpdateUsernameDTO) {
+    public List<String> updateUserUsername(UserUpdateUsernameDTO userUpdateUsernameDTO, UserDetails userDetails) {
 
         List<String> errors = new ArrayList<>();
-        Optional<User> firstByUsername = userRepository.findFirstByUsername(currentUser.getUsername());
+        Optional<User> firstByUsername = userRepository.findFirstByUsername(userDetails.getUsername());
 
         User user = null;
         if (firstByUsername.isPresent()) {
@@ -160,27 +153,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
 //      Change is Successful and need a login
-        UserLoginDTO loginDTO = new UserLoginDTO();
-        loginDTO.setUsername(user.getUsername());
-        loginDTO.setPassword(userUpdateUsernameDTO.getPassword());
-
-        loginUser(loginDTO);
+        login(user.getUsername());
         return errors;
     }
 
     @Override
-    public void logoutUser() {
-        currentUser.logout();
-    }
-
-    @Override
-    public void deleteUser() {
-
-    }
-
-    @Override
-    public User getCurrentUser() {
-        Optional<User> optUser = userRepository.findFirstByUsername(currentUser.getUsername());
+    public User getCurrentUser(UserDetails userDetails) {
+        Optional<User> optUser = userRepository.findFirstByUsername(userDetails.getUsername());
         User user = optUser.get();
         return user;
     }

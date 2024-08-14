@@ -4,20 +4,19 @@ import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserUpdateUsernameDTO;
 import com.emailspringproject.emailholder.domain.entities.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
 public interface UserService {
 
-    Boolean loginUser(UserLoginDTO userLoginDTO);
+    Authentication login(String email);
 
     List<String> registerUser(UserRegisterDTO userDTO);
 
-    List<String> updateUserUsername(UserUpdateUsernameDTO userUpdateUsernameDTO);
+    List<String> updateUserUsername(UserUpdateUsernameDTO userUpdateUsernameDTO, UserDetails userDetails);
 
-    void logoutUser();
+    User getCurrentUser(UserDetails userDetails);
 
-    User getCurrentUser();
-
-    void deleteUser();
 }
