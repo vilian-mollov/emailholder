@@ -2,12 +2,17 @@ package com.emailspringproject.emailholder.constants;
 
 public enum Messages {
 
+    SUCCESS_CREATE("Successfully Created"),
     SUC_DEL_SITE("Successfully deleted site %s"),
-    SUC_DEL_EMAIL("Successfully deleted email %s");
+    SUC_DEL_EMAIL("Successfully deleted email %s"),
+    EMAIL_EXIST("Email with this address already exist.");
 
-    Messages(String s) {
-
+    private final String message;
+    Messages(String message) {
+        this.message = message;
     }
 
-
+    public String getMessage() {
+        return message;
+    }
 }

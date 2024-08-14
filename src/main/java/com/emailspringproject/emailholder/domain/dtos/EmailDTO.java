@@ -10,7 +10,7 @@ public class EmailDTO {
     private Long id;
 
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Empty email cannot be created.")
     @Email
     private String emailAddress;
 

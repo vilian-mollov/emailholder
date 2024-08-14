@@ -14,10 +14,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+
+import static com.emailspringproject.emailholder.constants.Messages.SUCCESS_CREATE;
 
 @Controller
 @RequestMapping("/emails")
@@ -52,9 +55,21 @@ public class EmailController {
     }
 
     @PostMapping("/create")
-    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO, @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
+    public ModelAndView createEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO, BindingResult bindingResult, @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
 
-        Email email = emailService.createEmail(emailDTO, userDetails);
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("createEmail");
+            return modelAndView;
+        }
+
+        String response = emailService.createEmail(emailDTO, userDetails);
+
+        if (!response.equals(SUCCESS_CREATE.getMessage())) {
+            modelAndView.setViewName("createEmail");
+            modelAndView.addObject("hasRegisterError", true);
+            modelAndView.addObject("error", response);
+            return modelAndView;
+        }
 
         modelAndView.setViewName("redirect:/emails");
         return modelAndView;

@@ -1,5 +1,6 @@
 package com.emailspringproject.emailholder.services.impl;
 
+import com.emailspringproject.emailholder.constants.Messages;
 import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
@@ -19,6 +20,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.emailspringproject.emailholder.constants.Messages.EMAIL_EXIST;
+import static com.emailspringproject.emailholder.constants.Messages.SUCCESS_CREATE;
+
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -68,15 +73,22 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public Email createEmail(EmailDTO emailDTO, UserDetails userDetails) {
+    public String createEmail(EmailDTO emailDTO, UserDetails userDetails) {
         if (!this.validationUtils.isValid(emailDTO)) {
             return null;
         }
+        Optional<Email> emailOpt = emailRepository.findFirstByEmailAddress(emailDTO.getEmailAddress());
+
+        if(emailOpt.isPresent()) {
+            return EMAIL_EXIST.getMessage();
+        }
+
         User user = userService.getCurrentUser(userDetails);
         Email email = modelMapper.map(emailDTO, Email.class);
         user.addEmail(email);
-        Email savedEmail = emailRepository.save(email);
-        return savedEmail;
+        emailRepository.save(email);
+
+        return SUCCESS_CREATE.getMessage();
     }
 
     @Override

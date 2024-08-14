@@ -29,7 +29,7 @@
                 <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
 
                 <div th:if="${hasRegisterError}">
-                    <div th:each="error : ${errors}" th:text="${error.toString()}" class="text-danger">
+                    <div th:text="${error.toString()}" class="text-danger">
 
                     </div>
                 </div>
@@ -40,8 +40,7 @@
                     </div>
                     <input type="email" class="form-control" id="emailAddress" name="mainEmail"
                            placeholder="RPG.Master@dmg.com"
-                           th:field="*{emailAddress}"
-                           th:errorclass="bg-danger"/>
+                           th:field="*{emailAddress}"/>
                 </div>
 
                 <div class="form-group">
@@ -49,8 +48,7 @@
                         <label for="description" class="h3 mb-2">Description</label>
                     </div>
                     <input type="text" class="form-control" id="description" placeholder="Use it for RPG Games only!"
-                           th:field="*{description}"
-                           th:errorclass="bg-danger"/>
+                           th:field="*{description}"/>
                 </div>
 
                 <div class="button-holder d-flex justify-content-center">

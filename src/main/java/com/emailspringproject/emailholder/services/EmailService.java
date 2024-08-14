@@ -16,7 +16,7 @@ public interface EmailService {
 
     EmailDTO getEmailById(Long id);
 
-    Email createEmail(EmailDTO email, UserDetails userDetails);
+    String createEmail(EmailDTO email, UserDetails userDetails);
 
     Email createEmail(Long id, Email email);
 
