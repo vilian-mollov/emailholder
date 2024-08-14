@@ -20,7 +20,7 @@ public interface EmailService {
 
     Email createEmail(Long id, Email email);
 
-    EmailDTO updateEmail(EmailDTO updatedEmail, Long emailId);
+    String updateEmail(EmailDTO updatedEmail, Long emailId);
 
     void deleteEmail(Long id);
 

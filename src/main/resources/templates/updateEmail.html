@@ -27,14 +27,17 @@
 
         <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
 
+        <div th:if="${hasRegisterError}">
+          <div th:text="${error.toString()}" class="text-danger"></div>
+        </div>
+
         <div class="form-group">
           <div class="label-holder text-white d-flex justify-content-center">
             <label for="emailAddress" class="h3 mb-2">Email Address</label><br>
           </div>
           <input type="email" class="form-control" id="emailAddress" name="mainEmail"
                  th:value="*{emailAddress}"
-                 th:field="*{emailAddress}"
-                 th:errorclass="bg-danger"/>
+                 th:field="*{emailAddress}"/>
         </div>
 
         <div class="form-group">
@@ -43,8 +46,7 @@
           </div>
           <input type="text" class="form-control" id="description"
                  th:value="*{description}"
-                 th:field="*{description}"
-                 th:errorclass="bg-danger"/>
+                 th:field="*{description}"/>
         </div>
 
         <div class="button-holder d-flex justify-content-center">

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 import static com.emailspringproject.emailholder.constants.Messages.SUCCESS_CREATE;
+import static com.emailspringproject.emailholder.constants.Messages.SUCCESS_UPDATE;
 
 @Controller
 @RequestMapping("/emails")
@@ -121,8 +122,22 @@ public class EmailController {
     }
 
     @PostMapping("/update/{email_id}")
-    public ModelAndView updateEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO, @PathVariable Long email_id, ModelAndView modelAndView) {
-        emailService.updateEmail(emailDTO, email_id);
+    public ModelAndView updateEmail(@ModelAttribute("emailDTO") @Valid EmailDTO emailDTO, @PathVariable Long email_id, BindingResult bindingResult, ModelAndView modelAndView) {
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("updateEmail");
+            return modelAndView;
+        }
+
+        String response = emailService.updateEmail(emailDTO, email_id);
+
+        if (!response.equals(SUCCESS_UPDATE.getMessage())) {
+            modelAndView.setViewName("updateEmail");
+            modelAndView.addObject("hasRegisterError", true);
+            modelAndView.addObject("error", response);
+            return modelAndView;
+        }
+
         modelAndView.setViewName("redirect:/emails");
         return modelAndView;
     }

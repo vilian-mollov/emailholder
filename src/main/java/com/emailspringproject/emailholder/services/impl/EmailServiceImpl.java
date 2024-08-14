@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.emailspringproject.emailholder.constants.Messages.EMAIL_EXIST;
-import static com.emailspringproject.emailholder.constants.Messages.SUCCESS_CREATE;
+import static com.emailspringproject.emailholder.constants.Messages.*;
 
 
 @Service
@@ -104,14 +103,27 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Override
-    public EmailDTO updateEmail(EmailDTO updatedEmail, Long emailId) {
+    public String updateEmail(EmailDTO updatedEmail, Long emailId) {
+
+        Optional<Email> emailAlreadyExistOpt = emailRepository.findFirstByEmailAddress(updatedEmail.getEmailAddress());
+
         Optional<Email> emailOpt = emailRepository.findById(emailId);
         Email email = emailOpt.get();
+
+        if(emailAlreadyExistOpt.isPresent() && email.getEmailAddress().equals(emailAlreadyExistOpt.get().getEmailAddress())){
+            return SUCCESS_UPDATE.getMessage();
+        }
+
+        if(emailAlreadyExistOpt.isPresent()){
+            return EMAIL_EXIST.getMessage();
+        }
+
+
         email.setEmailAddress(updatedEmail.getEmailAddress());
         email.setDescription(updatedEmail.getDescription());
         emailRepository.save(email);
 
-        return updatedEmail;
+        return SUCCESS_UPDATE.getMessage();
     }
 
     @Override
