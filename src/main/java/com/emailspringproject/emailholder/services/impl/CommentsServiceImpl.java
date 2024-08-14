@@ -14,10 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class CommentsServiceImpl implements CommentsService {
@@ -48,9 +53,11 @@ public class CommentsServiceImpl implements CommentsService {
         Optional<Site> siteOpt = siteRepository.findById(siteId);
         Site site = siteOpt.get();
         Set<Comment> comments = site.getComments();
+        List<Comment> sortedComments = new ArrayList<>(comments.stream().sorted(Comparator.comparing(Comment::getCreatedTime)).toList());
+        Collections.reverse(sortedComments);
 
         List<CommentDTO> commentsDTO = new ArrayList<>();
-        for (Comment comment : comments) {
+        for (Comment comment : sortedComments) {
             CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
             commentsDTO.add(commentDTO);
         }
@@ -75,6 +82,7 @@ public class CommentsServiceImpl implements CommentsService {
 
         comment.setSite(site);
         comment.setUser(user);
+        comment.setCreatedTime(LocalDateTime.now());
         commentRepository.save(comment);
 
         user.getComments().add(comment);

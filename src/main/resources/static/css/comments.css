@@ -19,3 +19,8 @@
 .form-control {
     resize: none;
 }
+
+#comment_time_div {
+    color: gray;
+    font-size: 12px;
+}

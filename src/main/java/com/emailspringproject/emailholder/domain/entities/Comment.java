@@ -6,12 +6,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "comments")
 public class Comment extends BaseEntity {
 
     @Column
     private String comment;
+
+    private LocalDateTime createdTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -22,10 +26,11 @@ public class Comment extends BaseEntity {
     public Comment() {
     }
 
-    public Comment(String comment,User user, Site site) {
+    public Comment(String comment, User user, Site site, LocalDateTime createdTime) {
         this.comment = comment;
         this.user = user;
         this.site = site;
+        this.createdTime = createdTime;
     }
 
     public String getComment() {
@@ -34,6 +39,14 @@ public class Comment extends BaseEntity {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
     }
 
     public User getUser() {

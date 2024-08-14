@@ -16,6 +16,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -176,7 +177,7 @@ public class BootStrapData implements CommandLineRunner {
         int index = random.nextInt(0, 4);
         String randomComment = comments.get(index);
 
-        Comment comment = new Comment(randomComment, user, site);
+        Comment comment = new Comment(randomComment, user, site, LocalDateTime.now());
         commentRepository.save(comment);
 
         user.getComments().add(comment);

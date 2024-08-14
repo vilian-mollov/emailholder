@@ -58,6 +58,9 @@
                 <div th:id="comment_div">
                     <p th:text="${comment.getComment()}"></p>
                 </div>
+                <div th:id="comment_time_div">
+                    <p th:text="${comment.getFormattedCreatedTime()}"></p>
+                </div>
             </div>
         </div>
 
