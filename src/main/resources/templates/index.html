@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -36,7 +36,7 @@
 
     <img th:src="@{images/heroImg.jpg}" alt="hero image">
 
-    <a th:href="@{/users/register}" th:class="home_popups">
+    <a th:href="@{/users/register}" th:class="home_popups" sec:authorize="!isAuthenticated()">
         <div id="left-side-con" class="disappear">
             <h3>Create your account now</h3>
             <p>Create you account now for free and start storing you emails in one place! <br>
@@ -45,7 +45,7 @@
         </div>
     </a>
 
-    <a th:href="@{/users/login}" th:class="home_popups">
+    <a th:href="@{/users/login}" th:class="home_popups" sec:authorize="!isAuthenticated()">
         <div id="right-side-con" class="disappear">
             <h3>Login to your account</h3>
             <p>Login to your account and continue working!<br>
@@ -54,7 +54,7 @@
         </div>
     </a>
 
-    <a th:href="@{/about}" th:class="home_popups">
+    <a th:href="@{/about}" th:class="home_popups" sec:authorize="!isAuthenticated()">
         <div id="left-side-con2" class="disappear">
             <h3>Learn more about us</h3>
             <p>Learn more about the Email holder application and its capabilities!<br>
