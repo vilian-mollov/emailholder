@@ -44,7 +44,8 @@
 }
 
 #username_value_div {
-font-size: 24px;
+    font-size: 24px;
+    margin-bottom: 12px;
 }
 
 #update_username_div {
