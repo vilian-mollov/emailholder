@@ -2,7 +2,7 @@ package com.emailspringproject.emailholder.services.impl;
 
 import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
-import com.emailspringproject.emailholder.domain.dtos.UserUpdateDTO;
+import com.emailspringproject.emailholder.domain.dtos.UserUpdateUsernameDTO;
 import com.emailspringproject.emailholder.domain.entities.User;
 import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.UserService;
@@ -102,35 +102,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> updateUser(UserUpdateDTO userUpdateDTO) {
+    public List<String> updateUserUsername(UserUpdateUsernameDTO userUpdateUsernameDTO) {
 
         List<String> errors = new ArrayList<>();
         Optional<User> firstByUsername = userRepository.findFirstByUsername(currentUser.getUsername());
+
         User user = null;
-        // todo validate if this is the user
         if (firstByUsername.isPresent()) {
             user = firstByUsername.get();
         } else {
             return errors;
         }
-//todo try to refactor code
-        boolean isValidDTO = validationUtils.isValid(userUpdateDTO);
-        Optional<User> foundUserByUsername = userRepository.findFirstByUsername(userUpdateDTO.getUsername());
-        Optional<User> foundUserByMainEmail = userRepository.findFirstByMainEmail(userUpdateDTO.getMainEmail());
 
+        if (!user.getUsername().equals(userUpdateUsernameDTO.getCurrentUsername())) {
+            errors.add("Current Username is incorrect");
+            return errors;
+        }
+
+        boolean isValidDTO = validationUtils.isValid(userUpdateUsernameDTO);
         if (!isValidDTO) {
             errors.add(USER_ERR.toString());
         }
 
-        if (!userUpdateDTO.getUsername().equals(user.getUsername())) {
-            if (foundUserByUsername.isPresent()) {
-                errors.add(String.format("%s already exist", userUpdateDTO.getUsername()));
-            }
+        Optional<User> foundUserByUsername = userRepository.findFirstByUsername(userUpdateUsernameDTO.getUsernameNew());
+
+        if (foundUserByUsername.isPresent()) {
+            errors.add("This Username already exist");
+            return errors;
         }
-        if (!userUpdateDTO.getMainEmail().equals(user.getMainEmail())) {
-            if (foundUserByMainEmail.isPresent()) {
-                errors.add(String.format("%s already exist", userUpdateDTO.getMainEmail()));
-            }
+
+        String encodedPass = user.getPassword();
+        String rawPass = userUpdateUsernameDTO.getPassword();
+        boolean isCorrect = false;
+        isCorrect = encodedPass != null && encoder.matches(rawPass, encodedPass);
+
+        if (!isCorrect) {
+            errors.add("Incorrect password");
+            return errors;
         }
 
         if (!errors.isEmpty()) {
@@ -138,12 +146,16 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setLastChangedAt(Timestamp.valueOf(LocalDateTime.now()));
-        user.setPassword(encoder.encode(userUpdateDTO.getPassword()));
-        user.setMainEmail(userUpdateDTO.getMainEmail());
-        user.setUsername(userUpdateDTO.getUsername());
+        user.setUsername(userUpdateUsernameDTO.getUsernameNew());
 
         userRepository.save(user);
 
+//      Change is Successful and need a login
+        UserLoginDTO loginDTO = new UserLoginDTO();
+        loginDTO.setUsername(user.getUsername());
+        loginDTO.setPassword(userUpdateUsernameDTO.getPassword());
+
+        loginUser(loginDTO);
         return errors;
     }
 
@@ -163,38 +175,5 @@ public class UserServiceImpl implements UserService {
         User user = optUser.get();
         return user;
     }
-
-//    private <E> List<String> validateUserInput(Class<E> entity) {
-//
-//        List<String> errors = new ArrayList<>();
-//
-////        if (entity.isInstance()) {
-////
-////        }
-//
-//        boolean isValidDTO = validationUtils.isValid(entity);
-//        Optional<User> foundUserByUsername = userRepository.findFirstByUsername(entity.getUsername());
-//        Optional<User> foundUserByMainEmail = userRepository.findFirstByMainEmail(entity.getMainEmail());
-//
-//        if (!isValidDTO) {
-//            errors.add(USER_ERR.toString());
-//        }
-//
-//        if (foundUserByUsername.isPresent()) {
-//            errors.add(String.format("%s already exist", entity.getUsername()));
-//        }
-//
-//        if (foundUserByMainEmail.isPresent()) {
-//            errors.add(String.format("%s already exist", entity.getMainEmail()));
-//        }
-//
-//        if (!errors.isEmpty()) {
-//            return errors;
-//        }
-//
-//        return errors;
-//
-//    }
-
 
 }

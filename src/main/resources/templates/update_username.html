@@ -9,7 +9,7 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/forms_commons.css}" rel="stylesheet"/>
-    <link th:href="@{/css/update_profile.css}" rel="stylesheet"/>
+    <link th:href="@{/css/update_common.css}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -24,7 +24,8 @@
         </div>
 
         <div id="fpage-form-div">
-            <form id="fpage-form" th:action="@{/users/update}" th:method="POST" th:object="${userUpdateDTO}">
+            <form id="fpage-form" th:action="@{/users/update/username}" th:method="POST"
+                  th:object="${userUpdateUsernameDTO}">
 
                 <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
 
@@ -36,21 +37,23 @@
 
                 <div class="form-group">
                     <div class="label-holder text-white d-flex justify-content-center">
-                        <label for="username" class="h3 mb-2">Username</label>
+                        <label for="currentUsername" class="h3 mb-2">Current Username</label>
                     </div>
-                    <input type="text" class="form-control" id="username"
-                           th:field="*{username}"
+                    <input type="text" class="form-control" id="currentUsername"
+                           th:field="*{currentUsername}"
+                           th:value="${username_value}"
                            th:errorclass="bg-danger"/>
                 </div>
 
                 <div class="form-group">
                     <div class="label-holder text-white d-flex justify-content-center">
-                        <label for="mainEmail" class="h3 mb-2">Email</label>
+                        <label for="usernameNew" class="h3 mb-2">New Username</label>
                     </div>
-                    <input type="email" class="form-control" id="mainEmail"
-                           th:field="*{mainEmail}"
+                    <input type="text" class="form-control" id="usernameNew"
+                           th:field="*{usernameNew}"
                            th:errorclass="bg-danger"/>
                 </div>
+
 
                 <div class="form-group">
                     <div class="label-holder text-white d-flex justify-content-center">

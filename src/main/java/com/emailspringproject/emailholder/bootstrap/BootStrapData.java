@@ -56,21 +56,25 @@ public class BootStrapData implements CommandLineRunner {
 
         User user = new User();
         user.setUsername("test");
+        user.setMainEmail("test28@testing.com");
         user.setPassword(encoder.encode(pass));
         userRepository.save(user);
 
         User user2 = new User();
-        user2.setUsername("lethimcook_tim_24");
+        user2.setUsername("lethimcook_24");
+        user2.setMainEmail("lethimcooky@testing.com");
         user2.setPassword(encoder.encode(pass));
         userRepository.save(user2);
 
         User user3 = new User();
         user3.setUsername("daniel2489");
+        user3.setMainEmail("dan@testing.com");
         user3.setPassword(encoder.encode(pass));
         userRepository.save(user3);
 
         User user4 = new User();
         user4.setUsername("Richard_009");
+        user4.setMainEmail("lionhearth@testing.com");
         user4.setPassword(encoder.encode(pass));
         userRepository.save(user4);
 
@@ -169,10 +173,10 @@ public class BootStrapData implements CommandLineRunner {
         comments.add("No a big fan, but it is very fast.");
         comments.add("Frontend needs refactoring, it is really not user friendly!");
 
-        int index = random.nextInt(0,4);
+        int index = random.nextInt(0, 4);
         String randomComment = comments.get(index);
 
-        Comment comment = new Comment(randomComment,user, site);
+        Comment comment = new Comment(randomComment, user, site);
         commentRepository.save(comment);
 
         user.getComments().add(comment);

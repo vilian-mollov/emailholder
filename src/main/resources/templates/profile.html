@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+    <link th:href="@{/css/reset.css}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+
+</head>
+<body>
+
+<header th:replace="~{fragments/navigation}"></header>
+
+<main>
+    <div class="wrapper">
+
+        <div class="header_fpage">
+            <h1 id="fpage_h1">Profile</h1>
+        </div>
+
+        <div>
+            <div>
+                <h4>Username</h4>
+            </div>
+
+            <div>
+                <div>
+                    <p th:text="${username}"></p>
+                </div>
+                <div>
+                    <a th:href="@{/users/update/username}">
+                        <button>Update username</button>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4>Email</h4>
+            </div>
+            <div>
+                <p th:text="${email}"></p>
+            </div>
+
+        </div>
+
+
+    </div>
+</main>
+
+<footer id="footer-content">
+    <p>Email Holder &copy; All rights reserved</p>
+</footer>
+
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

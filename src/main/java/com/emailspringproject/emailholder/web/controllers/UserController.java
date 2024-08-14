@@ -1,13 +1,21 @@
 package com.emailspringproject.emailholder.web.controllers;
 
-import com.emailspringproject.emailholder.domain.dtos.*;
+import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
+import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
+import com.emailspringproject.emailholder.domain.dtos.UserUpdateUsernameDTO;
+import com.emailspringproject.emailholder.domain.entities.User;
 import com.emailspringproject.emailholder.services.UserService;
 import com.emailspringproject.emailholder.utilities.CurrentUser;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -89,37 +97,48 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/update")
-    public ModelAndView getUpdateUser(@ModelAttribute("userUpdateDTO") UserUpdateDTO userUpdateDTO, ModelAndView modelAndView) {
+    @GetMapping("/profile")
+    public ModelAndView getProfile(ModelAndView modelAndView) {
+        User user = userService.getCurrentUser();
 
+        modelAndView.setViewName("profile");
+        modelAndView.addObject("username", user.getUsername());
+        modelAndView.addObject("email", user.getMainEmail());
+        return modelAndView;
+    }
+
+    @GetMapping("/update/username")
+    public ModelAndView getUpdateUser(@ModelAttribute("userUpdateUsernameDTO") UserUpdateUsernameDTO userUpdateUsernameDTO, ModelAndView modelAndView) {
+        User user = userService.getCurrentUser();
         if (!currentUser.isLogged()) {
             modelAndView.setViewName("redirect:/home");
             return modelAndView;
         }
 
-        modelAndView.setViewName("update_profile");
+        modelAndView.setViewName("update_username");
+        modelAndView.addObject("username_value", user.getUsername());
         return modelAndView;
     }
 
-    @PostMapping("/update")
-    public ModelAndView updateUser(@ModelAttribute("userUpdateDTO") @Valid UserUpdateDTO userUpdateDTO, BindingResult bindingResult, ModelAndView modelAndView) {
+    @PostMapping("/update/username")
+    public ModelAndView updateUserUsername(@ModelAttribute("userUpdateUsernameDTO") @Valid UserUpdateUsernameDTO userUpdateUsernameDTO, BindingResult bindingResult, ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("update_profile");
+            modelAndView.setViewName("update_username");
             return modelAndView;
         }
 
-        List<String> errors = userService.updateUser(userUpdateDTO);
+        List<String> errors = userService.updateUserUsername(userUpdateUsernameDTO);
 
         if (errors != null && !errors.isEmpty()) {
             modelAndView.addObject("hasUpdateError", true);
             modelAndView.addObject("errors", errors);
-            modelAndView.setViewName("update_profile");
+            modelAndView.setViewName("update_username");
             return modelAndView;
         }
 
-
-        modelAndView.setViewName("redirect:/home");
+        modelAndView.addObject("userUpdateUsernameDTO", userUpdateUsernameDTO);
+        modelAndView.setViewName("redirect:/users/profile");
         return modelAndView;
     }
 

@@ -1,22 +1,22 @@
 package com.emailspringproject.emailholder.domain.dtos;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
 
-public class UserUpdateDTO {
+public class UserUpdateUsernameDTO {
 
     @NotNull
     @NotBlank(message = "Username is empty")
     @Size(min = 3, message = "Username must be at least 3 symbols")
-    private String username;
+    private String currentUsername;
 
     @NotNull
-    @Email
-    private String mainEmail;
+    @NotBlank(message = "Username is empty")
+    @Size(min = 3, message = "Username must be at least 3 symbols")
+    private String usernameNew;
 
     @NotNull
     @NotBlank(message = "Password is empty")
@@ -24,20 +24,20 @@ public class UserUpdateDTO {
     private String password;
     private Timestamp lastChangedAt;
 
-    public String getUsername() {
-        return username;
+    public String getCurrentUsername() {
+        return currentUsername;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCurrentUsername(String currentUsername) {
+        this.currentUsername = currentUsername;
     }
 
-    public String getMainEmail() {
-        return mainEmail;
+    public String getUsernameNew() {
+        return usernameNew;
     }
 
-    public void setMainEmail(String mainEmail) {
-        this.mainEmail = mainEmail;
+    public void setUsernameNew(String usernameNew) {
+        this.usernameNew = usernameNew;
     }
 
     public String getPassword() {
