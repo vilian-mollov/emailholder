@@ -1,0 +1,86 @@
+.wrapper {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header_page_div {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+#profile_wrapper_div {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#wrapper_username_block_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+#username_txt_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+}
+
+#username_wrapper_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#username_value_div {
+font-size: 24px;
+}
+
+#update_username_div {
+
+}
+
+.update_btn {
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+    background-color: transparent;
+    border-radius: 18px;
+    text-decoration: none;
+    padding: 3px;
+    margin-left: 10px;
+}
+
+
+/*  Email   -----------------------------------------*/
+
+
+#email_wrapper_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#email_txt_div {
+
+}
+
+#email_value_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    font-size: 24px;
+}

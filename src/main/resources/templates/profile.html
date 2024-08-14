@@ -8,6 +8,8 @@
     <link th:href="@{/css/reset.css}" rel="stylesheet"/>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
+    <link th:href="@{/css/profile.css}" rel="stylesheet"/>
+    <link th:href="@{/css/update_common.css}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -17,31 +19,33 @@
 <main>
     <div class="wrapper">
 
-        <div class="header_fpage">
-            <h1 id="fpage_h1">Profile</h1>
+        <div class="header_page_div">
+            <h1>Profile</h1>
         </div>
 
-        <div>
-            <div>
-                <h4>Username</h4>
-            </div>
-
-            <div>
-                <div>
-                    <p th:text="${username}"></p>
+        <div th:id="profile_wrapper_div">
+            <div th:id="wrapper_username_block_div">
+                <div th:id="username_txt_div">
+                    <h4>Username:</h4>
                 </div>
-                <div>
-                    <a th:href="@{/users/update/username}">
-                        <button>Update username</button>
-                    </a>
+
+                <div th:id="username_wrapper_div">
+                    <div th:id="username_value_div" th:text="${username}">
+<!--                        <p th:text="${username}"></p>-->
+                    </div>
+                    <div th:id="update_username_div">
+                        <a th:href="@{/users/update/username}">
+                            <button th:id="update_username_btn" class="update_btn">Update username</button>
+                        </a>
+                    </div>
                 </div>
             </div>
-
-            <div>
-                <h4>Email</h4>
+            <div th:id="email_wrapper_div">
+            <div th:id="email_txt_div">
+                <h4>Email:</h4>
             </div>
-            <div>
-                <p th:text="${email}"></p>
+            <div th:id="email_value_div" th:text="${email}">
+            </div>
             </div>
 
         </div>
@@ -50,9 +54,9 @@
     </div>
 </main>
 
-<footer id="footer-content">
-    <p>Email Holder &copy; All rights reserved</p>
-</footer>
+<!--<footer id="footer-content">-->
+<!--    <p>Email Holder &copy; All rights reserved</p>-->
+<!--</footer>-->
 
 <script th:src="@{/js/common.js}"></script>
 </body>

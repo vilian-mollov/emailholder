@@ -94,10 +94,19 @@ public class UserServiceImpl implements UserService {
             return errors;
         }
 
-        userDTO.setPassword(encoder.encode(userDTO.getPassword()));
+        String rawPassword = userDTO.getPassword();
+        userDTO.setPassword(encoder.encode(rawPassword));
         User user = modelMapper.map(userDTO, User.class);
 
         userRepository.save(user);
+
+//      Successful Register and need a login
+        UserLoginDTO loginDTO = new UserLoginDTO();
+        loginDTO.setUsername(user.getUsername());
+        loginDTO.setPassword(rawPassword);
+
+        loginUser(loginDTO);
+
         return errors;
     }
 
