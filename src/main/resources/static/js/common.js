@@ -5,7 +5,7 @@ let menu_list = document.getElementsByClassName("menu_list")[0];
 let buttonIsOn = false;
 
 function addHandlers() {
-    themeBtn.addEventListener("click", changeTheme);
+    // themeBtn.addEventListener("click", changeTheme);
     menu.addEventListener("click", toggleMenu);
     menu.addEventListener("focusout", toggleMenuOff);
 }
