@@ -44,11 +44,6 @@ public class EmailController {
         return modelAndView;
     }
 
-    @PostMapping("/{siteId}")
-    public Email createEmail(@PathVariable Long siteId, @RequestBody Email email) {
-        return emailService.createEmail(siteId, email);
-    }
-
     @GetMapping("/create")
     public ModelAndView getCreateEmail(@ModelAttribute("emailDTO") EmailDTO emailDTO, ModelAndView modelAndView) {
         modelAndView.setViewName("createEmail");
@@ -76,13 +71,6 @@ public class EmailController {
         return modelAndView;
     }
 
-    @GetMapping("/sites/{emailId}")
-    public String updateSitesToEmailPage(@PathVariable Long emailId, Model model) {
-        List<Site> sites = emailService.getAllSitesForEmail();
-        model.addAttribute("sites", sites);
-        return "emails";
-    }
-
     @GetMapping("/add/site/{email_id}")
     public ModelAndView getAddSiteToEmail(@PathVariable Long email_id, @ModelAttribute("siteDTO") SiteExportDTO siteDTO, ModelAndView modelAndView) {
         List<SiteExportDTO> allSites = siteService.getAllSites();
@@ -100,16 +88,18 @@ public class EmailController {
         return modelAndView;
     }
 
-    @DeleteMapping("/{emailId}/sites/{siteId}")
-    public ResponseEntity<Email> removeSiteFromEmail(@PathVariable Long emailId, @PathVariable Long siteId) {
-        return emailService.removeSiteFromEmail(emailId, siteId);
+    @DeleteMapping("{email_id}/sites/{site_id}")
+    public ModelAndView removeSiteFromEmail(@PathVariable Long email_id, @PathVariable Long site_id, ModelAndView modelAndView) {
+        emailService.removeSiteFromEmail(email_id, site_id);
+        modelAndView.setViewName("redirect:/sites/email/" + email_id);
+        return modelAndView;
     }
 
     @DeleteMapping("/delete/{email_id}")
-    public String deleteEmail(@PathVariable Long email_id) { //TODO Model and view
+    public ModelAndView deleteEmail(@PathVariable Long email_id, ModelAndView modelAndView) {
         emailService.deleteEmail(email_id);
-
-        return "redirect:/emails";
+        modelAndView.setViewName("redirect:/emails");
+        return modelAndView;
     }
 
     @GetMapping("/edit/{email_id}")

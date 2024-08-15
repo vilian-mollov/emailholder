@@ -12,13 +12,9 @@ import java.util.List;
 public interface EmailService {
     List<EmailDTO> getAllEmailsByUser(UserDetails userDetails);
 
-    List<Site> getAllSitesForEmail();
-
     EmailDTO getEmailById(Long id);
 
     String createEmail(EmailDTO email, UserDetails userDetails);
-
-    Email createEmail(Long id, Email email);
 
     String updateEmail(EmailDTO updatedEmail, Long emailId);
 

@@ -1,8 +1,10 @@
 package com.emailspringproject.emailholder.web.controllers;
 
+import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
 import com.emailspringproject.emailholder.domain.dtos.RateDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteImportDTO;
+import com.emailspringproject.emailholder.services.EmailService;
 import com.emailspringproject.emailholder.services.SiteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,13 @@ import static com.emailspringproject.emailholder.constants.Messages.SUC_DEL_SITE
 public class SiteController {
 
     private final SiteService siteService;
+    private final EmailService emailService;
 
 
     @Autowired
-    public SiteController(SiteService siteService) {
+    public SiteController(SiteService siteService, EmailService emailService) {
         this.siteService = siteService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/all")
@@ -81,7 +85,11 @@ public class SiteController {
     public ModelAndView getSiteByEmail(ModelAndView modelAndView, @PathVariable Long email_id) {
         modelAndView.setViewName("sites");
         List<SiteExportDTO> sites = siteService.getSitesByEmail(email_id);
+        EmailDTO emailDTO = emailService.getEmailById(email_id);
+
         modelAndView.addObject("sites", sites);
+        modelAndView.addObject("forEmail", true);
+        modelAndView.addObject("email_id", emailDTO.getId());
         return modelAndView;
     }
 

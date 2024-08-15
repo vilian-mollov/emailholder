@@ -18,9 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -101,7 +99,7 @@ public class EmailServiceImplTest {
 
     @Test
     void testCreateEmailInvalidDTO() {
-        when(mockValidationUtils.isValid(emailDTO)).thenReturn(false);
+//        when(mockValidationUtils.isValid(emailDTO)).thenReturn(false);
 
 //        Email actualEmail = emailService.createEmail(emailDTO);
 
@@ -120,25 +118,6 @@ public class EmailServiceImplTest {
 //        Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
     }
 
-    @Test
-    void testCreateEmailWithSiteId() {
-
-        when(mockEmailRepository.save(expectedEmail)).thenReturn(expectedEmail);
-        when(mockSiteRepository.findById(expectedId)).thenReturn(Optional.of(expectedSite));
-
-        Email actualEmail = emailService.createEmail(12L, expectedEmail);
-
-        Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
-    }
-
-    @Test
-    void testCreateEmailWithSiteIdNull() {
-        when(mockSiteRepository.findById(expectedId)).thenReturn(Optional.empty());
-
-        Email actualEmail = emailService.createEmail(12L, expectedEmail);
-
-        Assertions.assertNull(actualEmail);
-    }
 
 
     @Test

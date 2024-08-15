@@ -1,6 +1,5 @@
 package com.emailspringproject.emailholder.services.impl;
 
-import com.emailspringproject.emailholder.constants.Messages;
 import com.emailspringproject.emailholder.domain.dtos.EmailDTO;
 import com.emailspringproject.emailholder.domain.dtos.SiteExportDTO;
 import com.emailspringproject.emailholder.domain.entities.Email;
@@ -29,8 +28,8 @@ public class EmailServiceImpl implements EmailService {
     private final EmailRepository emailRepository;
     private final SiteRepository siteRepository;
     private final UserService userService;
-    private ValidationUtils validationUtils;
-    private ModelMapper modelMapper;
+    private final ValidationUtils validationUtils;
+    private final ModelMapper modelMapper;
 
 
     public EmailServiceImpl(EmailRepository emailRepository,
@@ -45,7 +44,6 @@ public class EmailServiceImpl implements EmailService {
         this.modelMapper = modelMapper;
     }
 
-    //TODO make validations
     @Override
     public List<EmailDTO> getAllEmailsByUser(UserDetails userDetails) {
         User user = userService.getCurrentUser(userDetails);
@@ -58,11 +56,6 @@ public class EmailServiceImpl implements EmailService {
         }
 
         return emailDTOS;
-    }
-
-    @Override
-    public List<Site> getAllSitesForEmail() {
-        return null;
     }
 
     @Override
@@ -89,18 +82,6 @@ public class EmailServiceImpl implements EmailService {
 
         return SUCCESS_CREATE.getMessage();
     }
-
-    @Override
-    public Email createEmail(Long siteId, Email email) {
-        Site site = siteRepository.findById(siteId).orElse(null);
-        if (site != null) {
-            email.getSites().add(site); // Add the site to the email's sites set
-            site.getEmails().add(email); // Add the email to the site's emails set
-            return emailRepository.save(email);
-        }
-        return null;
-    }
-
 
     @Override
     public String updateEmail(EmailDTO updatedEmail, Long emailId) {

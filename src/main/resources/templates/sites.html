@@ -9,6 +9,7 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/common.css}" rel="stylesheet"/>
     <link th:href="@{/css/tables.css}" rel="stylesheet"/>
+    <link th:href="@{/css/sites.css}" rel="stylesheet"/>
     <link th:href="@{/css/media_sites.css}" rel="stylesheet"/>
 </head>
 <body>
@@ -20,8 +21,12 @@
     <aside th:id="aside_nav">
         <div>
             <ul role="list" th:id="nav_ul">
-                <li><a th:href="@{/sites/create}"><button th:id="create_btn" th:class="nav_buttons">Create</button></a></li>
-                <li><a th:href="@{/sites/all}"><button th:id="all_sites_btn" th:class="nav_buttons">All Sites</button></a></li>
+                <li><a th:href="@{/sites/create}">
+                    <button th:id="create_btn" th:class="nav_buttons">Create</button>
+                </a></li>
+                <li><a th:href="@{/sites/all}">
+                    <button th:id="all_sites_btn" th:class="nav_buttons">All Sites</button>
+                </a></li>
             </ul>
         </div>
     </aside>
@@ -34,10 +39,11 @@
                     <th>Site Domain</th>
                     <th>Address</th>
                     <th>Safety</th>
+                    <th th:if="${forEmail}">Remove</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="site : ${sites}">
+                <tr  th:id="row + ${site.id}" th:each="site : ${sites}">
                     <td th:text="${site.getDomainName()}"></td>
                     <td th:text="${site.getAddress()}"></td>
                     <td>
@@ -48,6 +54,15 @@
                             <img th:src="@{/images/triangle-exclamation-solid.svg}" alt="exclamation mark svg"
                                  th:class="iconTable">
                         </div>
+                    </td>
+                    <td th:if="${forEmail}">
+<!--                        <div th:class="iconsDiv">-->
+<!--                            <a th:href=""><img th:src="@{/images/xmark-solid.svg}" alt="x mark svg" th:class="iconTable"></a>-->
+
+                            <form th:method="DELETE" th:action="@{/emails/{email_id}/sites/{site_id}(email_id=${email_id}, site_id=${site.id})}">
+                                <button th:type="submit" th:class="remove_site_btn"><img th:id="x_mark_svg" th:class="iconTable" th:src="@{/images/xmark-solid.svg}" alt="trash can"/></button>
+                            </form>
+<!--                        </div>-->
                     </td>
                 </tr>
                 </tbody>

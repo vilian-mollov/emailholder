@@ -1,0 +1,12 @@
+.remove_site_btn {
+    border-radius: 12px;
+    background-color: transparent;
+    width: 42px;
+    transition: 300ms ease-in-out;
+    transition-delay: 50ms;
+}
+
+.remove_site_btn:hover {
+    cursor: pointer;
+    background-color: rgb(232 53 53);
+}
