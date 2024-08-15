@@ -1,7 +1,10 @@
 package com.emailspringproject.emailholder.services.impl;
 
 import com.emailspringproject.emailholder.domain.entities.User;
+import com.emailspringproject.emailholder.domain.entities.UserRoleEntity;
 import com.emailspringproject.emailholder.repositories.UserRepository;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,9 +34,15 @@ public class EmailHolderUserDetailsService implements UserDetailsService {
         UserDetails userDetails = org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .authorities(List.of())//TODO - add roles
+                .authorities(user.getRoles().stream().map(EmailHolderUserDetailsService::map).toList())
                 .build();
 
         return userDetails;
+    }
+
+    private static GrantedAuthority map(UserRoleEntity userRoleEntity) {
+        return new SimpleGrantedAuthority(
+                "ROLE_" + userRoleEntity.getRole().name()
+        );
     }
 }

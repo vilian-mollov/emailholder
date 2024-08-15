@@ -31,8 +31,9 @@ public class SecurityConfiguration {
         return httpSecurity.authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
 
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/rest/eholder/sites/all").permitAll()
 //                        .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                         .requestMatchers("/", "/home", "/index", "/users/login-error", "/users/login", "/users/register").permitAll()
                         .requestMatchers("/error").permitAll() //todo check

@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -18,7 +20,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
-
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -47,11 +48,18 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Rate> rates = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<UserRoleEntity> roles = new ArrayList<>();
+
     public User() {
     }
 
     public User(String username, String mainEmail, String password, Timestamp createdAt, Timestamp lastChangedAt,
-                Set<Email> emails, Set<Site> sites,Set<Comment> comments, Set<Rate> rates) {
+                Set<Email> emails, Set<Site> sites, Set<Comment> comments, Set<Rate> rates, List<UserRoleEntity> roles) {
         this.username = username;
         this.mainEmail = mainEmail;
         this.password = password;
@@ -59,8 +67,9 @@ public class User extends BaseEntity {
         this.lastChangedAt = lastChangedAt;
         this.emails = emails;
         this.sites = sites;
-        this.comments =comments;
+        this.comments = comments;
         this.rates = rates;
+        this.roles = roles;
     }
 
     public String getUsername() {
@@ -137,5 +146,14 @@ public class User extends BaseEntity {
 
     public void setRates(Set<Rate> rates) {
         this.rates = rates;
+    }
+
+    public List<UserRoleEntity> getRoles() {
+        return roles;
+    }
+
+    public User setRoles(List<UserRoleEntity> roles) {
+        this.roles = roles;
+        return this;
     }
 }

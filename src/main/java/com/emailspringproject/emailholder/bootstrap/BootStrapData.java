@@ -6,16 +6,20 @@ import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.Rate;
 import com.emailspringproject.emailholder.domain.entities.Site;
 import com.emailspringproject.emailholder.domain.entities.User;
+import com.emailspringproject.emailholder.domain.entities.UserRoleEntity;
+import com.emailspringproject.emailholder.domain.enums.UserRoleEnum;
 import com.emailspringproject.emailholder.repositories.CommentRepository;
 import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.RateRepository;
 import com.emailspringproject.emailholder.repositories.SiteRepository;
 import com.emailspringproject.emailholder.repositories.UserRepository;
+import com.emailspringproject.emailholder.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,7 +36,9 @@ public class BootStrapData implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RateRepository rateRepository;
     private final CommentRepository commentRepository;
-    private PasswordEncoder encoder;
+
+    private final UserRoleRepository userRoleRepository;
+    private final PasswordEncoder encoder;
 
     @Value("${PASSWORD}")
     private String pass;
@@ -42,41 +48,56 @@ public class BootStrapData implements CommandLineRunner {
                          UserRepository userRepository,
                          RateRepository rateRepository,
                          CommentRepository commentRepository,
-                         PasswordEncoder encoder) {
+                         UserRoleRepository userRoleRepository, PasswordEncoder encoder) {
         this.emailRepository = emailRepository;
         this.siteRepository = siteRepository;
         this.userRepository = userRepository;
         this.rateRepository = rateRepository;
         this.commentRepository = commentRepository;
+        this.userRoleRepository = userRoleRepository;
         this.encoder = encoder;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+//      Roles ---------------------------------------------------------------------------------------------------------------------------
+        UserRoleEntity userRole = new UserRoleEntity();
+        userRole.setRole(UserRoleEnum.USER);
+        userRoleRepository.save(userRole);
+
+        UserRoleEntity adminRole = new UserRoleEntity();
+        adminRole.setRole(UserRoleEnum.ADMIN);
+        userRoleRepository.save(adminRole);
+
 //      Users ---------------------------------------------------------------------------------------------------------------------------
 
         User user = new User();
         user.setUsername("test");
         user.setMainEmail("test28@testing.com");
         user.setPassword(encoder.encode(pass));
+        user.setRoles(List.of(userRole));
         userRepository.save(user);
 
         User user2 = new User();
         user2.setUsername("lethimcook_24");
         user2.setMainEmail("lethimcooky@testing.com");
         user2.setPassword(encoder.encode(pass));
+        user2.setRoles(List.of(adminRole));
         userRepository.save(user2);
 
         User user3 = new User();
         user3.setUsername("daniel2489");
         user3.setMainEmail("dan@testing.com");
         user3.setPassword(encoder.encode(pass));
+        user3.setRoles(List.of(userRole));
         userRepository.save(user3);
 
         User user4 = new User();
         user4.setUsername("Richard_009");
         user4.setMainEmail("lionhearth@testing.com");
         user4.setPassword(encoder.encode(pass));
+        user4.setRoles(List.of(userRole, adminRole));
         userRepository.save(user4);
 
 //      Sites --------------------------------------------------------------------------------------------------------------------------
@@ -149,7 +170,6 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("Number of users: " + userRepository.count());
 
     }
-
 
     private void rateSite(Site site, User user) {
 //      Rate
