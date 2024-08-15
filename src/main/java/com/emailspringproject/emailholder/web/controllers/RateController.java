@@ -23,15 +23,8 @@ public class RateController {
         this.rateService = rateService;
     }
 
-//    @GetMapping("/site")
-//    public ModelAndView getRateForSite(@ModelAttribute("rateDTO") RateDTO rateDTO, ModelAndView modelAndView) {
-//        modelAndView.setViewName("index");
-//        return modelAndView;
-//    }
-
-
     @PostMapping("/site/{site_id}")
-    public ModelAndView addRateForSite(@ModelAttribute("rateDTO") RateDTO rateDTO, @PathVariable Long site_id,
+    public ModelAndView addRateForSite(@PathVariable Long site_id, @ModelAttribute("rateDTO") RateDTO rateDTO,
                                        @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
         rateService.addRateToSite(site_id, rateDTO, userDetails);
         modelAndView.setViewName("redirect:/sites/all");

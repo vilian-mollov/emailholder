@@ -1,6 +1,5 @@
 package com.emailspringproject.emailholder.services;
 
-import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserUpdateUsernameDTO;
 import com.emailspringproject.emailholder.domain.entities.User;

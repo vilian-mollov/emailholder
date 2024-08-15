@@ -27,7 +27,7 @@ public class CommentController {
     }
 
     @GetMapping("/site/{site_id}")
-    public ModelAndView getAllCommentsForSite(@ModelAttribute("commentDTO") CommentDTO commentDTO, ModelAndView modelAndView, @PathVariable Long site_id) {
+    public ModelAndView getAllCommentsForSite(@PathVariable Long site_id, @ModelAttribute("commentDTO") CommentDTO commentDTO, ModelAndView modelAndView) {
         modelAndView.setViewName("comments");
         modelAndView.addObject("comments", commentsService.getAllCommentsForSite(site_id));
         return modelAndView;
@@ -35,7 +35,7 @@ public class CommentController {
 
 
     @PostMapping("/site/{site_id}")
-    public ModelAndView addCommentForSite(@ModelAttribute("commentDTO") @Valid CommentDTO commentDTO, @PathVariable Long site_id,
+    public ModelAndView addCommentForSite(@PathVariable Long site_id, @ModelAttribute("commentDTO") @Valid CommentDTO commentDTO,
                                           @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
         modelAndView.setViewName("redirect:/comments/site/" + site_id);
         commentsService.addCommentForSite(commentDTO, site_id, userDetails);

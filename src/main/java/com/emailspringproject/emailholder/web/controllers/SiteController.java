@@ -12,7 +12,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-
-import static com.emailspringproject.emailholder.constants.Errors.SITE_NOT_FOUND;
-import static com.emailspringproject.emailholder.constants.Messages.SUC_DEL_SITE;
 
 @Controller
 @RequestMapping("/sites")
@@ -82,7 +78,7 @@ public class SiteController {
     }
 
     @GetMapping("/email/{email_id}")
-    public ModelAndView getSiteByEmail(ModelAndView modelAndView, @PathVariable Long email_id) {
+    public ModelAndView getSiteByEmail(@PathVariable Long email_id, ModelAndView modelAndView) {
         modelAndView.setViewName("sites");
         List<SiteExportDTO> sites = siteService.getSitesByEmail(email_id);
         EmailDTO emailDTO = emailService.getEmailById(email_id);
@@ -90,21 +86,6 @@ public class SiteController {
         modelAndView.addObject("sites", sites);
         modelAndView.addObject("forEmail", true);
         modelAndView.addObject("email_id", emailDTO.getId());
-        return modelAndView;
-    }
-
-    @DeleteMapping("/{id}")
-    public ModelAndView deleteSiteFromAllEmailsOfUser(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
-
-        SiteExportDTO expSiteDTO = siteService.deleteSiteFromAllEmailsOfUser(id, userDetails);
-
-        if (expSiteDTO == null) {
-            modelAndView.addObject("error", String.format(SITE_NOT_FOUND.toString()));
-        } else {
-            modelAndView.addObject("message", String.format(SUC_DEL_SITE.toString(), expSiteDTO.getDomainName()));
-        }
-
-        modelAndView.setViewName("sites");
         return modelAndView;
     }
 }

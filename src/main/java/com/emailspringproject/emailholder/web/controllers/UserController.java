@@ -42,44 +42,11 @@ public class UserController {
     }
 
     @PostMapping("/login-error")
-    public String onFailure(
-            @ModelAttribute("username") String username,
-            Model model) {
-
+    public String onFailure(@ModelAttribute("username") String username, Model model) {
         model.addAttribute("username", username);
         model.addAttribute("bad_credentials", "true");
-
         return "login";
     }
-
-//    @GetMapping("/login")
-//    public ModelAndView getLoginPage(@ModelAttribute("userLoginDTO") UserLoginDTO userLoginDTO) {
-//
-//        return new ModelAndView("login");
-//    }
-//
-//    @PostMapping("/login")
-//    public ModelAndView loginUser(@ModelAttribute("userLoginDTO") @Valid UserLoginDTO userLoginDTO,
-//                                  BindingResult bindingResult, ModelAndView modelAndView) {
-//
-//        if (bindingResult.hasErrors()) {
-//
-//            modelAndView.setViewName("login");
-//            return modelAndView;
-//        }
-//
-//
-//        Boolean isLogged = userService.loginUser(userLoginDTO);
-//
-//        if (!isLogged) {
-//            modelAndView.addObject("hasLoginError", true);
-//            modelAndView.setViewName("login");
-//            return modelAndView;
-//        }
-//
-//        modelAndView.setViewName("redirect:/index");
-//        return modelAndView;
-//    }
 
 
     @GetMapping("/register")
@@ -111,10 +78,10 @@ public class UserController {
         return modelAndView;
     }
 
-    @PutMapping("/add/email")
-    public ModelAndView addEmailToUser(ModelAndView modelAndView) {
-        return modelAndView;
-    }
+//    @PutMapping("/add/email")
+//    public ModelAndView addEmailToUser(ModelAndView modelAndView) {
+//        return modelAndView;
+//    }
 
     @GetMapping("/profile")
     public ModelAndView getProfile(@AuthenticationPrincipal UserDetails userDetails, ModelAndView modelAndView) {
@@ -162,25 +129,4 @@ public class UserController {
         modelAndView.setViewName("redirect:/users/profile");
         return modelAndView;
     }
-
-//    @GetMapping("/logout")
-//    public ModelAndView logout(ModelAndView modelAndView) {
-//
-//        userService.logoutUser();
-//
-//        modelAndView.setViewName("redirect:/home");
-//        return modelAndView;
-//    }
-
-    @DeleteMapping("/delete")
-    public ModelAndView deleteUser(ModelAndView modelAndView) {
-
-        modelAndView.setViewName("redirect:/index");
-
-        // TODO add userService.deleteUser()
-
-        return modelAndView;
-    }
-
-
 }

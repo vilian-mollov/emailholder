@@ -92,6 +92,8 @@ public class EmailServiceImpl implements EmailService {
         Email email = emailOpt.get();
 
         if(emailAlreadyExistOpt.isPresent() && email.getEmailAddress().equals(emailAlreadyExistOpt.get().getEmailAddress())){
+            email.setDescription(updatedEmail.getDescription());
+            emailRepository.save(email);
             return SUCCESS_UPDATE.getMessage();
         }
 

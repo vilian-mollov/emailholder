@@ -1,9 +1,10 @@
 package com.emailspringproject.emailholder.services.impl;
 
-import com.emailspringproject.emailholder.domain.dtos.UserLoginDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserRegisterDTO;
 import com.emailspringproject.emailholder.domain.dtos.UserUpdateUsernameDTO;
+import com.emailspringproject.emailholder.domain.entities.Email;
 import com.emailspringproject.emailholder.domain.entities.User;
+import com.emailspringproject.emailholder.repositories.EmailRepository;
 import com.emailspringproject.emailholder.repositories.UserRepository;
 import com.emailspringproject.emailholder.services.UserService;
 import com.emailspringproject.emailholder.utilities.ValidationUtils;
@@ -23,26 +24,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.emailspringproject.emailholder.constants.Errors.USER_ERR;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private ModelMapper modelMapper;
-    private ValidationUtils validationUtils;
-    private PasswordEncoder encoder;
-
+    private final UserRepository userRepository;
+    private final EmailRepository emailRepository;
+    private final ModelMapper modelMapper;
+    private final ValidationUtils validationUtils;
+    private final PasswordEncoder encoder;
     private final UserDetailsService emailHolderDetailsService;
-
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           ModelMapper modelMapper,
+                           EmailRepository emailRepository, ModelMapper modelMapper,
                            ValidationUtils validationUtils,
                            PasswordEncoder encoder,
                            UserDetailsService emailHolderDetailsService) {
         this.userRepository = userRepository;
+        this.emailRepository = emailRepository;
         this.modelMapper = modelMapper;
         this.validationUtils = validationUtils;
         this.encoder = encoder;
@@ -73,17 +73,17 @@ public class UserServiceImpl implements UserService {
 
         boolean isValidDTO = validationUtils.isValid(userDTO);
         Optional<User> foundUserByUsername = userRepository.findFirstByUsername(userDTO.getUsername());
-        Optional<User> foundUserByMainEmail = userRepository.findFirstByMainEmail(userDTO.getMainEmail());
+        Optional<Email> emailOpt = emailRepository.findFirstByEmailAddress(userDTO.getMainEmail());
 
-        if (!isValidDTO) {
-            errors.add(USER_ERR.toString());
-        }
+//        if (!isValidDTO) {
+//            errors.add(USER_ERR.toString());
+//        }
 
         if (foundUserByUsername.isPresent()) {
             errors.add(String.format("%s already exist", userDTO.getUsername()));
         }
 
-        if (foundUserByMainEmail.isPresent()) {
+        if (emailOpt.isPresent()) {
             errors.add(String.format("%s already exist", userDTO.getMainEmail()));
         }
 
@@ -122,9 +122,9 @@ public class UserServiceImpl implements UserService {
         }
 
         boolean isValidDTO = validationUtils.isValid(userUpdateUsernameDTO);
-        if (!isValidDTO) {
-            errors.add(USER_ERR.toString());
-        }
+//        if (!isValidDTO) {
+//            errors.add(USER_ERR.toString());
+//        }
 
         Optional<User> foundUserByUsername = userRepository.findFirstByUsername(userUpdateUsernameDTO.getUsernameNew());
 

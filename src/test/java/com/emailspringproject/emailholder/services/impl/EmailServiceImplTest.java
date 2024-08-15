@@ -17,8 +17,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -80,44 +84,11 @@ public class EmailServiceImplTest {
 
 
     @Test
-    void testGetEmailById() {
-//        TODO
-//        when(mockEmailRepository.findById(expectedId)).thenReturn(Optional.of(expectedEmail));
-//
-//        EmailDTO emailDTO = emailService.getEmailById(expectedId);
-//
-//        Assertions.assertEquals(expectedEmail.getId(), emailDTO.getId(), "Get Email by id doesnt return the right email.");
-    }
-
-
-    @Test
     void testGetEmailByIdNull() {
         EmailDTO emailDTO = emailService.getEmailById(0L);
 
         Assertions.assertNull(emailDTO);
     }
-
-    @Test
-    void testCreateEmailInvalidDTO() {
-//        when(mockValidationUtils.isValid(emailDTO)).thenReturn(false);
-
-//        Email actualEmail = emailService.createEmail(emailDTO);
-
-//        Assertions.assertNull(actualEmail);
-    }
-
-    @Test
-    void testCreateEmail() {
-//        when(mockValidationUtils.isValid(emailDTO)).thenReturn(true);
-//        when(mockEmailRepository.save(expectedEmail)).thenReturn(expectedEmail);
-//        when(mockUserService.getCurrentUser()).thenReturn(expectedUser);
-//        when(mockModelMapper.map(emailDTO, Email.class)).thenReturn(expectedEmail);
-//
-//        Email actualEmail = emailService.createEmail(emailDTO);
-//
-//        Assertions.assertEquals(expectedEmail.getId(), actualEmail.getId());
-    }
-
 
 
     @Test
@@ -134,20 +105,6 @@ public class EmailServiceImplTest {
         Assertions.assertEquals(expectedResponseEntity.toString(), actualResponseEntity.toString());
     }
 
-    @Test
-    void testAddSiteToEmailNotPresented() {
-//        TODO
-//        when(mockEmailRepository.findById(expectedId)).thenReturn(Optional.empty());
-//        when(mockSiteRepository.findById(expectedId)).thenReturn(Optional.empty());
-//
-//        SiteExportDTO siteExportDTO = new SiteExportDTO();
-//        siteExportDTO.setId(expectedId);
-//
-//        ResponseEntity<Email> actualResponseEntity = emailService.addSiteToEmail(expectedId, siteExportDTO);
-//        ResponseEntity<Email> expectedResponseEntity = ResponseEntity.notFound().build();
-//        Assertions.assertEquals(expectedResponseEntity.toString(), actualResponseEntity.toString());
-    }
-
 
     @Test
     void testRemoveSiteFromEmail() {
@@ -160,8 +117,6 @@ public class EmailServiceImplTest {
         ResponseEntity<Email> expectedResponseEntity = ResponseEntity.ok(expectedEmail);
 
         Assertions.assertEquals(expectedResponseEntity.toString(), actualResponseEntity.toString());
-
-
     }
 
 
@@ -179,27 +134,58 @@ public class EmailServiceImplTest {
 
     @Test
     void testGetAllEmailsByUser() {
-//        TODO
-//        when(mockUserService.getCurrentUser()).thenReturn(expectedUser);
-//        when(mockEmailRepository.findAllByUser(expectedUser)).thenReturn(List.of(expectedEmail));
-//
-//        List<EmailDTO> allEmailDTOsByUser = emailService.getAllEmailsByUser();
-//        List<Email> expectedEmailsOfUser = List.of(expectedEmail);
-//
-//        Assertions.assertEquals(expectedEmailsOfUser.get(0).getEmailAddress(), allEmailDTOsByUser.get(0).getEmailAddress());
+        UserDetails userDetails = new UserDetails() {
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                return null;
+            }
+
+            @Override
+            public String getPassword() {
+                return null;
+            }
+
+            @Override
+            public String getUsername() {
+                return null;
+            }
+
+            @Override
+            public boolean isAccountNonExpired() {
+                return false;
+            }
+
+            @Override
+            public boolean isAccountNonLocked() {
+                return false;
+            }
+
+            @Override
+            public boolean isCredentialsNonExpired() {
+                return false;
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return false;
+            }
+        };
+        List<EmailDTO> emailsDTOs = emailService.getAllEmailsByUser(userDetails);
     }
 
+    @Test
+    void testCreateEmail() {
+    }
 
     @Test
     void testDeleteEmail() {
-//        TODO
-//        emailService.deleteEmail(expectedId);
+
     }
 
 
     @Test
     void testUpdateEmail() {
-//        emailService.updateEmail(expectedEmail);
+
     }
 
 
